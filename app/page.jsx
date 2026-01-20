@@ -3,32 +3,33 @@ import HeroSection from "./components/HeroSection";
 import IntroSection from "./components/IntroSection";
 import PortfolioGrid from "./components/PortfolioGrid";
 import Footer from "./components/Footer";
+import ChatWidget from "./components/ChatWidget"; 
 
 export default function Home() {
   return (
     <main className="relative min-h-screen bg-neutral-50 selection:bg-orange-500 selection:text-white">
-      {/* 1. Navigation Bar */}
+      
+      {/* 1. The Fixed Widgets (Navigation & Chat) */}
       <FloatingNav />
+      <ChatWidget />
 
-      {/* 2. Hero Section (Visual Impact) */}
+      {/* 2. The Page Sections */}
       <section id="home">
         <HeroSection />
       </section>
 
-      {/* 3. Intro/Services (The White Section) */}
       <section id="about">
         <IntroSection />
       </section>
 
-      {/* 4. Portfolio (The Work Grid) */}
       <section id="projects">
         <PortfolioGrid />
       </section>
 
-      {/* 5. Contact (Map & Footer) */}
       <section id="contact">
         <Footer />
       </section>
+      
     </main>
   );
 }

@@ -1,26 +1,26 @@
-import { Home, Building2, Hammer } from "lucide-react";
+import { Building2, Droplets, Waves } from "lucide-react";
 
 export default function ServiceCards() {
   const services = [
     {
-      icon: <Home size={40} />,
-      title: "Residential Flooring",
-      desc: "Luxury Italian marble, granite, and vitrified tile installation for villas and apartments.",
-      color: "bg-white", // Left Box
+      icon: <Building2 size={40} />,
+      title: "Civil Construction",
+      desc: "Complete building services from foundation to finish. We handle residential homes, commercial structures, and civil repairs.",
+      color: "bg-white",
       textColor: "text-neutral-900"
     },
     {
-      icon: <Building2 size={40} />,
-      title: "Commercial Contracts",
-      desc: "End-to-end flooring contracts for offices, malls, and tech parks with strict timelines.",
-      color: "bg-orange-600", // Center Box (The "Purple" one in your reference)
+      icon: <Droplets size={40} />, 
+      title: "Waterproofing Experts",
+      desc: "Advanced waterproofing for terraces, basements, and tanks. We ensure your structure is leak-proof and weather-resistant.",
+      color: "bg-orange-600", 
       textColor: "text-white"
     },
     {
-      icon: <Hammer size={40} />,
-      title: "Renovation & Polish",
-      desc: "Complete floor restoration, polishing, and bathroom remodeling services.",
-      color: "bg-white", // Right Box
+      icon: <Waves size={40} />,
+      title: "Swimming Pools",
+      desc: "Specialized contractors for swimming pool construction, repair, and filtration systems. Luxury pools built to last.",
+      color: "bg-white",
       textColor: "text-neutral-900"
     }
   ];

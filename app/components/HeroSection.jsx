@@ -1,49 +1,35 @@
-"use client";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-
-const images = ["/images/hero1.jpg", "/images/hero2.jpg"];
+import { ArrowRight } from "lucide-react";
 
 export default function HeroSection() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => setCurrentIndex((prev) => (prev + 1) % images.length), 6000);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
-    <div className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-neutral-900">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentIndex}
-          initial={{ opacity: 0, scale: 1.0 }}
-          animate={{ opacity: 0.5, scale: 1.1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 7, ease: "easeOut" }}
-          className="absolute inset-0 w-full h-full bg-cover bg-center"
-          style={{ backgroundImage: `url(${images[currentIndex]})` }}
-        />
-      </AnimatePresence>
-
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/20 z-10" />
-
-      <div className="relative z-20 text-center px-6 max-w-5xl mx-auto mt-[-50px]">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="inline-block mb-6 px-5 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-2xl">
-          <span className="text-xs md:text-sm font-medium tracking-[0.25em] text-orange-200 uppercase">Est. 2005 • Kengeri, Bangalore</span>
-        </motion.div>
-
-        <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="font-serif text-5xl md:text-8xl font-bold text-white mb-6 tracking-tight leading-none drop-shadow-xl">
-          Sneha Associates
-        </motion.h1>
-
-        <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="text-lg md:text-2xl text-gray-200 mb-10 font-light max-w-2xl mx-auto leading-relaxed">
-          Engineering perfection in every tile. We deliver premium contract solutions.
-        </motion.p>
-
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }} className="flex flex-col md:flex-row gap-5 justify-center items-center">
-          <a href="https://wa.me/919999999999" target="_blank" className="px-8 py-4 bg-white text-black font-semibold rounded-full hover:scale-105 transition-all">Chat on WhatsApp</a>
-        </motion.div>
+    <div className="relative h-[85vh] flex items-center justify-center bg-neutral-900 text-white text-center px-4">
+      {/* Background Image with Dark Overlay */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
+        style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop")' }} 
+      ></div>
+      
+      {/* Content */}
+      <div className="relative z-10 max-w-4xl mx-auto mt-[-50px]">
+        <h2 className="text-orange-500 font-bold tracking-widest uppercase text-sm mb-4">
+          Established 2005
+        </h2>
+        <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 leading-tight">
+          Mastery in <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-yellow-200">Stone & Tiling</span>
+        </h1>
+        <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+          Premium flooring solutions for Bengaluru's finest homes and commercial spaces. 
+          Specializing in Italian marble, granite, and precision contract work.
+        </p>
+        
+        <div className="flex gap-4 justify-center">
+          <a href="#contact" className="px-8 py-4 bg-orange-600 hover:bg-orange-700 rounded-full font-bold transition-all transform hover:scale-105 flex items-center gap-2">
+            Get a Free Quote <ArrowRight size={18} />
+          </a>
+          <a href="#projects" className="px-8 py-4 bg-transparent border border-white/30 hover:bg-white/10 rounded-full font-medium transition-all">
+            View Gallery
+          </a>
+        </div>
       </div>
     </div>
   );

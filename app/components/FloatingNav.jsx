@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Phone, Menu, X } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 
 export default function FloatingNav() {
   const [scrolled, setScrolled] = useState(false);
@@ -13,43 +13,50 @@ export default function FloatingNav() {
   }, []);
 
   const navLinks = [
-    { name: "HOME", href: "#home" },
-    { name: "ABOUT US", href: "#about" },
-    { name: "PORTFOLIO", href: "#projects" },
-    { name: "CONTACT", href: "#contact" },
+    { name: "Home", href: "#home" },
+    { name: "Services", href: "#about" },
+    { name: "Projects", href: "#projects" },
+    { name: "Contact", href: "#contact" },
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-white/10 ${scrolled ? "bg-[#1a1a1a] py-4 shadow-xl" : "bg-black/20 backdrop-blur-sm py-6"}`}>
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 bg-orange-600 rounded-sm"></div> 
-          <span className="font-bold text-xl tracking-widest text-white uppercase">SNEHA<span className="font-light text-gray-400">.ASSCT</span></span>
+    <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-6'}`}>
+      <div className="container mx-auto px-6 flex justify-between items-center">
+        
+        {/* Logo */}
+        <div className={`font-serif font-bold text-2xl ${scrolled ? 'text-neutral-900' : 'text-neutral-900'}`}>
+          Sneha<span className="text-orange-600">Associates</span>
         </div>
 
+        {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <a key={link.name} href={link.href} className="text-xs font-bold text-white uppercase tracking-widest hover:text-orange-500 transition-colors">
+            <a key={link.name} href={link.href} className="text-sm font-medium text-neutral-600 hover:text-orange-600 transition-colors">
               {link.name}
             </a>
           ))}
-        </div>
-
-        <div className="hidden md:block">
-           <a href="tel:+919999999999" className="flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white px-5 py-2 rounded-sm text-xs font-bold uppercase tracking-wider transition-all">
-            <Phone size={14} /> Call Now
+          <a href="tel:+918867694625" className="flex items-center gap-2 bg-neutral-900 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-orange-600 transition-colors">
+            <Phone size={16} />
+            <span>+91 88676 94625</span>
           </a>
         </div>
 
-        <button className="md:hidden text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-          {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+        {/* Mobile Toggle */}
+        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden p-2 text-neutral-900">
+          {mobileMenuOpen ? <X /> : <Menu />}
         </button>
       </div>
 
+      {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="absolute top-full left-0 w-full bg-[#1a1a1a] border-t border-white/10 p-6 flex flex-col gap-4 md:hidden">
+        <div className="absolute top-full left-0 right-0 bg-white border-t border-gray-100 shadow-xl p-6 flex flex-col gap-4 md:hidden">
           {navLinks.map((link) => (
-            <a key={link.name} href={link.href} onClick={() => setMobileMenuOpen(false)} className="text-sm font-bold text-white uppercase tracking-widest hover:text-orange-500">
+            <a 
+              key={link.name} 
+              href={link.href} 
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-lg font-medium text-neutral-800"
+            >
               {link.name}
             </a>
           ))}

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { MessageCircle, X, Phone, ExternalLink, MapPin } from "lucide-react";
+import { MessageCircle, X, Phone, ExternalLink, Star } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function ChatWidget() {
@@ -29,39 +29,38 @@ export default function ChatWidget() {
 
             {/* Chat Body */}
             <div className="p-4 bg-gray-50 flex flex-col gap-3">
-              {/* Bot Message */}
               <div className="bg-white p-3 rounded-tr-xl rounded-bl-xl rounded-br-xl shadow-sm border border-gray-100 text-sm text-gray-600">
-                👋 Namaste! Looking for luxury tiling or contract work? Choose an option below to connect with us instantly.
+                👋 Namaste! We are available for tiling & contract works in Bengaluru. How can we help?
               </div>
               
               {/* Action Buttons */}
               <div className="flex flex-col gap-2 mt-2">
-                <a href="https://wa.me/919999999999" target="_blank" className="flex items-center gap-3 bg-green-600 hover:bg-green-700 text-white p-3 rounded-xl text-sm font-medium transition-colors group">
+                {/* 1. WhatsApp */}
+                <a href="https://wa.me/918867694625" target="_blank" className="flex items-center gap-3 bg-green-600 hover:bg-green-700 text-white p-3 rounded-xl text-sm font-medium transition-colors group">
                   <MessageCircle size={18} /> 
                   <span className="flex-1">Chat on WhatsApp</span>
                   <ExternalLink size={14} className="opacity-50 group-hover:opacity-100" />
                 </a>
                 
-                <a href="tel:+919999999999" className="flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-xl text-sm font-medium transition-colors">
+                {/* 2. Phone Call */}
+                <a href="tel:+918867694625" className="flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-xl text-sm font-medium transition-colors">
                   <Phone size={18} /> 
-                  <span className="flex-1">Call +91 999 999 9999</span>
+                  <span className="flex-1">Call +91 88676 94625</span>
                 </a>
 
-                 <a href="#projects" onClick={() => setIsOpen(false)} className="flex items-center gap-3 bg-neutral-800 hover:bg-neutral-900 text-white p-3 rounded-xl text-sm font-medium transition-colors">
-                  <ExternalLink size={18} /> 
-                  <span className="flex-1">See Our Portfolio</span>
+                {/* 3. JustDial (New!) */}
+                <a href="https://www.justdial.com/Bangalore/Sneha-Associates-Near-Zenith-Die-Makers-Sudhama-Nagar/080PXX80-XX80-140726125548-I8J8_BZDET" target="_blank" className="flex items-center gap-3 bg-orange-600 hover:bg-orange-700 text-white p-3 rounded-xl text-sm font-medium transition-colors">
+                  <Star size={18} /> 
+                  <span className="flex-1">Check Ratings on JustDial</span>
+                  <ExternalLink size={14} className="opacity-50" />
                 </a>
-              </div>
-              
-              <div className="text-center mt-2">
-                <p className="text-[10px] text-gray-400">Usually replies within 1 hour</p>
               </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* The Floating Button */}
+      {/* Floating Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`h-14 w-14 rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 z-50 ${isOpen ? 'bg-neutral-900 text-white' : 'bg-orange-600 text-white'}`}

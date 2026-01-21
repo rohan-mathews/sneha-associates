@@ -1,75 +1,82 @@
-import { MapPin, Phone, Mail, Instagram, Facebook, Star } from "lucide-react";
+import { MapPin, Phone, Mail, Instagram, Facebook } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-neutral-900 text-white pt-20 pb-10">
+    <footer className="bg-neutral-900 text-white pt-20 pb-10 border-t border-white/10">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        
+        {/* Top Section: Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           
-          {/* Brand Info */}
-          <div>
-            <h3 className="text-2xl font-serif font-bold mb-6">Sneha Associates</h3>
-            <p className="text-neutral-400 leading-relaxed mb-6">
-              Expert tiling and flooring contractors serving Bengaluru. We bring precision and luxury to your spaces with granite, marble, and vitrified tiles.
+          {/* Column 1: Brand */}
+          <div className="col-span-1 md:col-span-2">
+            <h2 className="text-3xl font-serif font-bold mb-6">
+              Sneha<span className="text-orange-600">Associates</span>
+            </h2>
+            <p className="text-gray-400 leading-relaxed max-w-sm mb-8">
+              Delivering excellence in construction and waterproofing since 2005. 
+              Your trusted partner for durable, high-quality infrastructure in Bengaluru.
             </p>
-            <a href="https://www.justdial.com/Bangalore/Sneha-Associates-Near-Zenith-Die-Makers-Sudhama-Nagar/080PXX80-XX80-140726125548-I8J8_BZDET" target="_blank" className="inline-flex items-center gap-2 text-orange-500 hover:text-orange-400 transition-colors">
-              <Star size={18} />
-              <span className="underline">View us on JustDial</span>
-            </a>
+            <div className="flex gap-4">
+              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-orange-600 transition-colors">
+                <Instagram size={20} />
+              </a>
+              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-blue-600 transition-colors">
+                <Facebook size={20} />
+              </a>
+            </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Column 2: Quick Links */}
           <div>
-            <h4 className="text-lg font-medium mb-6">Quick Links</h4>
-            <ul className="space-y-4 text-neutral-400">
+            <h3 className="text-lg font-bold mb-6 text-orange-500 uppercase tracking-wider text-sm">Company</h3>
+            <ul className="space-y-4 text-gray-400">
               <li><a href="#home" className="hover:text-white transition-colors">Home</a></li>
               <li><a href="#about" className="hover:text-white transition-colors">About Us</a></li>
-              <li><a href="#projects" className="hover:text-white transition-colors">Our Projects</a></li>
-              <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
+              <li><a href="#services" className="hover:text-white transition-colors">Our Services</a></li>
+              <li><a href="#projects" className="hover:text-white transition-colors">Projects</a></li>
+              <li><a href="#contact-form" className="hover:text-white transition-colors">Get a Quote</a></li>
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Column 3: Contact */}
           <div>
-            <h4 className="text-lg font-medium mb-6">Contact Us</h4>
-            <ul className="space-y-4 text-neutral-400">
+            <h3 className="text-lg font-bold mb-6 text-orange-500 uppercase tracking-wider text-sm">Contact</h3>
+            <ul className="space-y-4 text-gray-400">
               <li className="flex items-start gap-3">
-                <MapPin className="mt-1 shrink-0 text-orange-500" size={20} />
+                <MapPin className="mt-1 shrink-0 text-orange-600" size={18} />
                 <span>
-                  No.75, 7/1, Ground Floor,<br/>
-                  1st Main, 2nd Cross Rd,<br/>
-                  Near Zenith Die Makers,<br/>
-                  Sudhama Nagar, Bengaluru - 560027
+                  No. 12, Hennur Main Road,<br/>
+                  HBR Layout, Bengaluru,<br/>
+                  Karnataka 560043
                 </span>
               </li>
               <li className="flex items-center gap-3">
-                <Phone className="shrink-0 text-orange-500" size={20} />
+                <Phone className="shrink-0 text-orange-600" size={18} />
                 <a href="tel:+918867694625" className="hover:text-white transition-colors">+91 88676 94625</a>
               </li>
               <li className="flex items-center gap-3">
-                <Mail className="shrink-0 text-orange-500" size={20} />
+                <Mail className="shrink-0 text-orange-600" size={18} />
                 <a href="mailto:snehaassociatesblr@gmail.com" className="hover:text-white transition-colors">snehaassociatesblr@gmail.com</a>
               </li>
             </ul>
           </div>
-
-          {/* Map Section */}
-          <div className="h-64 rounded-xl overflow-hidden bg-neutral-800 relative">
-            <iframe 
-              src="https://maps.google.com/maps?q=Sneha%20Associates%2C%20Sudhama%20Nagar%2C%20Bengaluru&t=&z=15&ie=UTF8&iwloc=&output=embed"
-              width="100%" 
-              height="100%" 
-              style={{ border: 0 }} 
-              allowFullScreen="" 
-              loading="lazy"
-              className="absolute inset-0"
-            ></iframe>
-          </div>
         </div>
 
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-neutral-500">
-          <p>© {new Date().getFullYear()} Sneha Associates. All rights reserved.</p>
-          <p>Designed with ❤️ in Bengaluru</p>
+        {/* Bottom Section: Divider & Copyright */}
+        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          
+          <p className="text-gray-500 text-sm">
+            © {new Date().getFullYear()} Sneha Associates. All Rights Reserved.
+          </p>
+
+          {/* The "Designed in Bengaluru" Badge */}
+          <div className="flex items-center gap-2 text-sm text-gray-500 bg-white/5 px-4 py-2 rounded-full border border-white/5 hover:border-white/10 transition-colors">
+            <span>Designed with</span>
+            <span className="text-red-500 animate-pulse">❤️</span>
+            <span>in Bengaluru</span>
+          </div>
+
         </div>
       </div>
     </footer>

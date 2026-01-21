@@ -5,12 +5,12 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
 
-// 2. SEO Metadata (This is what Google sees)
+// 2. SEO Metadata (This is what Google & Browsers see)
 export const metadata = {
-  title: "Sneha Associates | Premium Construction & Waterproofing in Bengaluru",
-  description: "Established in 2005. Experts in civil construction, waterproofing, tiling, and swimming pool maintenance in Bengaluru. Get a free quote today.",
+  title: "Sneha Associates | Premium Construction & Waterproofing",
+  description: "Established in 2005. Experts in civil construction, waterproofing, tiling, and swimming pool maintenance in Bengaluru.",
   icons: {
-    icon: '/favicon.ico', // You can add a logo icon later
+    icon: '/icon.png', // <--- Points directly to your logo in the public folder
   },
 };
 

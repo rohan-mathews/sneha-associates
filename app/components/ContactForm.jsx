@@ -34,7 +34,7 @@ export default function ContactForm() {
     <div className="py-24 bg-neutral-100 flex items-center justify-center px-4">
       <div className="bg-white rounded-3xl shadow-2xl overflow-hidden max-w-lg w-full border border-gray-200">
         
-        {/* Header - Dark & Bold */}
+        {/* Header */}
         <div className="bg-neutral-900 text-white p-10 text-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-full bg-orange-600/20 blur-xl"></div>
           <div className="relative z-10">
@@ -96,7 +96,7 @@ export default function ContactForm() {
             </div>
           </div>
 
-          {/* Service Dropdown */}
+          {/* FULL SERVICES DROPDOWN 👇 */}
           <div>
             <label className="block text-sm font-bold text-neutral-900 mb-2 ml-1">Service Required</label>
             <div className="relative">
@@ -108,11 +108,17 @@ export default function ContactForm() {
                 className="w-full pl-12 pr-4 py-4 bg-white border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-600 focus:border-transparent transition-all font-medium text-neutral-900 appearance-none cursor-pointer"
               >
                 <option value="General Enquiry">Select a Service...</option>
-                <option value="Tiling & Flooring">Tiling & Flooring</option>
-                <option value="Waterproofing">Waterproofing</option>
-                <option value="Swimming Pool">Swimming Pool Construction</option>
-                <option value="Painting">Painting & Renovation</option>
-                <option value="Fabrication">MS Fabrication</option>
+                <option value="Civil Construction">Civil Construction (New Building)</option>
+                <option value="MS Fabricators">MS Fabricators (Grills & Gates)</option>
+                <option value="Painting Services">Painting Services (Interior & Exterior)</option>
+                <option value="Acid Wash Cleaning">Commercial Acid Wash Cleaning</option>
+                <option value="Epoxy Grouting">Epoxy Grouting & Tile Joint Filling</option>
+                <option value="Compound Wall">Compound Wall Construction</option>
+                <option value="Bathroom Renovation">Bathroom Repairs & Renovation</option>
+                <option value="Swimming Pool Maintenance">Swimming Pool Maintenance</option>
+                <option value="Civil Repairs">Civil Repairs & Alterations</option>
+                <option value="Granite Polishing">Granite & Marble Polishing</option>
+                <option value="Terrace Waterproofing">Terrace Waterproofing</option>
               </select>
             </div>
           </div>

@@ -13,20 +13,23 @@ export default function CustomerRatings() {
             
             {/* Star Rating */}
             <div className="flex items-center gap-2 my-4">
-              {[...Array(5)].map((_, i) => (
+              {[...Array(4)].map((_, i) => (
                 <Star key={i} size={32} className="text-orange-500 fill-orange-500" />
               ))}
+              {/* Half Star logic visual or just 5 stars for simplicity */}
+               <Star size={32} className="text-orange-500 fill-orange-500" />
             </div>
             
-            <p className="text-gray-500 mb-8 text-lg">Rated <strong>4.8/5</strong> based on client reviews</p>
+            <p className="text-gray-500 mb-8 text-lg">Rated <strong>4.6/5</strong> based on Justdial reviews</p>
             
-            {/* Justdial Link Button */}
+            {/* CORRECT Justdial Link Button */}
             <a 
-              href="https://www.justdial.com/Bangalore/Sneha-Associates-Near-Hennur-Bus-Depot-Hbr-Layout/080PXX80-XX80-180511133523-L7Q3_BZDET" 
+              href="https://www.justdial.com/Bangalore/Sneha-Associates-Near-Zenith-Die-Makers-Sudhama-Nagar/080PXX80-XX80-140726125548-I8J8_BZDET" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-8 py-4 bg-[#0076d7] hover:bg-[#0065b8] text-white font-bold rounded-xl transition-all transform hover:scale-105 shadow-lg group"
             >
+              {/* Justdial Icon */}
               <div className="w-8 h-8 bg-white text-[#0076d7] rounded-full flex items-center justify-center font-black text-xs">JD</div>
               Read Reviews on Justdial
             </a>

@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="bg-neutral-900 text-white pt-20 pb-10 border-t border-white/10">
       <div className="container mx-auto px-6">
         
-        {/* Top Section: Grid with 4 Columns (Restored Map) */}
+        {/* Top Section: Grid with 4 Columns */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-16">
           
           {/* Column 1: Brand */}
@@ -24,7 +24,12 @@ export default function Footer() {
                 <Facebook size={16} />
               </a>
             </div>
-            <a href="https://www.justdial.com" className="text-orange-500 text-xs mt-4 inline-block hover:underline">
+            <a 
+              href="https://www.justdial.com/Bangalore/Sneha-Associates-Near-Zenith-Die-Makers-Sudhama-Nagar/080PXX80-XX80-140726125548-I8J8_BZDET" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-orange-500 text-xs mt-4 inline-block hover:underline"
+            >
               ⭐ View us on JustDial
             </a>
           </div>
@@ -41,7 +46,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Contact Info (Correct Address Restored) */}
+          {/* Column 3: Contact Info */}
           <div>
             <h3 className="text-base font-bold mb-4 text-white uppercase tracking-wider">Contact Us</h3>
             <ul className="space-y-4 text-sm text-gray-400">
@@ -65,35 +70,33 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: The Map (Restored!) */}
-          <div className="h-48 rounded-xl overflow-hidden shadow-lg border border-white/10">
+          {/* Column 4: Map - Pinpointing Zenith Die Makers Landmark */}
+          <div className="h-48 rounded-xl overflow-hidden shadow-lg border border-white/10 relative group">
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.041079783965!2d77.59124237593345!3d12.969213814929848!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1679c8d5d1c5%3A0x6c6663276856525!2sSudhama%20Nagar%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1709660000000!5m2!1sen!2sin" 
+              title="Sneha Associates Location"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.223837838529!2d77.5898863!3d12.9575306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15dfa536969b%3A0x6b77749451996849!2sZenith%20Die%20Makers!5e0!3m2!1sen!2sin!4v1705844000000!5m2!1sen!2sin"
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 
               allowFullScreen="" 
               loading="lazy" 
-              referrerPolicy="no-referrer-when-downgrade"
+              className="grayscale group-hover:grayscale-0 transition-all duration-500"
             ></iframe>
           </div>
 
         </div>
 
-        {/* Bottom Section: Copyright & The "Bengaluru" Badge */}
+        {/* Bottom Section */}
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          
           <p className="text-gray-500 text-xs">
             © {new Date().getFullYear()} Sneha Associates. All Rights Reserved.
           </p>
 
-          {/* The Badge You Liked */}
           <div className="flex items-center gap-2 text-xs text-gray-500 bg-white/5 px-3 py-1.5 rounded-full border border-white/5 hover:border-white/10 transition-colors">
             <span>Designed with</span>
             <span className="text-red-500 animate-pulse">❤️</span>
             <span>in Bengaluru</span>
           </div>
-
         </div>
       </div>
     </footer>

@@ -9,52 +9,74 @@ import ChatWidget from "./components/ChatWidget";
 import EnquirySection from "./components/EnquirySection"; 
 import ContactForm from "./components/ContactForm"; 
 import CustomerRatings from "./components/CustomerRatings"; 
+import Reveal from "./components/Reveal"; // <--- 1. Import the Animator
 
 export default function Home() {
   return (
     <main className="relative min-h-screen bg-neutral-50 selection:bg-orange-500 selection:text-white">
       
-      {/* 1. Fixed Navigation (Transparent to White) */}
       <FloatingNav />
       <ChatWidget />
 
-      {/* 2. Hero Section (Buttons are now fixed!) */}
+      {/* Hero Section (No animation needed, it's first) */}
       <section id="home">
         <HeroSection />
       </section>
 
-      {/* 3. Floating Service Cards */}
-      <ServiceCards />
+      {/* Service Cards - Slide Up */}
+      <div className="flex justify-center">
+        <Reveal width="100%">
+          <ServiceCards />
+        </Reveal>
+      </div>
 
-      {/* 4. About Us */}
+      {/* About Section */}
       <section id="about" className="pt-20">
-        <IntroSection />
+        <div className="container mx-auto">
+          <Reveal width="100%">
+            <IntroSection />
+          </Reveal>
+        </div>
       </section>
 
-      {/* 5. Detailed Services */}
+      {/* Detailed Services */}
       <section id="services">
-        <DetailedServices />
+        <Reveal width="100%">
+          <DetailedServices />
+        </Reveal>
       </section>
 
-      {/* 6. Projects */}
+      {/* Project Gallery */}
       <section id="projects">
-        <PortfolioGrid />
+        <div className="container mx-auto">
+           {/* We don't wrap the whole grid, maybe just the header of it if needed, 
+               but wrapping the whole section works too */}
+          <Reveal width="100%">
+            <PortfolioGrid />
+          </Reveal>
+        </div>
       </section>
 
-      {/* 7. Lead Gen Form (WhatsApp) */}
+      {/* Contact Form */}
       <section id="contact-form">
-        <ContactForm />
+        <Reveal width="100%">
+          <ContactForm />
+        </Reveal>
       </section>
 
-      {/* 8. Founder Info */}
+      {/* Founder Enquiry */}
       <section id="enquiry">
-        <EnquirySection />
+        <Reveal width="100%">
+          <EnquirySection />
+        </Reveal>
       </section>
 
-      {/* 9. Ratings & Justdial */}
-      <CustomerRatings />
+      {/* Ratings */}
+      <Reveal width="100%">
+        <CustomerRatings />
+      </Reveal>
 
-      {/* 10. Footer */}
+      {/* Footer */}
       <section id="contact">
         <Footer />
       </section>

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Send, MapPin, Phone, User, CheckSquare } from "lucide-react";
+import { Send, MapPin, Phone, User, CheckSquare, Loader2, CheckCircle2 } from "lucide-react";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -10,6 +10,9 @@ export default function ContactForm() {
     service: "General Enquiry",
     agree: false
   });
+
+  // New State for "Loading" and "Success" animations
+  const [status, setStatus] = useState("idle"); // idle | loading | success
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -26,8 +29,30 @@ export default function ContactForm() {
       return;
     }
 
+    // 1. Start Loading Animation
+    setStatus("loading");
+
+    // 2. Prepare the WhatsApp Message
     const message = `*New Website Enquiry!* 🏠%0A%0A*Name:* ${formData.name}%0A*Phone:* ${formData.phone}%0A*Pincode:* ${formData.pincode}%0A*Looking For:* ${formData.service}`;
-    window.open(`https://wa.me/918867694625?text=${message}`, '_blank');
+    const whatsappUrl = `https://wa.me/918867694625?text=${message}`;
+
+    // 3. Wait 1.5 seconds to show the "Processing" effect, then open WhatsApp
+    setTimeout(() => {
+      window.open(whatsappUrl, '_blank');
+      setStatus("success");
+      
+      // 4. Reset form after success
+      setFormData({
+        name: "",
+        phone: "",
+        pincode: "",
+        service: "General Enquiry",
+        agree: false
+      });
+
+      // 5. Reset button back to normal after 5 seconds
+      setTimeout(() => setStatus("idle"), 5000);
+    }, 1500);
   };
 
   return (
@@ -96,7 +121,7 @@ export default function ContactForm() {
             </div>
           </div>
 
-          {/* FULL SERVICES DROPDOWN 👇 */}
+          {/* Full Services Dropdown */}
           <div>
             <label className="block text-sm font-bold text-neutral-900 mb-2 ml-1">Service Required</label>
             <div className="relative">
@@ -138,12 +163,29 @@ export default function ContactForm() {
             </label>
           </div>
 
-          {/* Submit Button */}
+          {/* Smart Submit Button */}
           <button 
             type="submit" 
-            className="w-full bg-neutral-900 hover:bg-orange-600 text-white font-bold py-4 rounded-xl transition-all transform active:scale-95 flex items-center justify-center gap-2 shadow-lg text-lg"
+            disabled={status === "loading" || status === "success"}
+            className={`w-full py-4 rounded-xl font-bold text-lg shadow-lg flex items-center justify-center gap-2 transition-all ${
+              status === "success" 
+                ? "bg-green-600 text-white cursor-default" 
+                : status === "loading"
+                  ? "bg-neutral-800 text-gray-300 cursor-wait"
+                  : "bg-neutral-900 hover:bg-orange-600 text-white transform active:scale-95"
+            }`}
           >
-            Submit Enquiry <Send size={20} />
+            {status === "idle" && (
+              <>Submit Enquiry <Send size={20} /></>
+            )}
+            
+            {status === "loading" && (
+              <>Redirecting to WhatsApp <Loader2 className="animate-spin" size={20} /></>
+            )}
+
+            {status === "success" && (
+              <>Enquiry Sent! <CheckCircle2 size={20} /></>
+            )}
           </button>
         </form>
       </div>

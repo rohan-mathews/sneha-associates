@@ -16,9 +16,14 @@ export default function Footer() {
               Expert tiling and flooring contractors serving Bengaluru. We bring precision and luxury to your spaces with granite, marble, and vitrified tiles.
             </p>
             
-            {/* Social Icons */}
+            {/* Social Icons - Official Instagram Link Added */}
             <div className="flex gap-4 mb-4">
-              <a href="#" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-orange-600 transition-colors">
+              <a 
+                href="https://www.instagram.com/snehaassociatesblr?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 transition-all duration-300"
+              >
                 <Instagram size={16} />
               </a>
               <a href="#" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-blue-600 transition-colors">
@@ -55,7 +60,7 @@ export default function Footer() {
             <ul className="space-y-4 text-sm text-gray-400">
               <li className="flex items-start gap-3">
                 <MapPin className="mt-1 shrink-0 text-orange-600" size={16} />
-                <span className="text-white">
+                <span className="text-white leading-relaxed">
                   No.75, 7/1, Ground Floor,<br/>
                   1st Main, 2nd Cross Rd,<br/>
                   Near Zenith Die Makers,<br/>
@@ -77,8 +82,7 @@ export default function Footer() {
           <div className="h-48 rounded-xl overflow-hidden shadow-lg border border-white/10 relative group">
             <iframe 
               title="Sneha Associates Precise Location"
-              /* We encode the address properly to ensure it loads on all browsers */
-              src="https://maps.google.com/maps?q=No.75,+7/1,+Ground+Floor,+1st+Main,+2nd+Cross+Rd,+Near+Zenith+Die+Makers,+Sudhama+Nagar,+Bengaluru&t=h&z=19&ie=UTF8&iwloc=&output=embed"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d971.9333838421473!2d77.5898869!3d12.9550302!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15dfa92f02f9%3A0xc0746b198124b890!2sZenith%20Die%20Makers!5e1!3m2!1sen!2sin!4v1716384294567!5m2!1sen!2sin"
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 
@@ -96,7 +100,7 @@ export default function Footer() {
             © {new Date().getFullYear()} Sneha Associates. All Rights Reserved.
           </p>
 
-          {/* YOUR UPDATED SIGNATURE */}
+          {/* Official Developer Signature */}
           <div className="flex items-center gap-2 text-xs text-gray-500 bg-white/5 px-4 py-2 rounded-full border border-white/5 hover:border-white/10 transition-colors shadow-sm">
             <span>Designed by</span>
             <span className="text-orange-500 font-bold tracking-wide uppercase">DEV ROHAN MATHEWS</span>

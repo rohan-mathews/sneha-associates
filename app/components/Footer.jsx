@@ -16,7 +16,7 @@ export default function Footer() {
               Expert tiling and flooring contractors serving Bengaluru. We bring precision and luxury to your spaces with granite, marble, and vitrified tiles.
             </p>
             
-            {/* Social Icons - Official Instagram Link Added */}
+            {/* Social Icons - Official Instagram Link */}
             <div className="flex gap-4 mb-4">
               <a 
                 href="https://www.instagram.com/snehaassociatesblr?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" 
@@ -82,7 +82,8 @@ export default function Footer() {
           <div className="h-48 rounded-xl overflow-hidden shadow-lg border border-white/10 relative group">
             <iframe 
               title="Sneha Associates Precise Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d971.9333838421473!2d77.5898869!3d12.9550302!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15dfa92f02f9%3A0xc0746b198124b890!2sZenith%20Die%20Makers!5e1!3m2!1sen!2sin!4v1716384294567!5m2!1sen!2sin"
+              /* FIXED LINK: Uses standard maps.google.com with your exact address string encoded */
+              src="https://maps.google.com/maps?q=No.75%2C%207%2F1%2C%20Ground%20Floor%2C%201st%20Main%2C%202nd%20Cross%20Rd%2C%20Near%20Zenith%20Die%20Makers%2C%20Sudhama%20Nagar%2C%20Bengaluru&t=h&z=19&ie=UTF8&iwloc=&output=embed"
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 

@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image'; // 👈 Added Image Import
+import Image from 'next/image'; 
 import { Menu, X, Phone } from 'lucide-react';
 
 const links = [
@@ -34,25 +34,33 @@ export default function FloatingNav() {
     >
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
         
-        {/* ✅ LOGO SECTION (Updated with Image) */}
+        {/* ✅ LOGO & GST SECTION */}
         <Link href="#home" className="flex items-center gap-3 group">
-          {/* The New Image Logo */}
-          <div className="relative w-12 h-12 transform group-hover:scale-110 transition-transform duration-500">
+          {/* Logo Image */}
+          <div className="relative w-14 h-14 transform group-hover:scale-110 transition-transform duration-500">
             <Image 
-              src="/logo-sa.png" // 👈 Points to your new logo file
+              src="/logo-sa.png" 
               alt="Sneha Associates Logo"
               fill
-              className="object-contain rounded-full shadow-lg" // Added shadow for premium feel
+              className="object-contain rounded-full shadow-lg"
             />
           </div>
           
-          {/* Text that changes color on scroll */}
-          <span className={`text-xl md:text-2xl font-serif font-bold transition-colors duration-300 ${scrolled ? 'text-neutral-900' : 'text-white'}`}>
-            Sneha<span className="text-orange-600">Associates</span>
-          </span>
+          {/* Text Container */}
+          <div className="flex flex-col md:flex-row md:items-baseline gap-0 md:gap-3">
+            {/* Company Name */}
+            <span className={`text-xl md:text-2xl font-serif font-bold transition-colors duration-300 ${scrolled ? 'text-neutral-900' : 'text-white'}`}>
+              Sneha<span className="text-orange-600">Associates</span>
+            </span>
+
+            {/* GSTIN Number */}
+            <span className={`text-[10px] md:text-xs font-medium tracking-wider transition-colors duration-300 ${scrolled ? 'text-neutral-600' : 'text-white/80'}`}>
+              GSTIN : 29AGHPM4375P1ZJ
+            </span>
+          </div>
         </Link>
 
-        {/* Desktop Links - BIGGER & BOLDER (Kept your premium styles) */}
+        {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-8">
           {links.map((link) => (
             <Link
@@ -73,7 +81,7 @@ export default function FloatingNav() {
           </a>
         </div>
 
-        {/* Mobile Menu Button (Changes color on scroll) */}
+        {/* Mobile Menu Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className={`md:hidden ${scrolled ? 'text-neutral-900' : 'text-white'}`}

@@ -1,11 +1,29 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react"; // 👈 Added useEffect
 import { Maximize2, PlayCircle, Image as ImageIcon } from "lucide-react";
 
 export default function PortfolioGrid() {
   const [activeTab, setActiveTab] = useState("Civil Construction");
 
-  // 📸 PHOTO SLOTS (Ready for your images)
+  // 👂 THE LISTENER: This watches for the 'switchProjectTab' signal
+  useEffect(() => {
+    const handleTabSwitch = (event) => {
+      // The 'detail' contains the category name (e.g., "Waterproofing")
+      setActiveTab(event.detail);
+    };
+
+    // Add the listener
+    window.addEventListener("switchProjectTab", handleTabSwitch);
+
+    // Clean up when the component unmounts
+    return () => {
+      window.removeEventListener("switchProjectTab", handleTabSwitch);
+    };
+  }, []);
+
+  // ... (REST OF THE CODE IS THE SAME AS BEFORE) ...
+
+  // 📸 PHOTO SLOTS
   const projects = [
     // --- 1. CIVIL CONSTRUCTION ---
     {
@@ -13,7 +31,7 @@ export default function PortfolioGrid() {
       category: "Civil Construction",
       title: "Civil Project 1",
       location: "Bengaluru",
-      image: "", // 👈 PASTE YOUR IMAGE PATH HERE LATER (e.g. "/images/civil1.jpg")
+      image: "", 
       size: "large" 
     },
     {
@@ -39,7 +57,7 @@ export default function PortfolioGrid() {
       category: "Waterproofing",
       title: "Waterproofing Site 1",
       location: "Bengaluru",
-      image: "", // 👈 PASTE YOUR IMAGE PATH HERE LATER
+      image: "", 
       size: "large"
     },
     {
@@ -57,7 +75,7 @@ export default function PortfolioGrid() {
       category: "Swimming Pools",
       title: "Swimming Pool 1",
       location: "Bengaluru",
-      image: "", // 👈 PASTE YOUR IMAGE PATH HERE LATER
+      image: "", 
       size: "large"
     },
     {
@@ -70,28 +88,25 @@ export default function PortfolioGrid() {
     },
   ];
 
-  // 🎥 VIDEO SLOTS (Ready for your videos)
   const videos = [
     {
       id: 1,
       title: "Site Walkthrough 1",
-      videoUrl: "" // 👈 PASTE YOUTUBE EMBED LINK HERE LATER
+      videoUrl: "" 
     },
     {
       id: 2,
       title: "Site Walkthrough 2",
-      videoUrl: "" // 👈 PASTE YOUTUBE EMBED LINK HERE LATER
+      videoUrl: "" 
     }
   ];
 
-  // Filter logic
   const filteredProjects = projects.filter(project => project.category === activeTab);
 
   return (
     <section id="projects" className="py-24 bg-neutral-50">
       <div className="container mx-auto px-6">
         
-        {/* --- SECTION 1: PHOTOS --- */}
         <div className="text-center mb-12">
           <h2 className="text-4xl font-serif font-bold text-neutral-900 mb-4">Our Featured Projects</h2>
           <p className="text-gray-500 max-w-2xl mx-auto">
@@ -116,7 +131,7 @@ export default function PortfolioGrid() {
           ))}
         </div>
 
-        {/* 🖼️ PHOTO GRID (With Placeholders) */}
+        {/* 🖼️ PHOTO GRID */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24 min-h-[400px]">
           {filteredProjects.map((project) => (
             <div 
@@ -126,14 +141,12 @@ export default function PortfolioGrid() {
               }`}
             >
               {project.image ? (
-                // If you added an image, show it
                 <img 
                   src={project.image} 
                   alt={project.title} 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
               ) : (
-                // If NO image, show this nice placeholder
                 <div className="flex flex-col items-center text-gray-400">
                   <ImageIcon size={48} className="mb-2 opacity-50" />
                   <span className="text-sm font-semibold">Image Coming Soon</span>
@@ -141,7 +154,6 @@ export default function PortfolioGrid() {
                 </div>
               )}
               
-              {/* Overlay (Only shows if there is an image) */}
               {project.image && (
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
                   <span className="text-orange-400 text-xs font-bold uppercase tracking-wider mb-2">
@@ -157,7 +169,7 @@ export default function PortfolioGrid() {
           ))}
         </div>
 
-        {/* --- SECTION 2: VIDEOS --- */}
+        {/* 🎥 VIDEOS */}
         <div className="border-t border-gray-200 pt-20">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-serif font-bold text-neutral-900 mb-4">Site Walkthroughs 🎥</h2>
@@ -179,7 +191,6 @@ export default function PortfolioGrid() {
                     className="opacity-90 group-hover:opacity-100 transition-opacity"
                   ></iframe>
                 ) : (
-                  // Placeholder for Videos
                   <div className="flex flex-col items-center text-gray-400">
                     <PlayCircle size={48} className="mb-2 opacity-50" />
                     <span className="text-sm font-semibold">Video Coming Soon</span>

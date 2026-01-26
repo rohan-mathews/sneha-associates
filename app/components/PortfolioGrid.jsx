@@ -35,7 +35,7 @@ const projects = [
     id: 4,
     category: "Civil Construction",
     title: "Apartment Facade",
-    location: "Hebbal",
+    location: "ShanthiNagar",
     image: "/images/civil-4.jpg",
     size: "large"
   },
@@ -85,7 +85,7 @@ const projects = [
     id: 10,
     category: "Swimming Pools",
     title: "Resort Swimming Pool",
-    location: "Devanahalli",
+    location: "Sarjapur",
     image: "/images/pool-4.jpg",
     size: "large"
   },
@@ -93,7 +93,7 @@ const projects = [
     id: 11,
     category: "Swimming Pools",
     title: "Pool Filtration System",
-    location: "Electronic City",
+    location: "Koramangala",
     image: "/images/pool-5.jpg",
     size: "small"
   },
@@ -109,7 +109,7 @@ const projects = [
     id: 13,
     category: "Swimming Pools",
     title: "Compact Indoor Pool",
-    location: "Sadashivanagar",
+    location: "Banashankari",
     image: "/images/pool-7.jpg",
     size: "large"
   },

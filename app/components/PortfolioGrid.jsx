@@ -4,15 +4,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, ZoomIn, X } from "lucide-react";
 import Image from "next/image";
 
-// ✅ YOUR 16 PROJECTS (Now using .jpg)
+// ✅ 19 PROJECTS (Sequential IDs 1-19)
 const projects = [
-  // --- CIVIL CONSTRUCTION (6 Photos) ---
+  // --- CIVIL CONSTRUCTION (IDs 1-6) ---
   {
     id: 1,
     category: "Civil Construction",
     title: "Commercial Complex",
     location: "Indiranagar",
-    image: "/images/civil-1.jpg", // 👈 Fixed: .jpg
+    image: "/images/civil-1.jpg",
     size: "large"
   },
   {
@@ -20,7 +20,7 @@ const projects = [
     category: "Civil Construction",
     title: "Luxury Villa Foundation",
     location: "Whitefield",
-    image: "/images/civil-2.jpg", 
+    image: "/images/civil-2.jpg",
     size: "small"
   },
   {
@@ -35,7 +35,7 @@ const projects = [
     id: 4,
     category: "Civil Construction",
     title: "Apartment Facade",
-    location: "ShanthiNagar",
+    location: "Hebbal",
     image: "/images/civil-4.jpg",
     size: "large"
   },
@@ -52,17 +52,17 @@ const projects = [
     category: "Civil Construction",
     title: "Flooring & Finishing",
     location: "HSR Layout",
-    image: "/images/civil-6.jpg", 
+    image: "/images/civil-6.jpg",
     size: "small"
   },
 
-  // --- SWIMMING POOLS (7 Photos) ---
+  // --- SWIMMING POOLS (IDs 7-13) ---
   {
     id: 7,
     category: "Swimming Pools",
     title: "Infinity Edge Pool",
     location: "Kanakapura Road",
-    image: "/images/pool-1.jpg", // 👈 Fixed: .jpg
+    image: "/images/pool-1.jpg",
     size: "large"
   },
   {
@@ -85,7 +85,7 @@ const projects = [
     id: 10,
     category: "Swimming Pools",
     title: "Resort Swimming Pool",
-    location: "Sarjapur",
+    location: "Devanahalli",
     image: "/images/pool-4.jpg",
     size: "large"
   },
@@ -93,7 +93,7 @@ const projects = [
     id: 11,
     category: "Swimming Pools",
     title: "Pool Filtration System",
-    location: "Koramangala",
+    location: "Electronic City",
     image: "/images/pool-5.jpg",
     size: "small"
   },
@@ -109,46 +109,22 @@ const projects = [
     id: 13,
     category: "Swimming Pools",
     title: "Compact Indoor Pool",
-    location: "Banashankari",
+    location: "Sadashivanagar",
     image: "/images/pool-7.jpg",
     size: "large"
   },
+
+  // --- WATERPROOFING (IDs 14-16) ---
   {
     id: 14,
-    category: "Swimming Pools",
-    title: "Furnished Outdoor Pool",
-    location: "Sarjapur"
-    image: "/images/pool-8.jpg",
+    category: "Waterproofing",
+    title: "Terrace Leakage Solution",
+    location: "Jayanagar",
+    image: "/images/water-1.jpg",
     size: "large"
   },
   {
     id: 15,
-    category: "Swimming Pools",
-    title: "Fully Completed Pool",
-    location: "Sarjapur",
-    image: "/images/pool-9.jpg",
-    size: "large"
-  },
-  {
-    id: 16,
-    category: "Swimming Pools",
-    title: "Completed Pool",
-    loaction: "Sarjapur",
-    image: "/images/pool-10.jpg",
-    size: "large"
-  },
-
-  // --- WATERPROOFING (3 Photos) ---
-  {
-    id: 17,
-    category: "Waterproofing",
-    title: "Terrace Leakage Solution",
-    location: "Jayanagar",
-    image: "/images/water-1.jpg", // 👈 Fixed: .jpg
-    size: "large"
-  },
-  {
-    id: 18,
     category: "Waterproofing",
     title: "Chemical Treatment",
     location: "BTM Layout",
@@ -156,13 +132,39 @@ const projects = [
     size: "small"
   },
   {
-    id: 19,
+    id: 16,
     category: "Waterproofing",
     title: "Water Tank Sealing",
     location: "Banashankari",
     image: "/images/water-3.jpg",
     size: "small"
   },
+
+  // --- NEW POOL PHOTOS (IDs 17-19) ---
+  {
+    id: 17,
+    category: "Swimming Pools",
+    title: "Furnished Outdoor Pool",
+    location: "Sarjapur",
+    image: "/images/pool-8.jpg",
+    size: "large"
+  },
+  {
+    id: 18,
+    category: "Swimming Pools",
+    title: "Fully Completed Pool",
+    location: "Sarjapur",
+    image: "/images/pool-9.jpg",
+    size: "large"
+  },
+  {
+    id: 19,
+    category: "Swimming Pools",
+    title: "Completed Pool",
+    location: "Sarjapur",
+    image: "/images/pool-10.jpg",
+    size: "large"
+  }
 ];
 
 const categories = ["All", "Civil Construction", "Waterproofing", "Swimming Pools"];

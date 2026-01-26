@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image'; // 👈 Added Image Import
 import { Menu, X, Phone } from 'lucide-react';
 
 const links = [
@@ -27,28 +28,37 @@ export default function FloatingNav() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'bg-white/90 backdrop-blur-md py-4 shadow-sm' // Semi-transparent white on scroll
-          : 'bg-transparent py-6' // Invisible at top
+          ? 'bg-white/90 backdrop-blur-md py-4 shadow-sm' // Scrolled: White & Blurred
+          : 'bg-transparent py-6' // Top: Invisible/Transparent
       }`}
     >
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
-        {/* Logo */}
-        <Link href="#home" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 bg-orange-600 rounded-r-xl rounded-t-xl flex items-center justify-center transform group-hover:rotate-180 transition-transform duration-500">
-            <span className="text-white font-bold text-xl">SA</span>
+        
+        {/* ✅ LOGO SECTION (Updated with Image) */}
+        <Link href="#home" className="flex items-center gap-3 group">
+          {/* The New Image Logo */}
+          <div className="relative w-12 h-12 transform group-hover:scale-110 transition-transform duration-500">
+            <Image 
+              src="/logo-sa.png" // 👈 Points to your new logo file
+              alt="Sneha Associates Logo"
+              fill
+              className="object-contain rounded-full shadow-lg" // Added shadow for premium feel
+            />
           </div>
-          <span className={`text-2xl font-serif font-bold transition-colors ${scrolled ? 'text-neutral-900' : 'text-white'}`}>
+          
+          {/* Text that changes color on scroll */}
+          <span className={`text-xl md:text-2xl font-serif font-bold transition-colors duration-300 ${scrolled ? 'text-neutral-900' : 'text-white'}`}>
             Sneha<span className="text-orange-600">Associates</span>
           </span>
         </Link>
 
-        {/* Desktop Links - BIGGER & BOLDER */}
+        {/* Desktop Links - BIGGER & BOLDER (Kept your premium styles) */}
         <div className="hidden md:flex items-center gap-8">
           {links.map((link) => (
             <Link
               key={link.name}
               href={link.href}
-              className={`text-lg font-bold tracking-wide transition-all hover:text-orange-600 hover:scale-105 ${
+              className={`text-sm font-bold tracking-widest uppercase transition-all hover:text-orange-600 hover:scale-105 ${
                 scrolled ? 'text-neutral-800' : 'text-white drop-shadow-md'
               }`}
             >
@@ -63,7 +73,7 @@ export default function FloatingNav() {
           </a>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Button (Changes color on scroll) */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className={`md:hidden ${scrolled ? 'text-neutral-900' : 'text-white'}`}

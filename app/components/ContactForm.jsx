@@ -25,11 +25,20 @@ export default function ContactForm() {
     e.preventDefault();
     setLoading(true);
 
-    // 1. Prepare WhatsApp Logic
-    const message = `*New Enquiry from Website* 🏗️%0A%0A*Name:* ${formData.user_name}%0A*Phone:* ${formData.user_phone}%0A*Email:* ${formData.user_email}%0A*Pincode:* ${formData.pincode}%0A*Service:* ${formData.service}`;
-    const whatsappUrl = `https://wa.me/918867694625?text=${message}`;
+    // 1. WhatsApp Message (Needs %0A for line breaks)
+    const whatsappMessage = `*New Enquiry from Website* 🏗️%0A%0A*Name:* ${formData.user_name}%0A*Phone:* ${formData.user_phone}%0A*Email:* ${formData.user_email}%0A*Pincode:* ${formData.pincode}%0A*Service:* ${formData.service}`;
+    const whatsappUrl = `https://wa.me/918867694625?text=${whatsappMessage}`;
 
-    // 2. Send Email via EmailJS (Using your real keys)
+    // 2. Email Message (Needs clean text, no symbols)
+    const emailMessage = `
+Name: ${formData.user_name}
+Phone: ${formData.user_phone}
+Email: ${formData.user_email}
+Pincode: ${formData.pincode}
+Service: ${formData.service}
+    `;
+
+    // 3. Send Email via EmailJS
     emailjs
       .send(
         "service_lpxd6cs",     // ✅ YOUR SERVICE ID
@@ -37,7 +46,7 @@ export default function ContactForm() {
         {
           user_name: formData.user_name,
           user_email: formData.user_email,
-          message: message,
+          message: emailMessage, // 👈 Sending the CLEAN message to email
         },
         "oKCFhN_lZs4cLSeKg"    // ✅ YOUR PUBLIC KEY
       )
@@ -46,10 +55,10 @@ export default function ContactForm() {
           setLoading(false);
           setSuccess(true);
           
-          // 3. Open WhatsApp after successful email trigger
+          // 4. Open WhatsApp after a small delay
           setTimeout(() => {
               window.open(whatsappUrl, "_blank");
-          }, 2000); // Small delay so they see the success message first
+          }, 2000); 
         },
         (error) => {
           setLoading(false);
@@ -75,7 +84,7 @@ export default function ContactForm() {
     );
   }
 
-  // 📝 NORMAL FORM VIEW (Original Dark Theme)
+  // 📝 NORMAL FORM VIEW (Dark Theme + Visible Text)
   return (
     <div className="bg-[#2A221B] p-8 rounded-3xl shadow-2xl relative overflow-hidden">
       {/* Decorative top border */}

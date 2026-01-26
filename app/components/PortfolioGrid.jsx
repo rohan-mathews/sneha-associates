@@ -120,7 +120,7 @@ const projects = [
     location: "Sarjapur"
     image: "/images/pool-8.jpg",
     size: "large"
-  }
+  },
   {
     id: 15,
     category: "Swimming Pools",
@@ -128,7 +128,7 @@ const projects = [
     location: "Sarjapur",
     image: "/images/pool-9.jpg",
     size: "large"
-  }
+  },
   {
     id: 16,
     category: "Swimming Pools",
@@ -136,7 +136,7 @@ const projects = [
     loaction: "Sarjapur",
     image: "/images/pool-10.jpg",
     size: "large"
-  }
+  },
 
   // --- WATERPROOFING (3 Photos) ---
   {

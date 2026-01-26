@@ -113,10 +113,34 @@ const projects = [
     image: "/images/pool-7.jpg",
     size: "large"
   },
+  {
+    id: 14,
+    category: "Swimming Pools",
+    title: "Furnished Outdoor Pool",
+    location: "Sarjapur"
+    image: "/images/pool-8.jpg",
+    size: "large"
+  }
+  {
+    id: 15,
+    category: "Swimming Pools",
+    title: "Fully Completed Pool",
+    location: "Sarjapur",
+    image: "/images/pool-9.jpg",
+    size: "large"
+  }
+  {
+    id: 16,
+    category: "Swimming Pools",
+    title: "Completed Pool",
+    loaction: "Sarjapur",
+    image: "/images/pool-10.jpg",
+    size: "large"
+  }
 
   // --- WATERPROOFING (3 Photos) ---
   {
-    id: 14,
+    id: 17,
     category: "Waterproofing",
     title: "Terrace Leakage Solution",
     location: "Jayanagar",
@@ -124,7 +148,7 @@ const projects = [
     size: "large"
   },
   {
-    id: 15,
+    id: 18,
     category: "Waterproofing",
     title: "Chemical Treatment",
     location: "BTM Layout",
@@ -132,7 +156,7 @@ const projects = [
     size: "small"
   },
   {
-    id: 16,
+    id: 19,
     category: "Waterproofing",
     title: "Water Tank Sealing",
     location: "Banashankari",

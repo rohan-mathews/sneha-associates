@@ -28,16 +28,16 @@ export default function FloatingNav() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'bg-white/90 backdrop-blur-md py-4 shadow-sm' // Scrolled: White & Blurred
-          : 'bg-transparent py-6' // Top: Invisible/Transparent
+          ? 'bg-white/95 backdrop-blur-md py-3 shadow-md' // Compact on scroll
+          : 'bg-transparent py-5' // Tall & Transparent at top
       }`}
     >
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
         
-        {/* ✅ LOGO & GST SECTION */}
+        {/* ✅ LOGO & GST SECTION (Vertical Stack) */}
         <Link href="#home" className="flex items-center gap-3 group">
           {/* Logo Image */}
-          <div className="relative w-14 h-14 transform group-hover:scale-110 transition-transform duration-500">
+          <div className="relative w-12 h-12 md:w-14 md:h-14 transform group-hover:scale-110 transition-transform duration-500">
             <Image 
               src="/logo-sa.png" 
               alt="Sneha Associates Logo"
@@ -46,15 +46,15 @@ export default function FloatingNav() {
             />
           </div>
           
-          {/* Text Container */}
-          <div className="flex flex-col md:flex-row md:items-baseline gap-0 md:gap-3">
+          {/* Text Container - Flex Column forces 'Under' layout */}
+          <div className="flex flex-col justify-center">
             {/* Company Name */}
-            <span className={`text-xl md:text-2xl font-serif font-bold transition-colors duration-300 ${scrolled ? 'text-neutral-900' : 'text-white'}`}>
+            <span className={`text-xl md:text-2xl font-serif font-bold leading-tight transition-colors duration-300 ${scrolled ? 'text-neutral-900' : 'text-white'}`}>
               Sneha<span className="text-orange-600">Associates</span>
             </span>
 
-            {/* GSTIN Number */}
-            <span className={`text-[10px] md:text-xs font-medium tracking-wider transition-colors duration-300 ${scrolled ? 'text-neutral-600' : 'text-white/80'}`}>
+            {/* GSTIN Number - Stacked Below */}
+            <span className={`text-[10px] md:text-[11px] font-medium tracking-wider uppercase transition-colors duration-300 ${scrolled ? 'text-neutral-500' : 'text-white/70'}`}>
               GSTIN : 29AGHPM4375P1ZJ
             </span>
           </div>

@@ -8,7 +8,7 @@ export default function DetailedServices() {
     "Epoxy Grouting & Tile Joint Filling",
     "Compound Wall Construction",
     "Bathroom Repairs & Renovation",
-    "Swimming Pool Construction And Assembling",
+    "Swimming Pool Construction And Renovation",
     "Civil Repairs & Alterations",
     "Granite & Marble Polishing",
     "Terrace Waterproofing"

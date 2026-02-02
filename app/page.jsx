@@ -3,13 +3,13 @@ import HeroSection from "./components/HeroSection";
 import ServiceCards from "./components/ServiceCards";
 import DetailedServices from "./components/DetailedServices";
 import IntroSection from "./components/IntroSection";
-import PortfolioGrid from "./components/PortfolioGrid";
+import HomePortfolio from "./components/HomePortfolio"; // 👈 UPDATED: Imports the 6-photo teaser
 import Footer from "./components/Footer";
 import ChatWidget from "./components/ChatWidget"; 
 import EnquirySection from "./components/EnquirySection"; 
 import ContactForm from "./components/ContactForm"; 
 import CustomerRatings from "./components/CustomerRatings"; 
-import Reveal from "./components/Reveal"; // <--- 1. Import the Animator
+import Reveal from "./components/Reveal"; 
 
 export default function Home() {
   return (
@@ -18,12 +18,12 @@ export default function Home() {
       <FloatingNav />
       <ChatWidget />
 
-      {/* Hero Section (No animation needed, it's first) */}
+      {/* Hero Section */}
       <section id="home">
         <HeroSection />
       </section>
 
-      {/* Service Cards - Slide Up */}
+      {/* Service Cards */}
       <div className="flex justify-center">
         <Reveal width="100%">
           <ServiceCards />
@@ -46,13 +46,11 @@ export default function Home() {
         </Reveal>
       </section>
 
-      {/* Project Gallery */}
+      {/* ✅ PROJECT TEASER (Only 6 Photos + View More Button) */}
       <section id="projects">
         <div className="container mx-auto">
-           {/* We don't wrap the whole grid, maybe just the header of it if needed, 
-               but wrapping the whole section works too */}
           <Reveal width="100%">
-            <PortfolioGrid />
+            <HomePortfolio /> 
           </Reveal>
         </div>
       </section>

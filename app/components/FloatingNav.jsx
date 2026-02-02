@@ -4,12 +4,14 @@ import Link from 'next/link';
 import Image from 'next/image'; 
 import { Menu, X, Phone } from 'lucide-react';
 
+// ✅ UPDATED LINKS (Added '/' so they work from the Gallery Page too)
 const links = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
-  { name: 'Services', href: '#services' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Contact', href: '#contact-form' },
+  { name: 'Home', href: '/#home' },
+  { name: 'About', href: '/#about' },
+  { name: 'Services', href: '/#services' },
+  { name: 'Gallery', href: '/gallery' }, // Link to your new photo page
+  { name: 'Projects', href: '/#projects' },
+  { name: 'Contact', href: '/#contact-form' },
 ];
 
 export default function FloatingNav() {
@@ -29,13 +31,13 @@ export default function FloatingNav() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
           ? 'bg-white/95 backdrop-blur-md py-3 shadow-md' // Compact on scroll
-          : 'bg-transparent py-5' // Tall & Transparent at top
+          : 'bg-neutral-900/90 py-5' // Dark background at top so white text is visible
       }`}
     >
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
         
         {/* ✅ LOGO & GST SECTION (Vertical Stack) */}
-        <Link href="#home" className="flex items-center gap-3 group">
+        <Link href="/" className="flex items-center gap-3 group">
           {/* Logo Image */}
           <div className="relative w-12 h-12 md:w-14 md:h-14 transform group-hover:scale-110 transition-transform duration-500">
             <Image 

@@ -6,18 +6,19 @@ export default function HeroSection() {
   return (
     <section className="relative h-screen w-full overflow-hidden">
       
-      {/* 1. BACKGROUND IMAGE - Uses a local image from the public/images folder */}
+      {/* 1. BACKGROUND IMAGE */}
+      {/* Ensure you have the file 'hero-bg.jpg' in your public/images/ folder */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-fixed z-0"
-        // Ensure you have an image at public/images/hero-bg.jpg
         style={{ backgroundImage: "url('/images/hero-bg.jpg')" }} 
       >
-        {/* Dark Overlay - Makes text pop against the background */}
+        {/* Dark Overlay - Makes text easy to read */}
         <div className="absolute inset-0 bg-neutral-900/70"></div>
       </div>
 
-      {/* 2. CONTENT - pt-32 ensures text isn't hidden behind the Floating Navbar */}
-      <div className="relative z-10 container mx-auto px-6 h-full flex flex-col md:flex-row items-center pt-32 md:pt-0">
+      {/* 2. CONTENT */}
+      {/* ✅ FIX: 'pt-48' pushes the text down so it doesn't get cut off by the navbar */}
+      <div className="relative z-10 container mx-auto px-6 h-full flex flex-col md:flex-row items-center pt-48 md:pt-0">
         
         {/* Left Column: Text Content */}
         <div className="text-center md:text-left md:w-3/5">
@@ -52,11 +53,11 @@ export default function HeroSection() {
           </div>
         </div>
         
-        {/* Right Column: Empty space to keep the layout open and clean */}
+        {/* Right Column: Empty space to reduce congestion */}
         <div className="hidden md:block md:w-2/5"></div>
       </div>
 
-      {/* 3. THE TRUST BAR (Bottom) */}
+      {/* 3. THE TRUST BAR */}
       <div className="absolute bottom-0 left-0 right-0 bg-neutral-950/80 backdrop-blur-md border-t border-white/10 py-6 hidden md:block">
         <div className="container mx-auto px-6 flex justify-between items-center text-white/90 text-sm md:text-base font-medium tracking-wide">
           <div className="flex items-center gap-3">

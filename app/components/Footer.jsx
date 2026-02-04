@@ -21,9 +21,8 @@ export default function Footer() {
               Professional civil engineering, swimming pool construction, and waterproofing solutions. Building durability and trust since 2010.
             </p>
             <div className="flex gap-4">
-              {/* ✅ INSTAGRAM LINK ADDED HERE */}
               <a 
-                href="https://www.instagram.com/sneha_associates" 
+                href="https://www.instagram.com/snehaassociatesblr?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="p-3 bg-neutral-900 rounded-full hover:bg-orange-600 transition-colors"
@@ -77,21 +76,23 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="text-orange-600 shrink-0" size={20} />
-                <a href="mailto:contact@snehaassociates.com" className="hover:text-white">contact@snehaassociates.com</a>
+                <a href="mailto:snehaassociatesblr@gmail.com" className="hover:text-white">snehaassociatesblr@gmail.com</a>
               </li>
             </ul>
 
-            {/* ✅ GOOGLE MAP EMBED */}
-            <div className="w-full h-40 rounded-lg overflow-hidden border border-neutral-800 shadow-lg">
+            {/* ✅ GOOGLE MAP - Accurately points to the Sudhama Nagar address */}
+            <div className="w-full h-48 rounded-xl overflow-hidden border-2 border-neutral-800 shadow-xl relative">
               <iframe 
-                src="https://maps.google.com/maps?q=No.75,+7/1,+Ground+Floor,+1st+Main,+2nd+Main+Rd,+Sudhama+Nagar,+Bengaluru,+Karnataka+560027&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.06830196461!2d77.59446217507642!3d12.967483787347522!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15d055555555%3A0x4035637065225506!2sZenith%20Die%20Makers!5e0!3m2!1sen!2sin!4v1715698257552!5m2!1sen!2sin"
                 width="100%" 
                 height="100%" 
-                style={{ border: 0 }} 
+                style={{ border: 0, filter: 'grayscale(100%) invert(90%)' }} 
                 allowFullScreen="" 
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
+              {/* A small overlay to make the map look more integrated */}
+              <div className="absolute inset-0 bg-orange-500/10 pointer-events-none"></div>
             </div>
 
           </div>
@@ -99,7 +100,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-neutral-900 text-center text-gray-500 text-xs">
-          <p>&copy; {new Date().getFullYear()} Sneha Associates. All rights reserved. | GSTIN: 29AGHPM4375P1ZJ</p>
+          <p>© {new Date().getFullYear()} Sneha Associates. All rights reserved. | GSTIN: 29AGHPM4375P1ZJ</p>
         </div>
       </div>
     </footer>

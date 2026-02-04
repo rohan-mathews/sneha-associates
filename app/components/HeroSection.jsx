@@ -6,17 +6,17 @@ export default function HeroSection() {
   return (
     <section className="relative h-screen w-full overflow-hidden">
       
-      {/* 1. BACKGROUND IMAGE - Now using your local file */}
+      {/* 1. BACKGROUND IMAGE - Uses a local image from the public/images folder */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-fixed z-0"
-        // 👇 This tells the code to look in your public/images folder
+        // Ensure you have an image at public/images/hero-bg.jpg
         style={{ backgroundImage: "url('/images/hero-bg.jpg')" }} 
       >
-        {/* Dark Overlay - Keeps text readable */}
-        <div className="absolute inset-0 bg-neutral-900/60"></div>
+        {/* Dark Overlay - Makes text pop against the background */}
+        <div className="absolute inset-0 bg-neutral-900/70"></div>
       </div>
 
-      {/* 2. CONTENT */}
+      {/* 2. CONTENT - pt-32 ensures text isn't hidden behind the Floating Navbar */}
       <div className="relative z-10 container mx-auto px-6 h-full flex flex-col md:flex-row items-center pt-32 md:pt-0">
         
         {/* Left Column: Text Content */}
@@ -52,11 +52,11 @@ export default function HeroSection() {
           </div>
         </div>
         
-        {/* Right Column: Empty space */}
+        {/* Right Column: Empty space to keep the layout open and clean */}
         <div className="hidden md:block md:w-2/5"></div>
       </div>
 
-      {/* 3. THE TRUST BAR */}
+      {/* 3. THE TRUST BAR (Bottom) */}
       <div className="absolute bottom-0 left-0 right-0 bg-neutral-950/80 backdrop-blur-md border-t border-white/10 py-6 hidden md:block">
         <div className="container mx-auto px-6 flex justify-between items-center text-white/90 text-sm md:text-base font-medium tracking-wide">
           <div className="flex items-center gap-3">

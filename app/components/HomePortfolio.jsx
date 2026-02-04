@@ -1,10 +1,9 @@
 "use client";
 import { motion } from "framer-motion";
-import { MapPin, ArrowRight, ZoomIn } from "lucide-react";
+import { MapPin, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-// ✅ TEASER DATA: 2 Photos per Category
 const categories = [
   {
     title: "Civil Construction",
@@ -35,25 +34,25 @@ export default function HomePortfolio() {
       <div className="container mx-auto px-6">
         
         {/* Header */}
-        <div className="text-center mb-16">
-          <span className="text-orange-600 font-bold tracking-widest uppercase text-sm">Our Work</span>
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-neutral-900 mt-3 mb-6">
+        <div className="text-center mb-20">
+          <span className="text-orange-600 font-bold tracking-widest uppercase text-sm">Our Portfolio</span>
+          <h2 className="text-4xl md:text-6xl font-serif font-bold text-neutral-900 mt-4 mb-6">
             Featured Projects
           </h2>
-          <div className="w-24 h-1 bg-orange-600 mx-auto rounded-full"></div>
+          <div className="w-24 h-2 bg-orange-600 mx-auto rounded-full"></div>
         </div>
 
         {/* Categories Loop */}
         {categories.map((cat, index) => (
-          <div key={index} className="mb-20">
-            {/* Category Title */}
-            <div className="flex items-center gap-4 mb-8">
-               <div className="h-px bg-neutral-300 flex-grow"></div>
-               <h3 className="text-2xl md:text-3xl font-serif font-bold text-neutral-800">{cat.title}</h3>
-               <div className="h-px bg-neutral-300 flex-grow"></div>
+          <div key={index} className="mb-24">
+            {/* Category Title with Lines */}
+            <div className="flex items-center gap-6 mb-10">
+               <div className="h-0.5 bg-neutral-300 flex-grow"></div>
+               <h3 className="text-3xl md:text-4xl font-serif font-bold text-neutral-800">{cat.title}</h3>
+               <div className="h-0.5 bg-neutral-300 flex-grow"></div>
             </div>
 
-            {/* 2 Photos Grid */}
+            {/* 2 Photos Grid - FORCED BIG ASPECT RATIO */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {cat.projects.map((project) => (
                 <motion.div
@@ -62,7 +61,7 @@ export default function HomePortfolio() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
                   key={project.id}
-                  className="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer bg-gray-200 aspect-video md:aspect-[4/3]"
+                  className="group relative overflow-hidden rounded-2xl shadow-xl cursor-pointer bg-gray-200 aspect-[4/3]" // 👈 Forced Big Ratio
                 >
                   <Image
                     src={project.image}
@@ -72,14 +71,14 @@ export default function HomePortfolio() {
                   />
                   
                   {/* Overlay */}
-                  <Link href="/gallery" className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                    <h3 className="text-white text-2xl font-bold font-serif">{project.title}</h3>
-                    <div className="flex items-center gap-2 text-gray-300 text-sm mt-2">
-                      <MapPin size={16} className="text-orange-500" />
+                  <Link href="/gallery" className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+                    <h3 className="text-white text-3xl font-bold font-serif mb-2">{project.title}</h3>
+                    <div className="flex items-center gap-2 text-gray-300 text-base mb-6">
+                      <MapPin size={18} className="text-orange-500" />
                       {project.location}
                     </div>
-                    <div className="mt-4 inline-flex items-center gap-2 text-white font-bold text-sm">
-                      View in Gallery <ArrowRight size={16} />
+                    <div className="inline-flex items-center gap-2 text-white font-bold text-sm tracking-wider uppercase border border-white/30 px-4 py-2 rounded-full w-fit hover:bg-orange-600 hover:border-orange-600 transition-colors">
+                      View Gallery <ArrowRight size={16} />
                     </div>
                   </Link>
                 </motion.div>
@@ -89,12 +88,12 @@ export default function HomePortfolio() {
         ))}
 
         {/* View All Button */}
-        <div className="text-center">
+        <div className="text-center mt-12">
           <Link 
             href="/gallery"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-neutral-900 hover:bg-orange-600 text-white rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-xl"
+            className="inline-flex items-center gap-3 px-10 py-5 bg-neutral-900 hover:bg-orange-600 text-white rounded-full font-bold text-xl transition-all transform hover:scale-105 shadow-xl"
           >
-            View All 19 Projects <ArrowRight size={20} />
+            View All 19 Projects <ArrowRight size={22} />
           </Link>
         </div>
 

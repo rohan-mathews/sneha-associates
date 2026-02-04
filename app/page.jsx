@@ -1,10 +1,11 @@
 "use client";
 import FloatingNav from "./components/FloatingNav";
 import HeroSection from "./components/HeroSection";
+import Stats from "./components/Stats"; // 👈 New Stats Bar
 import ServiceCards from "./components/ServiceCards";
 import DetailedServices from "./components/DetailedServices";
 import IntroSection from "./components/IntroSection";
-import HomePortfolio from "./components/HomePortfolio"; // 👈 THIS must match the file name you created in Step 1
+import HomePortfolio from "./components/HomePortfolio";
 import Footer from "./components/Footer";
 import ChatWidget from "./components/ChatWidget"; 
 import EnquirySection from "./components/EnquirySection"; 
@@ -21,7 +22,10 @@ export default function Home() {
 
       <section id="home"><HeroSection /></section>
 
-      <div className="flex justify-center">
+      {/* ✅ STATS BAR (Adds Authority) */}
+      <Reveal width="100%"><Stats /></Reveal>
+
+      <div className="flex justify-center -mt-10 relative z-20">
         <Reveal width="100%"><ServiceCards /></Reveal>
       </div>
 
@@ -35,7 +39,6 @@ export default function Home() {
         <Reveal width="100%"><DetailedServices /></Reveal>
       </section>
 
-      {/* ✅ PROJECTS TEASER */}
       <section id="projects">
         <div className="container mx-auto">
           <Reveal width="100%"><HomePortfolio /></Reveal>

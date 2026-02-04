@@ -1,15 +1,15 @@
 "use client";
 import Link from "next/link";
 import { ArrowRight, CheckCircle } from "lucide-react";
-import { motion } from "framer-motion"; // 👈 Adds that premium smooth animation
+import { motion } from "framer-motion";
 
 export default function HeroSection() {
   return (
     <section className="relative h-screen w-full overflow-hidden">
       
-      {/* 1. BACKGROUND LAYER */}
+      {/* 1. BACKGROUND LAYER (Parallax & Scale Effect) */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-fixed z-0 scale-105" // scale-105 adds subtle depth
+        className="absolute inset-0 bg-cover bg-center bg-fixed z-0 scale-105"
         style={{ backgroundImage: "url('/images/hero-bg.jpg')" }} 
       >
         {/* Modern Gradient Overlay: Darker at bottom for readability */}
@@ -17,12 +17,16 @@ export default function HeroSection() {
       </div>
 
       {/* 2. CONTENT LAYER */}
-      <div className="relative z-10 container mx-auto px-6 h-full flex flex-col md:flex-row items-center pt-28 md:pt-48">
+      {/* ✅ CRITICAL FIX: 
+          - pt-28: Perfect for Phone.
+          - md:pt-20: Reduced for Laptop so buttons don't hide behind the footer.
+      */}
+      <div className="relative z-10 container mx-auto px-6 h-full flex flex-col md:flex-row items-center pt-28 md:pt-20">
         
         {/* Left Column: Text with Staggered Animation */}
         <div className="text-center md:text-left md:w-3/5">
           
-          {/* Animated Badge */}
+          {/* Animated Glass Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -38,7 +42,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-tight mb-6 drop-shadow-2xl"
+            className="text-4xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-tight mb-6 drop-shadow-2xl"
           >
             Building Trust, <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-orange-500 to-amber-600">
@@ -83,7 +87,7 @@ export default function HeroSection() {
         <div className="hidden md:block md:w-2/5"></div>
       </div>
 
-      {/* 3. BOTTOM STATS BAR (Modern Glass Effect) */}
+      {/* 3. BOTTOM STATS BAR (Glass Effect) */}
       <motion.div 
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -94,15 +98,15 @@ export default function HeroSection() {
           <div className="flex items-center gap-3">
             <CheckCircle size={18} className="text-orange-500" /> 15+ Years of Excellence
           </div>
-          <div className="h-4 w-px bg-white/10"></div> {/* Divider */}
+          <div className="h-4 w-px bg-white/10"></div>
           <div className="flex items-center gap-3">
             <CheckCircle size={18} className="text-orange-500" /> 50+ Completed Projects
           </div>
-          <div className="h-4 w-px bg-white/10"></div> {/* Divider */}
+          <div className="h-4 w-px bg-white/10"></div>
           <div className="flex items-center gap-3">
             <CheckCircle size={18} className="text-orange-500" /> Certified Civil Engineers
           </div>
-          <div className="h-4 w-px bg-white/10"></div> {/* Divider */}
+          <div className="h-4 w-px bg-white/10"></div>
           <div className="flex items-center gap-3">
              <CheckCircle size={18} className="text-orange-500" /> On-Time Delivery
           </div>

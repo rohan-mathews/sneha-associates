@@ -4,7 +4,6 @@ import { Ruler, Droplets, Waves, ArrowRight } from "lucide-react";
 
 export default function ServiceCards() {
   
-  // ✅ Kept your "Scroll & Switch" logic
   const handleServiceClick = (category) => {
     const projectSection = document.getElementById("projects");
     if (projectSection) {
@@ -36,10 +35,9 @@ export default function ServiceCards() {
   ];
 
   return (
-    <section className="relative z-20 px-6">
+    <section className="px-6">
       <div className="container mx-auto">
-        {/* Negative margin pulls cards up over the hero image for a 3D effect */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 -mt-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <motion.div
               key={index}
@@ -60,7 +58,6 @@ export default function ServiceCards() {
                 </p>
               </div>
               
-              {/* Button triggers the scroll */}
               <button 
                 onClick={() => handleServiceClick(service.category)}
                 className="text-orange-600 font-bold text-sm tracking-wider flex items-center gap-2 group hover:gap-4 transition-all uppercase w-fit"

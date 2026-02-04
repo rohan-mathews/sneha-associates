@@ -1,7 +1,7 @@
 "use client";
 import FloatingNav from "./components/FloatingNav";
 import HeroSection from "./components/HeroSection";
-import Stats from "./components/Stats"; // 👈 New Stats Bar
+import Stats from "./components/Stats"; 
 import ServiceCards from "./components/ServiceCards";
 import DetailedServices from "./components/DetailedServices";
 import IntroSection from "./components/IntroSection";
@@ -22,10 +22,11 @@ export default function Home() {
 
       <section id="home"><HeroSection /></section>
 
-      {/* ✅ STATS BAR (Adds Authority) */}
+      {/* STATS BAR */}
       <Reveal width="100%"><Stats /></Reveal>
 
-      <div className="flex justify-center -mt-10 relative z-20">
+      {/* SERVICE CARDS - Overlap Logic Here (-mt-24) */}
+      <div className="flex justify-center relative z-20 -mt-24">
         <Reveal width="100%"><ServiceCards /></Reveal>
       </div>
 

@@ -7,18 +7,16 @@ export default function HeroSection() {
     <section className="relative h-screen w-full overflow-hidden">
       
       {/* 1. BACKGROUND IMAGE */}
-      {/* Ensure you have the file 'hero-bg.jpg' in your public/images/ folder */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-fixed z-0"
         style={{ backgroundImage: "url('/images/hero-bg.jpg')" }} 
       >
-        {/* Dark Overlay - Makes text easy to read */}
+        {/* Dark Overlay */}
         <div className="absolute inset-0 bg-neutral-900/70"></div>
       </div>
 
-      {/* 2. CONTENT */}
-      {/* ✅ FIX: 'pt-48' pushes the text down so it doesn't get cut off by the navbar */}
-      <div className="relative z-10 container mx-auto px-6 h-full flex flex-col md:flex-row items-center pt-48 md:pt-0">
+      {/* 2. CONTENT - 'pt-64' pushes text down below the navbar */}
+      <div className="relative z-10 container mx-auto px-6 h-full flex flex-col md:flex-row items-center pt-64 md:pt-0">
         
         {/* Left Column: Text Content */}
         <div className="text-center md:text-left md:w-3/5">
@@ -53,7 +51,7 @@ export default function HeroSection() {
           </div>
         </div>
         
-        {/* Right Column: Empty space to reduce congestion */}
+        {/* Right Column: Empty space */}
         <div className="hidden md:block md:w-2/5"></div>
       </div>
 

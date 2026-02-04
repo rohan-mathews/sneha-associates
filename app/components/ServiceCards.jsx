@@ -1,79 +1,74 @@
 "use client";
-import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { Ruler, Droplets, Waves, ArrowRight } from "lucide-react";
 
-export default function Services() {
+export default function ServiceCards() {
   
-  // This function handles the "Scroll & Switch" magic
+  // ✅ Kept your "Scroll & Switch" logic
   const handleServiceClick = (category) => {
-    // 1. Find the Projects section
     const projectSection = document.getElementById("projects");
-    
     if (projectSection) {
-      // 2. Smooth Scroll to it
       projectSection.scrollIntoView({ behavior: "smooth" });
-      
-      // 3. Send a signal to PortfolioGrid to change the tab
-      // We use a custom event named 'switchProjectTab'
       const event = new CustomEvent("switchProjectTab", { detail: category });
       window.dispatchEvent(event);
     }
   };
 
+  const services = [
+    {
+      category: "Civil Construction",
+      icon: <Ruler size={32} />,
+      title: "Civil Construction",
+      description: "Complete building services from foundation to finish. We handle residential homes and commercial structures.",
+    },
+    {
+      category: "Swimming Pools",
+      icon: <Waves size={32} />,
+      title: "Swimming Pools",
+      description: "Specialized contractors for luxury pool construction, repair, filtration systems, and maintenance.",
+    },
+    {
+      category: "Waterproofing",
+      icon: <Droplets size={32} />,
+      title: "Waterproofing",
+      description: "Advanced waterproofing for terraces and tanks. We ensure your structure is leak-proof and weather-resistant.",
+    },
+  ];
+
   return (
-    <section id="services" className="py-20 bg-white">
-      <div className="container mx-auto px-6">
-        
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-serif font-bold text-neutral-900 mb-4">Our Services</h2>
-          <p className="text-gray-500 max-w-2xl mx-auto">
-            We provide end-to-end construction solutions tailored to your needs.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3">
-          
-          {/* CARD 1: CIVIL CONSTRUCTION (Black) */}
-          <div className="bg-neutral-900 p-12 text-white flex flex-col justify-center group hover:bg-black transition-colors">
-            <h3 className="text-2xl font-serif font-bold mb-4">Civil Construction</h3>
-            <p className="text-gray-400 mb-8 leading-relaxed">
-              Complete building services from foundation to finish. We handle residential homes and commercial structures.
-            </p>
-            <button 
-              onClick={() => handleServiceClick("Civil Construction")}
-              className="text-orange-500 font-bold text-sm tracking-wider flex items-center gap-2 group-hover:gap-4 transition-all uppercase"
+    <section className="relative z-20 px-6">
+      <div className="container mx-auto">
+        {/* Negative margin pulls cards up over the hero image for a 3D effect */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 -mt-20">
+          {services.map((service, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.2, duration: 0.5 }}
+              className="bg-white p-10 rounded-xl shadow-2xl border-b-4 border-orange-500 hover:-translate-y-2 transition-transform duration-300 flex flex-col justify-between h-full"
             >
-              View Service <ArrowRight size={16} />
-            </button>
-          </div>
-
-          {/* CARD 2: WATERPROOFING (Orange - Center) */}
-          <div className="bg-orange-600 p-12 text-white flex flex-col justify-center relative transform md:-translate-y-4 shadow-xl z-10">
-            <h3 className="text-2xl font-serif font-bold mb-4">Waterproofing</h3>
-            <p className="text-white/90 mb-8 leading-relaxed">
-              Advanced waterproofing for terraces and tanks. We ensure your structure is leak-proof and weather-resistant.
-            </p>
-            <button 
-              onClick={() => handleServiceClick("Waterproofing")}
-              className="text-white font-bold text-sm tracking-wider flex items-center gap-2 group-hover:gap-4 transition-all uppercase border-b border-transparent hover:border-white w-fit"
-            >
-              View Service <ArrowRight size={16} />
-            </button>
-          </div>
-
-          {/* CARD 3: SWIMMING POOLS (White with Border) */}
-          <div className="bg-white p-12 text-neutral-900 border border-gray-100 flex flex-col justify-center shadow-lg group hover:border-orange-100 transition-colors">
-            <h3 className="text-2xl font-serif font-bold mb-4">Swimming Pools</h3>
-            <p className="text-gray-500 mb-8 leading-relaxed">
-              Specialized contractors for luxury pool construction, repair, filtration systems, and maintenance.
-            </p>
-            <button 
-              onClick={() => handleServiceClick("Swimming Pools")}
-              className="text-neutral-900 font-bold text-sm tracking-wider flex items-center gap-2 group-hover:gap-4 transition-all uppercase"
-            >
-              View Service <ArrowRight size={16} />
-            </button>
-          </div>
-
+              <div>
+                <div className="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center text-orange-600 mb-6">
+                  {service.icon}
+                </div>
+                <h3 className="text-2xl font-serif font-bold text-neutral-900 mb-4">
+                  {service.title}
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed mb-8">
+                  {service.description}
+                </p>
+              </div>
+              
+              {/* Button triggers the scroll */}
+              <button 
+                onClick={() => handleServiceClick(service.category)}
+                className="text-orange-600 font-bold text-sm tracking-wider flex items-center gap-2 group hover:gap-4 transition-all uppercase w-fit"
+              >
+                View Projects <ArrowRight size={16} />
+              </button>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

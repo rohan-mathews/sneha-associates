@@ -4,48 +4,55 @@ import { ArrowRight, CheckCircle } from "lucide-react";
 
 export default function HeroSection() {
   return (
-    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
+    <section className="relative h-screen w-full overflow-hidden">
       
-      {/* 1. BACKGROUND IMAGE - Replace '/images/hero-bg.jpg' with your best construction photo */}
+      {/* 1. BACKGROUND IMAGE - A nice kitchen view. Replace this URL with your own image! */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-fixed z-0"
-        style={{ backgroundImage: "url('/images/hero-bg.jpg')" }} 
+        style={{ backgroundImage: "url('https://i.imgur.com/5Wc2qD9.jpg')" }} 
       >
-        {/* Dark Overlay for Readability */}
-        <div className="absolute inset-0 bg-neutral-900/70"></div>
+        {/* Dark Overlay - Slightly lighter for a less heavy feel */}
+        <div className="absolute inset-0 bg-neutral-900/60"></div>
       </div>
 
-      {/* 2. CONTENT */}
-      <div className="relative z-10 container mx-auto px-6 text-center md:text-left pt-20">
-        <span className="inline-block py-2 px-4 border border-orange-500/50 rounded-full bg-orange-500/10 text-orange-400 text-sm md:text-base font-bold tracking-widest uppercase mb-6 backdrop-blur-md">
-          Since 2010 • Bengaluru
-        </span>
+      {/* 2. CONTENT - Now a two-column layout on large screens */}
+      <div className="relative z-10 container mx-auto px-6 h-full flex flex-col md:flex-row items-center">
         
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-tight mb-6">
-          Building Trust, <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">
-            Constructing Dreams.
+        {/* Left Column: Text Content */}
+        <div className="text-center md:text-left md:w-3/5 pt-28 md:pt-0">
+          <span className="inline-block py-2 px-4 border border-orange-500/50 rounded-full bg-orange-500/10 text-orange-400 text-sm md:text-base font-bold tracking-widest uppercase mb-6 backdrop-blur-md">
+            Since 2005 • Bengaluru {/* 👈 UPDATED DATE */}
           </span>
-        </h1>
-        
-        <p className="text-lg md:text-2xl text-gray-300 max-w-2xl mb-10 font-light leading-relaxed">
-          Sneha Associates delivers premium civil construction, waterproofing, and swimming pool solutions with engineering precision.
-        </p>
+          
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-tight mb-6">
+            Building Trust, <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">
+              Constructing Dreams.
+            </span>
+          </h1>
+          
+          <p className="text-lg md:text-2xl text-gray-300 max-w-xl mb-10 font-light leading-relaxed">
+            Sneha Associates delivers premium civil construction, waterproofing, and swimming pool solutions with engineering precision.
+          </p>
 
-        <div className="flex flex-col md:flex-row gap-4 justify-center md:justify-start">
-          <Link 
-            href="/#contact-form"
-            className="px-8 py-5 bg-orange-600 hover:bg-orange-700 text-white rounded-full font-bold text-lg transition-all shadow-lg hover:shadow-orange-500/30 flex items-center justify-center gap-2"
-          >
-            Get a Free Consultation <ArrowRight size={20} />
-          </Link>
-          <Link 
-            href="/gallery"
-            className="px-8 py-5 bg-transparent border-2 border-white/30 hover:bg-white hover:text-neutral-900 text-white rounded-full font-bold text-lg transition-all flex items-center justify-center"
-          >
-            View Our Work
-          </Link>
+          <div className="flex flex-col md:flex-row gap-4 justify-center md:justify-start">
+            <Link 
+              href="/#contact-form"
+              className="px-8 py-5 bg-orange-600 hover:bg-orange-700 text-white rounded-full font-bold text-lg transition-all shadow-lg hover:shadow-orange-500/30 flex items-center justify-center gap-2"
+            >
+              Get a Free Consultation <ArrowRight size={20} />
+            </Link>
+            <Link 
+              href="/gallery"
+              className="px-8 py-5 bg-transparent border-2 border-white/30 hover:bg-white hover:text-neutral-900 text-white rounded-full font-bold text-lg transition-all flex items-center justify-center"
+            >
+              View Our Work
+            </Link>
+          </div>
         </div>
+        
+        {/* Right Column: Empty space on desktop to reduce congestion */}
+        <div className="hidden md:block md:w-2/5"></div>
       </div>
 
       {/* 3. THE TRUST BAR (Bottom of Hero) */}

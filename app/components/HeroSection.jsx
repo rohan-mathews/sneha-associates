@@ -1,86 +1,113 @@
 "use client";
 import Link from "next/link";
 import { ArrowRight, CheckCircle } from "lucide-react";
+import { motion } from "framer-motion"; // 👈 Adds that premium smooth animation
 
 export default function HeroSection() {
   return (
     <section className="relative h-screen w-full overflow-hidden">
       
-      {/* 1. BACKGROUND IMAGE */}
-      {/* Make sure your image is at: public/images/hero-bg.jpg */}
+      {/* 1. BACKGROUND LAYER */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-fixed z-0"
+        className="absolute inset-0 bg-cover bg-center bg-fixed z-0 scale-105" // scale-105 adds subtle depth
         style={{ backgroundImage: "url('/images/hero-bg.jpg')" }} 
       >
-        {/* Dark Overlay - Essential for text readability */}
-        <div className="absolute inset-0 bg-neutral-900/70"></div>
+        {/* Modern Gradient Overlay: Darker at bottom for readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/80 via-neutral-900/60 to-neutral-900/90"></div>
       </div>
 
-      {/* 2. CONTENT CONTAINER */}
-      {/* - 'pt-32': Pushes text down on Mobile so it doesn't hide behind the navbar.
-         - 'md:pt-0': On Laptop, we remove that padding and let 'items-center' center it perfectly.
-      */}
-      <div className="relative z-10 container mx-auto px-6 h-full flex flex-col md:flex-row items-center pt-32 md:pt-0">
+      {/* 2. CONTENT LAYER */}
+      <div className="relative z-10 container mx-auto px-6 h-full flex flex-col md:flex-row items-center pt-28 md:pt-48">
         
-        {/* Left Column: Text Content */}
+        {/* Left Column: Text with Staggered Animation */}
         <div className="text-center md:text-left md:w-3/5">
           
-          {/* Badge */}
-          <span className="inline-block py-2 px-4 border border-orange-500/50 rounded-full bg-orange-500/10 text-orange-400 text-sm md:text-base font-bold tracking-widest uppercase mb-6 backdrop-blur-md">
-            Since 2005 • Bengaluru
-          </span>
+          {/* Animated Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="inline-block py-2 px-5 border border-white/10 rounded-full bg-white/5 text-orange-400 text-xs md:text-sm font-bold tracking-[0.2em] uppercase mb-6 backdrop-blur-md shadow-lg">
+              Since 2005 • Bengaluru
+            </span>
+          </motion.div>
           
-          {/* Main Heading */}
-          <h1 className="text-4xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-tight mb-6">
+          {/* Animated Headline */}
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-tight mb-6 drop-shadow-2xl"
+          >
             Building Trust, <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-orange-500 to-amber-600">
               Constructing Dreams.
             </span>
-          </h1>
+          </motion.h1>
           
-          {/* Description */}
-          <p className="text-lg md:text-2xl text-gray-300 max-w-xl mb-10 font-light leading-relaxed">
+          {/* Animated Description */}
+          <motion.p 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-lg md:text-xl text-gray-300 max-w-xl mb-10 font-light leading-relaxed mx-auto md:mx-0"
+          >
             Sneha Associates delivers premium civil construction, waterproofing, and swimming pool solutions with engineering precision.
-          </p>
+          </motion.p>
 
-          {/* Buttons - Now visible on mobile! */}
-          <div className="flex flex-col md:flex-row gap-4 justify-center md:justify-start">
+          {/* Animated Buttons */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="flex flex-col md:flex-row gap-4 justify-center md:justify-start"
+          >
             <Link 
               href="/#contact-form"
-              className="px-8 py-5 bg-orange-600 hover:bg-orange-700 text-white rounded-full font-bold text-lg transition-all shadow-lg hover:shadow-orange-500/30 flex items-center justify-center gap-2"
+              className="group px-8 py-4 bg-orange-600 hover:bg-orange-700 text-white rounded-full font-bold text-lg transition-all shadow-[0_0_20px_rgba(234,88,12,0.3)] hover:shadow-[0_0_30px_rgba(234,88,12,0.5)] flex items-center justify-center gap-2"
             >
-              Get a Free Consultation <ArrowRight size={20} />
+              Get Consultation 
+              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link 
               href="/gallery"
-              className="px-8 py-5 bg-transparent border-2 border-white/30 hover:bg-white hover:text-neutral-900 text-white rounded-full font-bold text-lg transition-all flex items-center justify-center"
+              className="px-8 py-4 bg-white/5 border border-white/20 hover:bg-white hover:text-neutral-900 text-white rounded-full font-bold text-lg transition-all backdrop-blur-sm flex items-center justify-center"
             >
               View Our Work
             </Link>
-          </div>
+          </motion.div>
         </div>
         
-        {/* Right Column: Empty space for desktop layout */}
+        {/* Right Column: Empty Space */}
         <div className="hidden md:block md:w-2/5"></div>
       </div>
 
-      {/* 3. THE TRUST BAR (Hidden on mobile to save space) */}
-      <div className="absolute bottom-0 left-0 right-0 bg-neutral-950/80 backdrop-blur-md border-t border-white/10 py-6 hidden md:block">
-        <div className="container mx-auto px-6 flex justify-between items-center text-white/90 text-sm md:text-base font-medium tracking-wide">
+      {/* 3. BOTTOM STATS BAR (Modern Glass Effect) */}
+      <motion.div 
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1 }}
+        className="absolute bottom-0 left-0 right-0 border-t border-white/10 bg-black/40 backdrop-blur-xl py-6 hidden md:block"
+      >
+        <div className="container mx-auto px-6 flex justify-between items-center text-white/90 text-sm font-medium tracking-wide">
           <div className="flex items-center gap-3">
-            <CheckCircle size={20} className="text-orange-500" /> 15+ Years of Excellence
+            <CheckCircle size={18} className="text-orange-500" /> 15+ Years of Excellence
           </div>
+          <div className="h-4 w-px bg-white/10"></div> {/* Divider */}
           <div className="flex items-center gap-3">
-            <CheckCircle size={20} className="text-orange-500" /> 50+ Completed Projects
+            <CheckCircle size={18} className="text-orange-500" /> 50+ Completed Projects
           </div>
+          <div className="h-4 w-px bg-white/10"></div> {/* Divider */}
           <div className="flex items-center gap-3">
-            <CheckCircle size={20} className="text-orange-500" /> Certified Civil Engineers
+            <CheckCircle size={18} className="text-orange-500" /> Certified Civil Engineers
           </div>
+          <div className="h-4 w-px bg-white/10"></div> {/* Divider */}
           <div className="flex items-center gap-3">
-             <CheckCircle size={20} className="text-orange-500" /> On-Time Delivery
+             <CheckCircle size={18} className="text-orange-500" /> On-Time Delivery
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

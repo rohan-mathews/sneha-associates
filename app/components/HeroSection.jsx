@@ -6,22 +6,23 @@ export default function HeroSection() {
   return (
     <section className="relative h-screen w-full overflow-hidden">
       
-      {/* 1. BACKGROUND IMAGE - A nice kitchen view. Replace this URL with your own image! */}
+      {/* 1. BACKGROUND IMAGE - Now using your local file */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-fixed z-0"
-        style={{ backgroundImage: "url('https://i.imgur.com/5Wc2qD9.jpg')" }} 
+        // 👇 This tells the code to look in your public/images folder
+        style={{ backgroundImage: "url('/images/hero-bg.jpg')" }} 
       >
-        {/* Dark Overlay - Slightly lighter for a less heavy feel */}
+        {/* Dark Overlay - Keeps text readable */}
         <div className="absolute inset-0 bg-neutral-900/60"></div>
       </div>
 
-      {/* 2. CONTENT - Now a two-column layout on large screens */}
-      <div className="relative z-10 container mx-auto px-6 h-full flex flex-col md:flex-row items-center">
+      {/* 2. CONTENT */}
+      <div className="relative z-10 container mx-auto px-6 h-full flex flex-col md:flex-row items-center pt-32 md:pt-0">
         
         {/* Left Column: Text Content */}
-        <div className="text-center md:text-left md:w-3/5 pt-28 md:pt-0">
+        <div className="text-center md:text-left md:w-3/5">
           <span className="inline-block py-2 px-4 border border-orange-500/50 rounded-full bg-orange-500/10 text-orange-400 text-sm md:text-base font-bold tracking-widest uppercase mb-6 backdrop-blur-md">
-            Since 2005 • Bengaluru {/* 👈 UPDATED DATE */}
+            Since 2005 • Bengaluru
           </span>
           
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-tight mb-6">
@@ -51,11 +52,11 @@ export default function HeroSection() {
           </div>
         </div>
         
-        {/* Right Column: Empty space on desktop to reduce congestion */}
+        {/* Right Column: Empty space */}
         <div className="hidden md:block md:w-2/5"></div>
       </div>
 
-      {/* 3. THE TRUST BAR (Bottom of Hero) */}
+      {/* 3. THE TRUST BAR */}
       <div className="absolute bottom-0 left-0 right-0 bg-neutral-950/80 backdrop-blur-md border-t border-white/10 py-6 hidden md:block">
         <div className="container mx-auto px-6 flex justify-between items-center text-white/90 text-sm md:text-base font-medium tracking-wide">
           <div className="flex items-center gap-3">

@@ -12,12 +12,14 @@ import EnquirySection from "./components/EnquirySection";
 import ContactForm from "./components/ContactForm"; 
 import CustomerRatings from "./components/CustomerRatings"; 
 import Reveal from "./components/Reveal"; 
+import StickyContact from "./components/StickyContact"; // 👈 IMPORT THIS
 
 export default function Home() {
   return (
     <main className="relative min-h-screen bg-neutral-50 selection:bg-orange-500 selection:text-white">
       
       <FloatingNav />
+      <StickyContact /> {/* 👈 ADD THIS HERE */}
       <ChatWidget />
 
       <section id="home"><HeroSection /></section>
@@ -25,7 +27,7 @@ export default function Home() {
       {/* STATS BAR */}
       <Reveal width="100%"><Stats /></Reveal>
 
-      {/* SERVICE CARDS - Overlap Logic Here (-mt-24) */}
+      {/* SERVICE CARDS */}
       <div className="flex justify-center relative z-20 -mt-24">
         <Reveal width="100%"><ServiceCards /></Reveal>
       </div>

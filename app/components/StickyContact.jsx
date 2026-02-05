@@ -5,11 +5,7 @@ import { motion } from "framer-motion";
 export default function StickyContact() {
   return (
     <>
-      {/* 1. WHATSAPP BUTTON */}
-      {/* MODERN STACKING LOGIC:
-          - Mobile: 'bottom-24' lifts it up so it sits perfectly ABOVE the Chat Widget.
-          - Desktop: 'md:bottom-6' puts it back in the corner since Chat Widget is smaller there.
-      */}
+      {/* 1. WHATSAPP BUTTON (Visible on All Devices) */}
       <motion.a
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -17,9 +13,10 @@ export default function StickyContact() {
         href="https://wa.me/918867694625?text=Hi%20Sneha%20Associates,%20I%20would%20like%20a%20free%20quote."
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-24 md:bottom-6 right-6 z-[60] flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white px-5 py-3 rounded-full shadow-[0_4px_14px_0_rgba(37,211,102,0.39)] transition-all hover:scale-105 active:scale-95 group"
+        // ✅ FIX: Removed 'md:bottom-6'. 
+        // Now 'bottom-24' applies to BOTH Phone and Laptop, keeping it high up.
+        className="fixed bottom-24 right-6 z-[60] flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white px-5 py-3 rounded-full shadow-[0_4px_14px_0_rgba(37,211,102,0.39)] transition-all hover:scale-105 active:scale-95 group"
       >
-        {/* Official WhatsApp SVG */}
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
           width="24" 

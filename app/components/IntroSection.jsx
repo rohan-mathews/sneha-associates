@@ -1,77 +1,59 @@
 "use client";
-import { motion } from "framer-motion";
-import { Target, Eye, CheckCircle } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export default function IntroSection() {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-20 bg-white">
       <div className="container mx-auto px-6">
-        
-        {/* PART 1: Introduction */}
-        <div className="flex flex-col md:flex-row items-start gap-16 mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           
-          {/* Left: Text */}
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            className="md:w-1/2"
-          >
-            <span className="text-orange-600 font-bold tracking-widest uppercase text-sm">Who We Are</span>
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-neutral-900 mt-4 mb-6 leading-tight">
-              Building Trust <br/> Since 2005.
-            </h2>
-            <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
-              <p>
-                Founded in 2005, <strong>Sneha Associates</strong> is a trusted name in contracting and building services. With nearly two decades of industry experience, we successfully execute projects of varying scales while maintaining the highest standards of workmanship.
-              </p>
-              <p>
-                We believe quality construction is built on strong foundations of trust, transparency, and expertise. From planning to execution, we transform your vision into durable structures.
-              </p>
-            </div>
-            
-            {/* Quote Box */}
-            <div className="mt-8 p-6 bg-orange-50 border-l-4 border-orange-500 rounded-r-xl italic text-neutral-800 text-base">
-              "Our commitment to quality materials, skilled workmanship, and customer satisfaction continues to drive our growth and success."
-            </div>
-          </motion.div>
-
-          {/* Right: Mission & Vision Grid */}
-          <div className="md:w-1/2 grid grid-cols-1 gap-6">
-             {/* Mission */}
-             <motion.div 
-               initial={{ opacity: 0, y: 20 }}
-               whileInView={{ opacity: 1, y: 0 }}
-               className="bg-neutral-900 text-white p-8 rounded-2xl shadow-lg relative overflow-hidden group"
-             >
-                <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity"><Target size={100} /></div>
-                <div className="flex items-center gap-4 mb-4 relative z-10">
-                   <div className="p-3 bg-orange-600 rounded-full"><Target size={24} /></div>
-                   <h3 className="text-2xl font-serif font-bold">Our Mission</h3>
-                </div>
-                <p className="text-gray-400 relative z-10 text-sm leading-relaxed">
-                   To deliver high-quality construction services that exceed client expectations through reliability, technical expertise, and timely execution.
-                </p>
-             </motion.div>
-
-             {/* Vision */}
-             <motion.div 
-               initial={{ opacity: 0, y: 20 }}
-               whileInView={{ opacity: 1, y: 0 }}
-               transition={{ delay: 0.2 }}
-               className="bg-white border border-gray-200 p-8 rounded-2xl shadow-lg relative overflow-hidden group hover:border-orange-200"
-             >
-                <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity"><Eye size={100} className="text-orange-600"/></div>
-                <div className="flex items-center gap-4 mb-4 relative z-10">
-                   <div className="p-3 bg-orange-50 text-orange-600 rounded-full"><Eye size={24} /></div>
-                   <h3 className="text-2xl font-serif font-bold text-neutral-900">Our Vision</h3>
-                </div>
-                <p className="text-gray-600 relative z-10 text-sm leading-relaxed">
-                   To be a leading and trusted construction service provider, recognized for quality, integrity, and excellence in execution.
-                </p>
-             </motion.div>
+          {/* Left: Image Grid */}
+          <div className="relative h-[500px] w-full hidden md:block">
+             <div className="absolute top-0 left-0 w-3/4 h-3/4 rounded-2xl overflow-hidden shadow-2xl z-10 bg-gray-200">
+               {/* Replace src below with a real photo URL when you have one */}
+               <Image 
+                 src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80" 
+                 alt="Construction Site" 
+                 fill 
+                 className="object-cover" 
+               />
+             </div>
+             <div className="absolute bottom-0 right-0 w-2/3 h-2/3 bg-orange-50 rounded-2xl -z-0"></div>
+             <div className="absolute bottom-8 right-8 w-1/2 h-1/2 rounded-xl overflow-hidden shadow-xl z-20 border-4 border-white bg-gray-300">
+               <Image 
+                 src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80" 
+                 alt="Architect Plans" 
+                 fill 
+                 className="object-cover" 
+               />
+             </div>
           </div>
-        </div>
 
+          {/* Right: The "Human" Content */}
+          <div>
+            <span className="text-orange-600 font-bold tracking-wider uppercase text-sm mb-2 block">Who We Are</span>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-neutral-900 mb-6">
+              Building Trust, <br/>One Brick at a Time.
+            </h2>
+            
+            {/* ✅ NEW STORY TEXT */}
+            <p className="text-gray-600 text-lg leading-relaxed mb-6">
+              Sneha Associates was founded with a simple goal — delivering durable, high-quality civil and waterproofing solutions in Bengaluru. 
+            </p>
+            <p className="text-gray-600 text-lg leading-relaxed mb-8">
+              With over 18 years of experience, we have completed hundreds of residential and commercial projects built on trust, precision, and long-term performance. Whether it is a luxury swimming pool or a critical terrace waterproofing job, we treat every home like our own.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+               <Link href="/#contact-form" className="px-8 py-4 bg-neutral-900 text-white rounded-full font-bold hover:bg-orange-600 transition-colors flex items-center justify-center gap-2">
+                  Book Site Visit <ArrowRight size={18} />
+               </Link>
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
   );

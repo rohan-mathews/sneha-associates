@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { ArrowRight, Phone, CheckCircle } from "lucide-react"; 
 import { motion } from "framer-motion";
 
 export default function HeroSection() {
@@ -17,10 +17,7 @@ export default function HeroSection() {
       </div>
 
       {/* 2. CONTENT LAYER */}
-      {/* ✅ CRITICAL FIX: 
-          - pt-28: Perfect for Phone.
-          - md:pt-20: Reduced for Laptop so buttons don't hide behind the footer.
-      */}
+      {/* LAYOUT FIX: pt-28 (Phone) and md:pt-20 (Laptop) ensures buttons are never hidden */}
       <div className="relative z-10 container mx-auto px-6 h-full flex flex-col md:flex-row items-center pt-28 md:pt-20">
         
         {/* Left Column: Text with Staggered Animation */}
@@ -37,48 +34,49 @@ export default function HeroSection() {
             </span>
           </motion.div>
           
-          {/* Animated Headline */}
+          {/* ✅ NEW POWERFUL HEADLINE */}
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-4xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-tight mb-6 drop-shadow-2xl"
+            className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-tight mb-6 drop-shadow-2xl"
           >
-            Building Trust, <br />
+            Trusted Civil & <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-orange-500 to-amber-600">
-              Constructing Dreams.
+              Waterproofing Contractors
             </span>
           </motion.h1>
           
-          {/* Animated Description */}
+          {/* ✅ NEW SUBTEXT */}
           <motion.p 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-lg md:text-xl text-gray-300 max-w-xl mb-10 font-light leading-relaxed mx-auto md:mx-0"
+            className="text-lg md:text-2xl text-gray-200 max-w-xl mb-10 font-medium leading-relaxed mx-auto md:mx-0"
           >
-            Sneha Associates delivers premium civil construction, waterproofing, and swimming pool solutions with engineering precision.
+            Premium Tiling • Waterproofing • Renovation
           </motion.p>
 
-          {/* Animated Buttons */}
+          {/* ✅ NEW WHATSAPP CTA BUTTON */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
             className="flex flex-col md:flex-row gap-4 justify-center md:justify-start"
           >
-            <Link 
-              href="/#contact-form"
+            <a 
+              href="https://wa.me/918867694625?text=Hi%20Sneha%20Associates,%20I%20would%20like%20a%20free%20site%20inspection."
+              target="_blank"
+              rel="noopener noreferrer"
               className="group px-8 py-4 bg-orange-600 hover:bg-orange-700 text-white rounded-full font-bold text-lg transition-all shadow-[0_0_20px_rgba(234,88,12,0.3)] hover:shadow-[0_0_30px_rgba(234,88,12,0.5)] flex items-center justify-center gap-2"
             >
-              Get Consultation 
-              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
+              <Phone size={20} className="fill-white" /> Get Free Quote
+            </a>
             <Link 
               href="/gallery"
               className="px-8 py-4 bg-white/5 border border-white/20 hover:bg-white hover:text-neutral-900 text-white rounded-full font-bold text-lg transition-all backdrop-blur-sm flex items-center justify-center"
             >
-              View Our Work
+              View Projects
             </Link>
           </motion.div>
         </div>
@@ -87,7 +85,7 @@ export default function HeroSection() {
         <div className="hidden md:block md:w-2/5"></div>
       </div>
 
-      {/* 3. BOTTOM STATS BAR (Glass Effect) */}
+      {/* 3. BOTTOM STATS BAR - UPDATED CONTENT */}
       <motion.div 
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -96,15 +94,15 @@ export default function HeroSection() {
       >
         <div className="container mx-auto px-6 flex justify-between items-center text-white/90 text-sm font-medium tracking-wide">
           <div className="flex items-center gap-3">
-            <CheckCircle size={18} className="text-orange-500" /> 15+ Years of Excellence
+            <CheckCircle size={18} className="text-orange-500" /> 18+ Years Experience
           </div>
           <div className="h-4 w-px bg-white/10"></div>
           <div className="flex items-center gap-3">
-            <CheckCircle size={18} className="text-orange-500" /> 50+ Completed Projects
+            <CheckCircle size={18} className="text-orange-500" /> Skilled Workforce
           </div>
           <div className="h-4 w-px bg-white/10"></div>
           <div className="flex items-center gap-3">
-            <CheckCircle size={18} className="text-orange-500" /> Certified Civil Engineers
+            <CheckCircle size={18} className="text-orange-500" /> Quality Materials
           </div>
           <div className="h-4 w-px bg-white/10"></div>
           <div className="flex items-center gap-3">

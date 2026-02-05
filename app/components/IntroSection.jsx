@@ -11,19 +11,23 @@ export default function IntroSection() {
           
           {/* Left: Image Grid */}
           <div className="relative h-[500px] w-full hidden md:block">
+             {/* BIG IMAGE */}
              <div className="absolute top-0 left-0 w-3/4 h-3/4 rounded-2xl overflow-hidden shadow-2xl z-10 bg-gray-200">
-               {/* Replace src below with a real photo URL when you have one */}
                <Image 
-                 src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80" 
+                 src="/images/about-1.jpg"   // 👈 LOOKS FOR YOUR LOCAL FILE
                  alt="Construction Site" 
                  fill 
                  className="object-cover" 
                />
              </div>
+             
+             {/* DECORATIVE BOX */}
              <div className="absolute bottom-0 right-0 w-2/3 h-2/3 bg-orange-50 rounded-2xl -z-0"></div>
+             
+             {/* SMALL OVERLAPPING IMAGE */}
              <div className="absolute bottom-8 right-8 w-1/2 h-1/2 rounded-xl overflow-hidden shadow-xl z-20 border-4 border-white bg-gray-300">
                <Image 
-                 src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80" 
+                 src="/images/about-2.jpg"   // 👈 LOOKS FOR YOUR LOCAL FILE
                  alt="Architect Plans" 
                  fill 
                  className="object-cover" 
@@ -38,7 +42,6 @@ export default function IntroSection() {
               Building Trust, <br/>One Brick at a Time.
             </h2>
             
-            {/* ✅ NEW STORY TEXT */}
             <p className="text-gray-600 text-lg leading-relaxed mb-6">
               Sneha Associates was founded with a simple goal — delivering durable, high-quality civil and waterproofing solutions in Bengaluru. 
             </p>

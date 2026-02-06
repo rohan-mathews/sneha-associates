@@ -1,4 +1,4 @@
-"use client"; // 👈 Needed for animation
+"use client";
 import Link from 'next/link';
 import { MapPin, Phone, Mail, Instagram, Clock, ArrowUp } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -10,7 +10,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-neutral-950 text-white pt-20 pb-10 border-t border-white/10 overflow-hidden">
+    <footer className="relative bg-neutral-950 text-white pt-20 pb-32 border-t border-white/10 overflow-hidden">
       
       {/* Modern Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-t from-orange-950/20 to-neutral-950 pointer-events-none"></div>
@@ -140,7 +140,17 @@ export default function Footer() {
 
         {/* Copyright & Scroll Top */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500 text-xs">
-          <p>© 2026 Sneha Associates. All Rights Reserved. | GSTIN: 29AGHPM4375P1ZJ</p>
+          
+          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6 text-center md:text-left">
+            <p>© 2026 Sneha Associates. All Rights Reserved. | GSTIN: 29AGHPM4375P1ZJ</p>
+            
+            {/* ✅ ADDED LEGAL LINKS HERE */}
+            <div className="flex gap-4">
+               <Link href="/privacy-policy" className="hover:text-orange-500 transition-colors">Privacy Policy</Link>
+               <Link href="/terms-conditions" className="hover:text-orange-500 transition-colors">Terms</Link>
+               <Link href="/code-of-conduct" className="hover:text-orange-500 transition-colors">Code of Conduct</Link>
+            </div>
+          </div>
           
           <button 
             onClick={scrollToTop} 

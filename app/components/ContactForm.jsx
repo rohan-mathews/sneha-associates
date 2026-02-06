@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
+import Link from "next/link"; // 👈 Added Link for legal pages
 import { User, Phone, MapPin, CheckCircle, Mail, Send, Loader2, CheckSquare } from "lucide-react";
 
 export default function ContactForm() {
@@ -15,21 +16,30 @@ export default function ContactForm() {
     user_email: "",
     pincode: "",
     service: "",
+    agreed: false // 👈 New state for checkbox
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    setFormData({ ...formData, [e.target.name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // 🛑 VALIDATION: Check if they agreed
+    if (!formData.agreed) {
+      alert("Please agree to our Terms, Privacy Policy, and Code of Conduct to submit.");
+      return;
+    }
+
     setLoading(true);
 
-    // 1. WhatsApp Message (Needs %0A for line breaks)
+    // 1. WhatsApp Message
     const whatsappMessage = `*New Enquiry from Website* 🏗️%0A%0A*Name:* ${formData.user_name}%0A*Phone:* ${formData.user_phone}%0A*Email:* ${formData.user_email}%0A*Pincode:* ${formData.pincode}%0A*Service:* ${formData.service}`;
     const whatsappUrl = `https://wa.me/918867694625?text=${whatsappMessage}`;
 
-    // 2. Email Message (Needs clean text, no symbols)
+    // 2. Email Message
     const emailMessage = `
 Name: ${formData.user_name}
 Phone: ${formData.user_phone}
@@ -41,21 +51,21 @@ Service: ${formData.service}
     // 3. Send Email via EmailJS
     emailjs
       .send(
-        "service_lpxd6cs",     // ✅ YOUR SERVICE ID
-        "template_q1uutkm",    // ✅ YOUR TEMPLATE ID
+        "service_lpxd6cs",    // ✅ YOUR SERVICE ID
+        "template_q1uutkm",   // ✅ YOUR TEMPLATE ID
         {
           user_name: formData.user_name,
           user_email: formData.user_email,
-          message: emailMessage, // 👈 Sending the CLEAN message to email
+          message: emailMessage,
         },
-        "oKCFhN_lZs4cLSeKg"    // ✅ YOUR PUBLIC KEY
+        "oKCFhN_lZs4cLSeKg"   // ✅ YOUR PUBLIC KEY
       )
       .then(
         () => {
           setLoading(false);
           setSuccess(true);
           
-          // 4. Open WhatsApp after a small delay
+          // 4. Open WhatsApp after delay
           setTimeout(() => {
               window.open(whatsappUrl, "_blank");
           }, 2000); 
@@ -68,7 +78,7 @@ Service: ${formData.service}
       );
   };
 
-  // ✨ SUCCESS STATE VIEW (Dark Theme)
+  // ✨ SUCCESS STATE VIEW
   if (success) {
     return (
       <div className="bg-[#2A221B] p-8 rounded-3xl shadow-2xl text-center h-full flex flex-col justify-center items-center animate-in fade-in zoom-in duration-300">
@@ -84,7 +94,7 @@ Service: ${formData.service}
     );
   }
 
-  // 📝 NORMAL FORM VIEW (Dark Theme + Visible Text)
+  // 📝 NORMAL FORM VIEW
   return (
     <div className="bg-[#2A221B] p-8 rounded-3xl shadow-2xl relative overflow-hidden">
       {/* Decorative top border */}
@@ -182,6 +192,22 @@ Service: ${formData.service}
               <option value="Other" className="text-neutral-900">Other / General Enquiry</option>
             </select>
           </div>
+        </div>
+
+        {/* ✅ LEGAL CHECKBOX (New Addition) */}
+        <div className="flex items-start gap-3 p-3 bg-white/5 rounded-lg border border-white/5">
+            <input 
+              type="checkbox" 
+              name="agreed"
+              id="legal-agree" 
+              required
+              className="mt-1 w-5 h-5 accent-orange-500 cursor-pointer"
+              checked={formData.agreed}
+              onChange={handleChange}
+            />
+            <label htmlFor="legal-agree" className="text-xs text-gray-400 cursor-pointer leading-relaxed">
+              I agree to the <Link href="/terms-conditions" className="text-orange-400 hover:text-orange-300 underline">Terms</Link>, <Link href="/privacy-policy" className="text-orange-400 hover:text-orange-300 underline">Privacy Policy</Link>, and <Link href="/code-of-conduct" className="text-orange-400 hover:text-orange-300 underline">Code of Conduct</Link>.
+            </label>
         </div>
 
         {/* Submit Button */}

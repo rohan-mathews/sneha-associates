@@ -13,17 +13,18 @@ import CustomerRatings from "./components/CustomerRatings";
 import Reveal from "./components/Reveal"; 
 import StickyContact from "./components/StickyContact"; 
 import ProjectPlanner from "./components/ProjectPlanner";
-// 👇 Import the interactive background
 import ConstellationBackground from "./components/ConstellationBackground";
+// 👇 IMPORT THIS
+import ScrollProgress from "./components/ScrollProgress";
 
 export default function Home() {
   return (
-    // ✅ CRITICAL: bg-transparent allows the stars to be seen
     <main className="relative min-h-screen bg-transparent selection:bg-orange-500 selection:text-white">
       
-      {/* The Interactive Background Layer */}
-      <ConstellationBackground />
+      {/* ✅ ADD THE SCROLL BAR HERE */}
+      <ScrollProgress />
 
+      <ConstellationBackground />
       <FloatingNav />
       <StickyContact />
 

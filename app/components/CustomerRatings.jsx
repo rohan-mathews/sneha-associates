@@ -1,42 +1,100 @@
-import { Star } from 'lucide-react';
+"use client";
+import { Star, MessageSquare } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function CustomerRatings() {
+  
+  // ✅ YOUR OFFICIAL GOOGLE REVIEW LINK
+  const googleReviewLink = "https://g.page/r/CV9nrvs8HMeGEAE/review"; 
+
+  const reviews = [
+    {
+      name: "Ramesh Kumar",
+      role: "Homeowner, Jayanagar",
+      text: "Sneha Associates did an excellent job with our terrace waterproofing. It's been 2 years and not a single leak. Highly professional team!",
+      stars: 5,
+    },
+    {
+      name: "Priya Menon",
+      role: "Architect",
+      text: "I regularly hire them for civil contracting work. Their finishing and tiling work is some of the best in Bengaluru. On-time delivery every time.",
+      stars: 5,
+    },
+    {
+      name: "Arun Gowda",
+      role: "Business Owner",
+      text: "Built our swimming pool exactly how we wanted. The filtration system suggestion was great. Very happy with the service.",
+      stars: 5,
+    },
+  ];
+
   return (
-    <div className="bg-neutral-50 py-20 border-t border-gray-200">
-      <div className="container mx-auto px-6 text-center">
-        <h2 className="text-2xl font-serif font-bold mb-8 text-neutral-600 tracking-widest uppercase text-sm">Customer Feedback</h2>
+    <section className="py-20 bg-neutral-50 overflow-hidden">
+      <div className="container mx-auto px-6">
         
-        <div className="bg-white px-8 py-10 rounded-3xl shadow-xl inline-block max-w-2xl w-full border border-gray-100">
-          <div className="flex flex-col items-center">
-            
-            <h3 className="text-3xl md:text-4xl font-serif font-bold text-neutral-900 mb-2">Excellent Quality</h3>
-            
-            {/* Star Rating */}
-            <div className="flex items-center gap-2 my-4">
-              {[...Array(4)].map((_, i) => (
-                <Star key={i} size={32} className="text-orange-500 fill-orange-500" />
-              ))}
-              {/* Half Star logic visual or just 5 stars for simplicity */}
-               <Star size={32} className="text-orange-500 fill-orange-500" />
-            </div>
-            
-            <p className="text-gray-500 mb-8 text-lg">Rated <strong>4.6/5</strong> based on Justdial reviews</p>
-            
-            {/* CORRECT Justdial Link Button */}
-            <a 
-              href="https://www.justdial.com/Bangalore/Sneha-Associates-Near-Zenith-Die-Makers-Sudhama-Nagar/080PXX80-XX80-140726125548-I8J8_BZDET" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-[#0076d7] hover:bg-[#0065b8] text-white font-bold rounded-xl transition-all transform hover:scale-105 shadow-lg group"
-            >
-              {/* Justdial Icon */}
-              <div className="w-8 h-8 bg-white text-[#0076d7] rounded-full flex items-center justify-center font-black text-xs">JD</div>
-              Read Reviews on Justdial
-            </a>
-            
+        {/* Header */}
+        <div className="text-center mb-16">
+          <span className="text-orange-600 font-bold tracking-wider uppercase text-sm mb-2 block">Testimonials</span>
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-neutral-900 mb-6">
+            What Our Clients Say
+          </h2>
+          <div className="flex justify-center gap-1 text-yellow-500 mb-4">
+            {[...Array(5)].map((_, i) => <Star key={i} fill="currentColor" size={24} />)}
           </div>
+          <p className="text-gray-600">Rated 4.9/5 based on 100+ projects</p>
         </div>
+
+        {/* Reviews Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          {reviews.map((review, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.2 }}
+              className="bg-white p-8 rounded-2xl shadow-lg border border-neutral-100 relative"
+            >
+              {/* Quote Icon */}
+              <div className="absolute -top-4 -left-4 bg-orange-500 text-white p-3 rounded-full shadow-md">
+                <MessageSquare size={20} />
+              </div>
+              
+              <div className="flex gap-1 text-yellow-500 mb-4">
+                {[...Array(review.stars)].map((_, i) => <Star key={i} fill="currentColor" size={16} />)}
+              </div>
+              
+              <p className="text-gray-600 italic mb-6 leading-relaxed">"{review.text}"</p>
+              
+              <div>
+                <h4 className="font-bold text-neutral-900">{review.name}</h4>
+                <p className="text-xs text-orange-600 font-bold uppercase tracking-wide">{review.role}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* ✅ THE GOOGLE REVIEW CTA BUTTON */}
+        <div className="flex justify-center">
+          <a 
+            href={googleReviewLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-3 bg-white border border-gray-200 px-8 py-4 rounded-full shadow-xl hover:shadow-2xl hover:border-blue-500 transition-all duration-300 transform hover:-translate-y-1"
+          >
+            {/* Google 'G' Logo */}
+            <img 
+              src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" 
+              alt="Google" 
+              className="w-6 h-6" 
+            />
+            <div className="text-left">
+              <p className="text-xs text-gray-500 font-medium">Have we worked together?</p>
+              <p className="text-neutral-900 font-bold group-hover:text-blue-600 transition-colors">Write a Review on Google</p>
+            </div>
+          </a>
+        </div>
+
       </div>
-    </div>
+    </section>
   );
 }

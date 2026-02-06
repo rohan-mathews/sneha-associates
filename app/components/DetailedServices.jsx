@@ -2,7 +2,7 @@
 import { Check, ArrowRight } from "lucide-react";
 
 export default function DetailedServices() {
-  // ✅ Kept your complete list of 10 services
+  // ✅ Your complete list of 10 services
   const serviceList = [
     "MS Fabricators (Grills & Gates)",
     "Painting Services (Interior & Exterior)",
@@ -17,7 +17,8 @@ export default function DetailedServices() {
   ];
 
   return (
-    <section className="bg-neutral-900 text-white py-24">
+    // ✅ CHANGED: 'bg-transparent' allows the Constellation Stars to show through!
+    <section className="bg-transparent text-white py-24 border-t border-white/10">
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row gap-16 items-start">
           
@@ -32,8 +33,8 @@ export default function DetailedServices() {
             <p className="text-gray-400 mb-8 text-lg leading-relaxed">
               Sneha Associates is your one-stop solution. From heavy fabrication to delicate deep cleaning, we handle it all with our in-house team.
             </p>
-            <a href="#contact-form" className="inline-flex items-center gap-3 px-6 py-3 bg-orange-600 rounded-full font-bold text-white hover:bg-orange-700 transition-all shadow-lg shadow-orange-900/20">
-              Get a Quote Now <ArrowRight size={18} />
+            <a href="#contact-form" className="inline-flex items-center gap-3 px-6 py-3 bg-orange-600 rounded-full font-bold text-white hover:bg-orange-700 transition-all shadow-lg shadow-orange-900/20 group">
+              Get a Quote Now <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform"/>
             </a>
           </div>
 
@@ -42,7 +43,7 @@ export default function DetailedServices() {
             {serviceList.map((item, index) => (
               <div 
                 key={index} 
-                className="flex items-center gap-4 bg-white/5 p-6 rounded-xl hover:bg-white/10 transition-all border border-white/5 hover:border-orange-500/30 group"
+                className="flex items-center gap-4 bg-white/5 p-6 rounded-xl hover:bg-white/10 transition-all border border-white/5 hover:border-orange-500/30 group backdrop-blur-sm"
               >
                 <div className="h-10 w-10 rounded-full bg-orange-600/20 flex items-center justify-center shrink-0 group-hover:bg-orange-600 transition-colors">
                   <Check size={18} className="text-orange-500 group-hover:text-white transition-colors" />

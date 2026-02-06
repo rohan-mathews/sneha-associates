@@ -29,45 +29,47 @@ export default function CustomerRatings() {
   ];
 
   return (
-    <section className="py-20 bg-neutral-50 overflow-hidden">
+    // ✅ CHANGED: Transparent background so stars show through
+    <section className="py-24 bg-transparent overflow-hidden border-t border-white/10">
       <div className="container mx-auto px-6">
         
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="text-orange-600 font-bold tracking-wider uppercase text-sm mb-2 block">Testimonials</span>
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-neutral-900 mb-6">
+          <span className="text-orange-500 font-bold tracking-wider uppercase text-sm mb-2 block">Testimonials</span>
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
             What Our Clients Say
           </h2>
-          <div className="flex justify-center gap-1 text-yellow-500 mb-4">
+          <div className="flex justify-center gap-1 text-orange-400 mb-4">
             {[...Array(5)].map((_, i) => <Star key={i} fill="currentColor" size={24} />)}
           </div>
-          <p className="text-gray-600">Rated 4.9/5 based on 100+ projects</p>
+          <p className="text-gray-400">Rated 4.9/5 based on 100+ projects</p>
         </div>
 
         {/* Reviews Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {reviews.map((review, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.2 }}
-              className="bg-white p-8 rounded-2xl shadow-lg border border-neutral-100 relative"
+              // ✅ CHANGED: Dark Glass Card Style
+              className="bg-white/5 p-8 rounded-2xl shadow-xl border border-white/10 backdrop-blur-md relative hover:bg-white/10 transition-colors group"
             >
               {/* Quote Icon */}
-              <div className="absolute -top-4 -left-4 bg-orange-500 text-white p-3 rounded-full shadow-md">
+              <div className="absolute -top-4 -left-4 bg-orange-600 text-white p-3 rounded-full shadow-lg shadow-orange-900/50 group-hover:scale-110 transition-transform">
                 <MessageSquare size={20} />
               </div>
               
-              <div className="flex gap-1 text-yellow-500 mb-4">
+              <div className="flex gap-1 text-orange-400 mb-4">
                 {[...Array(review.stars)].map((_, i) => <Star key={i} fill="currentColor" size={16} />)}
               </div>
               
-              <p className="text-gray-600 italic mb-6 leading-relaxed">"{review.text}"</p>
+              <p className="text-gray-300 italic mb-6 leading-relaxed">"{review.text}"</p>
               
               <div>
-                <h4 className="font-bold text-neutral-900">{review.name}</h4>
-                <p className="text-xs text-orange-600 font-bold uppercase tracking-wide">{review.role}</p>
+                <h4 className="font-bold text-white text-lg">{review.name}</h4>
+                <p className="text-xs text-orange-500 font-bold uppercase tracking-wide">{review.role}</p>
               </div>
             </motion.div>
           ))}
@@ -79,17 +81,18 @@ export default function CustomerRatings() {
             href={googleReviewLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-3 bg-white border border-gray-200 px-8 py-4 rounded-full shadow-xl hover:shadow-2xl hover:border-blue-500 transition-all duration-300 transform hover:-translate-y-1"
+            // ✅ CHANGED: White button for contrast against dark background
+            className="group flex items-center gap-4 bg-white hover:bg-gray-100 border border-transparent px-8 py-4 rounded-full shadow-[0_0_25px_rgba(255,255,255,0.15)] transition-all duration-300 transform hover:-translate-y-1"
           >
             {/* Google 'G' Logo */}
             <img 
               src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" 
               alt="Google" 
-              className="w-6 h-6" 
+              className="w-8 h-8" 
             />
             <div className="text-left">
-              <p className="text-xs text-gray-500 font-medium">Have we worked together?</p>
-              <p className="text-neutral-900 font-bold group-hover:text-blue-600 transition-colors">Write a Review on Google</p>
+              <p className="text-xs text-gray-500 font-bold uppercase tracking-wider">Have we worked together?</p>
+              <p className="text-neutral-900 font-bold text-lg group-hover:text-blue-600 transition-colors">Write a Review on Google</p>
             </div>
           </a>
         </div>

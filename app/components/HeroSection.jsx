@@ -81,7 +81,7 @@ export default function HeroSection() {
           </motion.div>
         </div>
         
-        {/* Right Column: Empty Space */}
+        {/* Right Column: Empty Space (Allows background image to be seen) */}
         <div className="hidden md:block md:w-2/5"></div>
       </div>
 

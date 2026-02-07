@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Send, CheckCircle, MapPin, Phone, Mail, Clock, ArrowRight, Loader2 } from "lucide-react";
+import { Send, CheckCircle2, MapPin, Phone, Clock, ArrowRight, Loader2, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function ContactForm() {
@@ -22,11 +22,10 @@ export default function ContactForm() {
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSuccess(true);
-      // Reset form after 3 seconds
       setTimeout(() => {
         setIsSuccess(false);
         setFormState({ name: "", phone: "", email: "", service: "", message: "" });
-      }, 3000);
+      }, 5000);
     }, 2000);
   };
 
@@ -35,167 +34,189 @@ export default function ContactForm() {
   };
 
   return (
-    <section id="contact-form" className="py-24 bg-transparent relative z-10 overflow-hidden">
+    <section id="contact-form" className="py-24 bg-[#0a0a0a] relative z-10 overflow-hidden">
+      
+      {/* 1. TECHNICAL GRID BACKGROUND (The "Blueprint" Look) */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
+      
+      {/* 2. AMBIENT GLOWS */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-orange-600/5 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
+
       <div className="container mx-auto px-6 relative">
-
-        {/* Ambient Background Glows */}
-        <div className="absolute top-10 left-0 w-[500px] h-[500px] bg-orange-600/10 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
-        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
           
-          {/* LEFT SIDE: The Pitch & Info */}
+          {/* --- LEFT SIDE: THE PITCH --- */}
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-10"
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="space-y-12"
           >
+            {/* Header */}
             <div>
-              <span className="text-orange-500 font-bold tracking-[0.2em] uppercase text-xs mb-3 block">
-                Start Your Project
-              </span>
-              <h2 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-500 text-[10px] font-bold uppercase tracking-widest mb-6">
+                <Sparkles size={12} /> Start Your Vision
+              </div>
+              <h2 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-[1.1]">
                 Let's Build <br/> Something <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-200">Iconic.</span>
               </h2>
-              <p className="text-gray-400 text-lg leading-relaxed max-w-md">
-                Don't settle for average. Get a free consultation and a detailed BOQ (Bill of Quantities) within 48 hours.
+              <p className="text-gray-400 text-lg leading-relaxed max-w-md font-light">
+                Premium craftsmanship meets engineering precision. Get a detailed BOQ and consultation within 48 hours.
               </p>
             </div>
 
-            {/* Premium Trust Badges */}
-            <div className="space-y-5">
+            {/* Premium "Feature Cards" instead of a list */}
+            <div className="grid gap-4">
               {[
-                "Free On-Site Inspection (Bengaluru)",
-                "Transparent Pricing - No Hidden Costs",
-                "Detailed Material Specification Sheet"
+                { title: "Site Inspection", desc: "Free on-site analysis in Bengaluru" },
+                { title: "Transparent Pricing", desc: "Detailed BOQ with no hidden costs" },
+                { title: "Material Quality", desc: "Premium grade specifications only" }
               ].map((item, i) => (
-                <div key={i} className="flex items-center gap-4 group p-3 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/5">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center text-white shadow-lg shadow-orange-900/20 group-hover:scale-110 transition-transform">
-                    <CheckCircle size={18} />
+                <div key={i} className="group flex items-center gap-5 p-4 rounded-2xl bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.08] hover:border-orange-500/30 transition-all duration-300">
+                  <div className="w-12 h-12 rounded-full bg-neutral-900 border border-white/10 flex items-center justify-center text-orange-500 shadow-lg group-hover:scale-110 transition-transform">
+                    <CheckCircle2 size={20} strokeWidth={2.5} />
                   </div>
-                  <span className="text-gray-300 font-medium group-hover:text-white transition-colors">{item}</span>
+                  <div>
+                    <h4 className="text-white font-bold text-sm mb-0.5 group-hover:text-orange-400 transition-colors">{item.title}</h4>
+                    <p className="text-gray-500 text-xs font-medium">{item.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
 
-            {/* Office Info Card */}
-            <div className="p-8 rounded-3xl bg-neutral-900/60 border border-white/10 backdrop-blur-md relative overflow-hidden group">
-               <div className="absolute top-0 right-0 w-20 h-20 bg-white/5 rounded-full blur-xl -translate-y-1/2 translate-x-1/2 group-hover:bg-orange-500/10 transition-colors"></div>
-               
-               <h4 className="text-white font-bold mb-6 flex items-center gap-2">
-                 <MapPin className="text-orange-500" size={20} /> Head Office
-               </h4>
-               <div className="space-y-4 text-sm text-gray-400">
-                  <p className="leading-relaxed pl-7 border-l-2 border-white/10">
-                    #45, 2nd Main, Industrial Town, <br/> Rajajinagar, Bengaluru - 560010
-                  </p>
-                  <div className="flex items-center gap-3 pl-7">
-                     <Clock className="text-gray-500" size={16} />
-                     <p>Mon - Sat: 9:00 AM - 7:00 PM</p>
+            {/* Address Block - Styled like a Technical Card */}
+            <div className="relative group">
+               <div className="absolute inset-0 bg-gradient-to-r from-orange-600/20 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+               <div className="relative p-8 rounded-3xl bg-[#111] border border-white/10 overflow-hidden">
+                  
+                  {/* Decorative corner accent */}
+                  <div className="absolute top-0 right-0 w-16 h-16 bg-white/5 rounded-bl-3xl"></div>
+
+                  <h4 className="text-white font-bold mb-6 flex items-center gap-2 text-sm uppercase tracking-wider">
+                    <MapPin className="text-orange-500" size={18} /> Head Office
+                  </h4>
+                  
+                  <div className="space-y-5">
+                    <p className="text-gray-300 leading-relaxed text-sm font-light border-l-2 border-orange-500/50 pl-5">
+                      No.75, 7/1, Ground Floor,<br/>
+                      Sudhama Nagar, Bengaluru,<br/>
+                      Karnataka 560027
+                    </p>
+                    
+                    <div className="h-px w-full bg-white/5"></div>
+                    
+                    <div className="flex items-center gap-3 text-sm text-gray-400">
+                        <Clock size={16} className="text-orange-500" />
+                        <span className="font-medium">Mon - Sat: 9:00 AM - 7:00 PM</span>
+                    </div>
                   </div>
                </div>
             </div>
           </motion.div>
 
-          {/* RIGHT SIDE: The Form */}
+          {/* --- RIGHT SIDE: THE GLASS FORM --- */}
           <motion.div 
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
             className="relative"
           >
-            <div className="bg-white/5 border border-white/10 p-8 md:p-10 rounded-3xl backdrop-blur-xl shadow-2xl relative z-10">
+            {/* Glass Container */}
+            <div className="bg-white/[0.02] backdrop-blur-2xl border border-white/10 p-8 md:p-10 rounded-3xl shadow-2xl relative">
               
-              <div className="mb-8">
+              <div className="mb-8 border-b border-white/5 pb-6">
                 <h3 className="text-2xl font-bold text-white mb-2">Get a Free Quote</h3>
-                <p className="text-gray-500 text-sm">Fill out the form below and we will contact you within 24 hours.</p>
+                <p className="text-gray-500 text-xs uppercase tracking-wider font-bold">Response time: 24 Hours</p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 
-                {/* Name & Phone Row */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider ml-1">Your Name</label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Name Input */}
+                  <div className="group space-y-2">
+                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest group-focus-within:text-orange-500 transition-colors">Your Name</label>
                     <input 
                       type="text" 
                       name="name" 
                       value={formState.name} 
                       onChange={handleChange}
-                      placeholder="John Doe"
-                      className="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all hover:bg-black/40"
+                      placeholder="Ex: Rajesh Kumar"
+                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-4 text-white placeholder-gray-700 text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500/50 transition-all"
                       required
                     />
                   </div>
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider ml-1">Phone Number</label>
+                  {/* Phone Input */}
+                  <div className="group space-y-2">
+                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest group-focus-within:text-orange-500 transition-colors">Phone Number</label>
                     <input 
                       type="tel" 
                       name="phone"
                       value={formState.phone} 
                       onChange={handleChange}
                       placeholder="+91 98765 43210"
-                      className="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all hover:bg-black/40"
+                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-4 text-white placeholder-gray-700 text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500/50 transition-all"
                       required
                     />
                   </div>
                 </div>
 
-                {/* Service Dropdown */}
-                <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider ml-1">Service Required</label>
+                {/* Service Select */}
+                <div className="group space-y-2">
+                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest group-focus-within:text-orange-500 transition-colors">Service Required</label>
                     <div className="relative">
                       <select 
                         name="service"
                         value={formState.service} 
                         onChange={handleChange}
-                        className="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all appearance-none cursor-pointer hover:bg-black/40"
+                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-4 text-white text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500/50 transition-all appearance-none cursor-pointer"
                         required
                       >
                         <option value="" className="bg-neutral-900 text-gray-500">Select a Service...</option>
-                        <option value="Construction" className="bg-neutral-900">Civil Construction (New Build)</option>
+                        <option value="Construction" className="bg-neutral-900">Civil Construction</option>
                         <option value="Renovation" className="bg-neutral-900">Home Renovation</option>
-                        <option value="Waterproofing" className="bg-neutral-900">Waterproofing</option>
-                        <option value="Pools" className="bg-neutral-900">Swimming Pool Construction</option>
-                        <option value="Other" className="bg-neutral-900">Other / General Enquiry</option>
+                        <option value="Waterproofing" className="bg-neutral-900">Waterproofing Solutions</option>
+                        <option value="Pools" className="bg-neutral-900">Swimming Pools</option>
+                        <option value="Other" className="bg-neutral-900">General Enquiry</option>
                       </select>
-                      {/* Custom Arrow */}
                       <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
-                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
+                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                       </div>
                     </div>
                 </div>
 
-                {/* Message Box */}
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider ml-1">Project Details</label>
+                {/* Message Input */}
+                <div className="group space-y-2">
+                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest group-focus-within:text-orange-500 transition-colors">Project Details</label>
                   <textarea 
                     name="message"
                     value={formState.message} 
                     onChange={handleChange}
                     rows="4"
-                    placeholder="Tell us about your project (Area size, location, specific issues...)"
-                    className="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all resize-none hover:bg-black/40"
+                    placeholder="Tell us about your requirements (Location, Plot size, etc.)"
+                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-4 text-white placeholder-gray-700 text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500/50 transition-all resize-none"
                   ></textarea>
                 </div>
 
-                {/* Submit Button */}
+                {/* High-End Submit Button */}
                 <button 
                   type="submit"
                   disabled={isSubmitting || isSuccess}
-                  className={`w-full font-bold py-4 rounded-xl shadow-lg transform transition-all flex items-center justify-center gap-2 group/btn relative overflow-hidden ${
+                  className={`w-full font-bold py-4 rounded-xl shadow-[0_0_20px_rgba(234,88,12,0.2)] transform transition-all flex items-center justify-center gap-2 group/btn relative overflow-hidden ${
                     isSuccess 
-                      ? "bg-green-600 text-white cursor-default"
-                      : "bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white hover:-translate-y-1 hover:shadow-orange-600/30"
+                      ? "bg-green-600 text-white cursor-default border border-green-500"
+                      : "bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-500 hover:to-orange-600 text-white border border-orange-500/50"
                   }`}
                 >
+                  {/* Button Shine Effect */}
+                  {!isSuccess && !isSubmitting && (
+                    <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover/btn:animate-shine" />
+                  )}
+
                   {isSubmitting ? (
                     <Loader2 className="animate-spin" />
                   ) : isSuccess ? (
-                    <>Message Sent <CheckCircle size={18} /></>
+                    <>Request Sent <CheckCircle2 size={18} /></>
                   ) : (
                     <>
                       Get Free Quote 
@@ -204,16 +225,15 @@ export default function ContactForm() {
                   )}
                 </button>
 
-                <p className="text-center text-[10px] text-gray-500 mt-4 leading-tight">
-                  By submitting, you consent to allow Sneha Associates to store and process the personal information submitted above to provide you the content requested.
+                <p className="text-center text-[10px] text-gray-600 mt-4 leading-tight">
+                  Protected by standard privacy protocols. Your data is never shared.
                 </p>
 
               </form>
             </div>
             
-            {/* Decorative Element Behind Form */}
-            <div className="absolute -top-5 -right-5 w-24 h-24 bg-orange-500/20 rounded-full blur-2xl -z-10"></div>
-            <div className="absolute -bottom-5 -left-5 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl -z-10"></div>
+            {/* Background elements to blend form into page */}
+            <div className="absolute -top-10 -right-10 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl -z-10"></div>
           </motion.div>
 
         </div>

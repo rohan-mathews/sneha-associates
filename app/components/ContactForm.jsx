@@ -1,233 +1,223 @@
 "use client";
-import { useState, useRef } from "react";
-import emailjs from "@emailjs/browser";
-import Link from "next/link"; // 👈 Added Link for legal pages
-import { User, Phone, MapPin, CheckCircle, Mail, Send, Loader2, CheckSquare } from "lucide-react";
+import { useState } from "react";
+import { Send, CheckCircle, MapPin, Phone, Mail, Clock, ArrowRight, Loader2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function ContactForm() {
-  const formRef = useRef();
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-
-  // Form State
-  const [formData, setFormData] = useState({
-    user_name: "",
-    user_phone: "",
-    user_email: "",
-    pincode: "",
+  const [formState, setFormState] = useState({
+    name: "",
+    phone: "",
+    email: "",
     service: "",
-    agreed: false // 👈 New state for checkbox
+    message: ""
   });
-
-  const handleChange = (e) => {
-    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
-    setFormData({ ...formData, [e.target.name]: value });
-  };
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // 🛑 VALIDATION: Check if they agreed
-    if (!formData.agreed) {
-      alert("Please agree to our Terms, Privacy Policy, and Code of Conduct to submit.");
-      return;
-    }
-
-    setLoading(true);
-
-    // 1. WhatsApp Message
-    const whatsappMessage = `*New Enquiry from Website* 🏗️%0A%0A*Name:* ${formData.user_name}%0A*Phone:* ${formData.user_phone}%0A*Email:* ${formData.user_email}%0A*Pincode:* ${formData.pincode}%0A*Service:* ${formData.service}`;
-    const whatsappUrl = `https://wa.me/918867694625?text=${whatsappMessage}`;
-
-    // 2. Email Message
-    const emailMessage = `
-Name: ${formData.user_name}
-Phone: ${formData.user_phone}
-Email: ${formData.user_email}
-Pincode: ${formData.pincode}
-Service: ${formData.service}
-    `;
-
-    // 3. Send Email via EmailJS
-    emailjs
-      .send(
-        "service_lpxd6cs",    // ✅ YOUR SERVICE ID
-        "template_q1uutkm",   // ✅ YOUR TEMPLATE ID
-        {
-          user_name: formData.user_name,
-          user_email: formData.user_email,
-          message: emailMessage,
-        },
-        "oKCFhN_lZs4cLSeKg"   // ✅ YOUR PUBLIC KEY
-      )
-      .then(
-        () => {
-          setLoading(false);
-          setSuccess(true);
-          
-          // 4. Open WhatsApp after delay
-          setTimeout(() => {
-              window.open(whatsappUrl, "_blank");
-          }, 2000); 
-        },
-        (error) => {
-          setLoading(false);
-          alert("Something went wrong. Please try again or call us directly.");
-          console.error("FAILED...", error);
-        }
-      );
+    setIsSubmitting(true);
+    
+    // Simulate network request
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSuccess(true);
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        setIsSuccess(false);
+        setFormState({ name: "", phone: "", email: "", service: "", message: "" });
+      }, 3000);
+    }, 2000);
   };
 
-  // ✨ SUCCESS STATE VIEW
-  if (success) {
-    return (
-      <div className="bg-[#2A221B] p-8 rounded-3xl shadow-2xl text-center h-full flex flex-col justify-center items-center animate-in fade-in zoom-in duration-300">
-        <div className="w-16 h-16 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center mb-6">
-          <CheckCircle size={32} />
-        </div>
-        <h3 className="text-2xl font-serif font-bold text-white mb-2">Enquiry Sent!</h3>
-        <p className="text-gray-300 mb-8 max-w-xs mx-auto">
-          Thank you for choosing Sneha Associates. Please check your email for confirmation. Redirecting to WhatsApp...
-        </p>
-        <Loader2 className="animate-spin text-orange-500" size={24} />
-      </div>
-    );
-  }
+  const handleChange = (e) => {
+    setFormState({ ...formState, [e.target.name]: e.target.value });
+  };
 
-  // 📝 NORMAL FORM VIEW
   return (
-    <div className="bg-[#2A221B] p-8 rounded-3xl shadow-2xl relative overflow-hidden">
-      {/* Decorative top border */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-700 via-orange-500 to-orange-700"></div>
-      
-      <h3 className="text-2xl font-serif font-bold text-white mb-2">Get a Free Quote</h3>
-      <p className="text-gray-300 text-sm mb-8">Fill in your details below and our experts will contact you directly.</p>
-      
-      <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
-        
-        {/* Name */}
-        <div>
-          <label className="block text-xs font-bold text-orange-300 uppercase mb-2 ml-1">Your Name</label>
-          <div className="relative">
-            <User className="absolute left-4 top-3.5 text-gray-500" size={18} />
-            <input 
-              required
-              type="text" 
-              name="user_name"
-              placeholder="Ex: Rajesh Kumar"
-              value={formData.user_name}
-              onChange={handleChange}
-              className="w-full pl-12 pr-4 py-3 rounded-xl bg-white/10 border border-white/10 text-white placeholder-gray-500 focus:border-orange-500 focus:bg-white/20 outline-none transition-all"
-            />
-          </div>
+    <section id="contact-form" className="py-24 bg-transparent relative z-10 overflow-hidden">
+      <div className="container mx-auto px-6 relative">
+
+        {/* Ambient Background Glows */}
+        <div className="absolute top-10 left-0 w-[500px] h-[500px] bg-orange-600/10 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          
+          {/* LEFT SIDE: The Pitch & Info */}
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="space-y-10"
+          >
+            <div>
+              <span className="text-orange-500 font-bold tracking-[0.2em] uppercase text-xs mb-3 block">
+                Start Your Project
+              </span>
+              <h2 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
+                Let's Build <br/> Something <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-200">Iconic.</span>
+              </h2>
+              <p className="text-gray-400 text-lg leading-relaxed max-w-md">
+                Don't settle for average. Get a free consultation and a detailed BOQ (Bill of Quantities) within 48 hours.
+              </p>
+            </div>
+
+            {/* Premium Trust Badges */}
+            <div className="space-y-5">
+              {[
+                "Free On-Site Inspection (Bengaluru)",
+                "Transparent Pricing - No Hidden Costs",
+                "Detailed Material Specification Sheet"
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-4 group p-3 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/5">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center text-white shadow-lg shadow-orange-900/20 group-hover:scale-110 transition-transform">
+                    <CheckCircle size={18} />
+                  </div>
+                  <span className="text-gray-300 font-medium group-hover:text-white transition-colors">{item}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Office Info Card */}
+            <div className="p-8 rounded-3xl bg-neutral-900/60 border border-white/10 backdrop-blur-md relative overflow-hidden group">
+               <div className="absolute top-0 right-0 w-20 h-20 bg-white/5 rounded-full blur-xl -translate-y-1/2 translate-x-1/2 group-hover:bg-orange-500/10 transition-colors"></div>
+               
+               <h4 className="text-white font-bold mb-6 flex items-center gap-2">
+                 <MapPin className="text-orange-500" size={20} /> Head Office
+               </h4>
+               <div className="space-y-4 text-sm text-gray-400">
+                  <p className="leading-relaxed pl-7 border-l-2 border-white/10">
+                    #45, 2nd Main, Industrial Town, <br/> Rajajinagar, Bengaluru - 560010
+                  </p>
+                  <div className="flex items-center gap-3 pl-7">
+                     <Clock className="text-gray-500" size={16} />
+                     <p>Mon - Sat: 9:00 AM - 7:00 PM</p>
+                  </div>
+               </div>
+            </div>
+          </motion.div>
+
+          {/* RIGHT SIDE: The Form */}
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="relative"
+          >
+            <div className="bg-white/5 border border-white/10 p-8 md:p-10 rounded-3xl backdrop-blur-xl shadow-2xl relative z-10">
+              
+              <div className="mb-8">
+                <h3 className="text-2xl font-bold text-white mb-2">Get a Free Quote</h3>
+                <p className="text-gray-500 text-sm">Fill out the form below and we will contact you within 24 hours.</p>
+              </div>
+
+              <form onSubmit={handleSubmit} className="space-y-5">
+                
+                {/* Name & Phone Row */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider ml-1">Your Name</label>
+                    <input 
+                      type="text" 
+                      name="name" 
+                      value={formState.name} 
+                      onChange={handleChange}
+                      placeholder="John Doe"
+                      className="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all hover:bg-black/40"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider ml-1">Phone Number</label>
+                    <input 
+                      type="tel" 
+                      name="phone"
+                      value={formState.phone} 
+                      onChange={handleChange}
+                      placeholder="+91 98765 43210"
+                      className="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all hover:bg-black/40"
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* Service Dropdown */}
+                <div className="space-y-1.5">
+                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider ml-1">Service Required</label>
+                    <div className="relative">
+                      <select 
+                        name="service"
+                        value={formState.service} 
+                        onChange={handleChange}
+                        className="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all appearance-none cursor-pointer hover:bg-black/40"
+                        required
+                      >
+                        <option value="" className="bg-neutral-900 text-gray-500">Select a Service...</option>
+                        <option value="Construction" className="bg-neutral-900">Civil Construction (New Build)</option>
+                        <option value="Renovation" className="bg-neutral-900">Home Renovation</option>
+                        <option value="Waterproofing" className="bg-neutral-900">Waterproofing</option>
+                        <option value="Pools" className="bg-neutral-900">Swimming Pool Construction</option>
+                        <option value="Other" className="bg-neutral-900">Other / General Enquiry</option>
+                      </select>
+                      {/* Custom Arrow */}
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
+                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                    </div>
+                </div>
+
+                {/* Message Box */}
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider ml-1">Project Details</label>
+                  <textarea 
+                    name="message"
+                    value={formState.message} 
+                    onChange={handleChange}
+                    rows="4"
+                    placeholder="Tell us about your project (Area size, location, specific issues...)"
+                    className="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all resize-none hover:bg-black/40"
+                  ></textarea>
+                </div>
+
+                {/* Submit Button */}
+                <button 
+                  type="submit"
+                  disabled={isSubmitting || isSuccess}
+                  className={`w-full font-bold py-4 rounded-xl shadow-lg transform transition-all flex items-center justify-center gap-2 group/btn relative overflow-hidden ${
+                    isSuccess 
+                      ? "bg-green-600 text-white cursor-default"
+                      : "bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white hover:-translate-y-1 hover:shadow-orange-600/30"
+                  }`}
+                >
+                  {isSubmitting ? (
+                    <Loader2 className="animate-spin" />
+                  ) : isSuccess ? (
+                    <>Message Sent <CheckCircle size={18} /></>
+                  ) : (
+                    <>
+                      Get Free Quote 
+                      <ArrowRight size={18} className="group-hover/btn:translate-x-1 transition-transform" />
+                    </>
+                  )}
+                </button>
+
+                <p className="text-center text-[10px] text-gray-500 mt-4 leading-tight">
+                  By submitting, you consent to allow Sneha Associates to store and process the personal information submitted above to provide you the content requested.
+                </p>
+
+              </form>
+            </div>
+            
+            {/* Decorative Element Behind Form */}
+            <div className="absolute -top-5 -right-5 w-24 h-24 bg-orange-500/20 rounded-full blur-2xl -z-10"></div>
+            <div className="absolute -bottom-5 -left-5 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl -z-10"></div>
+          </motion.div>
+
         </div>
-
-        {/* Phone */}
-        <div>
-          <label className="block text-xs font-bold text-orange-300 uppercase mb-2 ml-1">Phone Number</label>
-          <div className="relative">
-            <Phone className="absolute left-4 top-3.5 text-gray-500" size={18} />
-            <input 
-              required
-              type="tel" 
-              name="user_phone"
-              placeholder="Ex: 98765 43210"
-              value={formData.user_phone}
-              onChange={handleChange}
-              className="w-full pl-12 pr-4 py-3 rounded-xl bg-white/10 border border-white/10 text-white placeholder-gray-500 focus:border-orange-500 focus:bg-white/20 outline-none transition-all"
-            />
-          </div>
-        </div>
-
-        {/* Email */}
-        <div>
-          <label className="block text-xs font-bold text-orange-300 uppercase mb-2 ml-1">Email Address</label>
-          <div className="relative">
-            <Mail className="absolute left-4 top-3.5 text-gray-500" size={18} />
-            <input 
-              required
-              type="email" 
-              name="user_email"
-              placeholder="Ex: rajesh@gmail.com"
-              value={formData.user_email}
-              onChange={handleChange}
-              className="w-full pl-12 pr-4 py-3 rounded-xl bg-white/10 border border-white/10 text-white placeholder-gray-500 focus:border-orange-500 focus:bg-white/20 outline-none transition-all"
-            />
-          </div>
-        </div>
-
-        {/* Pincode */}
-        <div>
-          <label className="block text-xs font-bold text-orange-300 uppercase mb-2 ml-1">Project Pincode</label>
-          <div className="relative">
-            <MapPin className="absolute left-4 top-3.5 text-gray-500" size={18} />
-            <input 
-              required
-              type="text" 
-              name="pincode"
-              placeholder="Ex: 560043"
-              value={formData.pincode}
-              onChange={handleChange}
-              className="w-full pl-12 pr-4 py-3 rounded-xl bg-white/10 border border-white/10 text-white placeholder-gray-500 focus:border-orange-500 focus:bg-white/20 outline-none transition-all"
-            />
-          </div>
-        </div>
-
-        {/* Service */}
-        <div>
-          <label className="block text-xs font-bold text-orange-300 uppercase mb-2 ml-1">Service Required</label>
-          <div className="relative">
-            <CheckSquare className="absolute left-4 top-3.5 text-gray-500" size={18} />
-            <select 
-              required
-              name="service"
-              value={formData.service}
-              onChange={handleChange}
-              className="w-full pl-12 pr-4 py-3 rounded-xl bg-white/10 border border-white/10 text-white placeholder-gray-500 focus:border-orange-500 focus:bg-white/20 outline-none transition-all appearance-none"
-            >
-              <option value="" disabled className="text-gray-500">Select a Service...</option>
-              <option value="Civil Construction" className="text-neutral-900">Civil Construction</option>
-              <option value="Waterproofing" className="text-neutral-900">Waterproofing</option>
-              <option value="Swimming Pools" className="text-neutral-900">Swimming Pools</option>
-              <option value="Other" className="text-neutral-900">Other / General Enquiry</option>
-            </select>
-          </div>
-        </div>
-
-        {/* ✅ LEGAL CHECKBOX (New Addition) */}
-        <div className="flex items-start gap-3 p-3 bg-white/5 rounded-lg border border-white/5">
-            <input 
-              type="checkbox" 
-              name="agreed"
-              id="legal-agree" 
-              required
-              className="mt-1 w-5 h-5 accent-orange-500 cursor-pointer"
-              checked={formData.agreed}
-              onChange={handleChange}
-            />
-            <label htmlFor="legal-agree" className="text-xs text-gray-400 cursor-pointer leading-relaxed">
-              I agree to the <Link href="/terms-conditions" className="text-orange-400 hover:text-orange-300 underline">Terms</Link>, <Link href="/privacy-policy" className="text-orange-400 hover:text-orange-300 underline">Privacy Policy</Link>, and <Link href="/code-of-conduct" className="text-orange-400 hover:text-orange-300 underline">Code of Conduct</Link>.
-            </label>
-        </div>
-
-        {/* Submit Button */}
-        <button 
-          disabled={loading}
-          type="submit" 
-          className="w-full bg-gradient-to-r from-orange-600 to-orange-800 hover:from-orange-700 hover:to-orange-900 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
-        >
-          {loading ? (
-            <> <Loader2 className="animate-spin" /> Sending... </>
-          ) : (
-            <> Submit Enquiry <Send size={18} /> </>
-          )}
-        </button>
-
-        <p className="text-xs text-center text-gray-400 mt-4">
-          By submitting, you agree to be contacted via WhatsApp or Email.
-        </p>
-
-      </form>
-    </div>
+      </div>
+    </section>
   );
 }

@@ -96,7 +96,7 @@ export default function CustomerRatings() {
         {/* ✅ THE PREMIUM "GLASS" GOOGLE REVIEW BUTTON */}
         <div className="flex justify-center">
           <motion.a
-            href="https://g.page/r/YOUR_ACTUAL_GOOGLE_LINK_HERE/review" // 🔴 REPLACE THIS LINK
+            href="https://g.page/r/CV9nrvs8HMeGEAE/review" // 🔴 REPLACE THIS LINK
             target="_blank"
             rel="noopener noreferrer"
             initial={{ opacity: 0, scale: 0.9 }}

@@ -14,18 +14,21 @@ export default function ServiceCards() {
   };
 
   const services = [
-    {
-      category: "Civil Construction",
-      icon: <Ruler size={32} />,
-      title: "Civil Construction",
-      description: "Complete building services from foundation to finish. We handle residential homes and commercial structures.",
-    },
+    // ✅ 1. MOVED SWIMMING POOLS TO FIRST POSITION
     {
       category: "Swimming Pools",
       icon: <Waves size={32} />,
       title: "Swimming Pools",
       description: "Specialized contractors for luxury pool construction, repair, filtration systems, and maintenance.",
     },
+    // 2. Civil Construction is now second
+    {
+      category: "Civil Construction",
+      icon: <Ruler size={32} />,
+      title: "Civil Construction",
+      description: "Complete building services from foundation to finish. We handle residential homes and commercial structures.",
+    },
+    // 3. Waterproofing remains last
     {
       category: "Waterproofing",
       icon: <Droplets size={32} />,

@@ -1,142 +1,162 @@
 "use client";
-import { useState } from "react";
-import { MessageCircle, X, Phone, Image as ImageIcon, Star, ExternalLink } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { MessageCircle, X, Send, Loader2, Sparkles, Bot } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
+// ✅ UPDATED: Your specific Ngrok Link
+const API_URL = "https://unvermiculated-freckly-kristel.ngrok-free.dev/chat"; 
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
-  const [showCard, setShowCard] = useState(false);
+  const [messages, setMessages] = useState([
+    { text: "Hello! I am Sneha AI. How can I help you with your construction project today?", isUser: false }
+  ]);
+  const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  
+  // Auto-scroll to bottom
+  const messagesEndRef = useRef(null);
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isOpen]);
+
+  const handleSend = async (e) => {
+    e.preventDefault();
+    if (!inputValue.trim()) return;
+
+    // 1. Add User Message
+    const userMessage = { text: inputValue, isUser: true };
+    setMessages((prev) => [...prev, userMessage]);
+    setInputValue("");
+    setIsLoading(true);
+
+    try {
+      // 2. Send to Ngrok API
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: userMessage.text }),
+      });
+
+      if (!response.ok) throw new Error("Network response was not ok");
+
+      const data = await response.json();
+
+      // 3. Add AI Response
+      const botMessage = { text: data.response || "I received your message!", isUser: false };
+      setMessages((prev) => [...prev, botMessage]);
+
+    } catch (error) {
+      console.error("Error:", error);
+      setMessages((prev) => [...prev, { text: "Sorry, I am having trouble connecting to the server right now.", isUser: false, isError: true }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end print:hidden">
+    <div className="fixed bottom-6 right-6 z-[9999] flex flex-col items-end gap-4 font-sans">
       
-      {/* 1. The Chat Menu Window */}
-      {isOpen && (
-        <div className="mb-4 bg-white rounded-2xl shadow-2xl w-80 overflow-hidden border border-gray-100 transition-all animate-in fade-in slide-in-from-bottom-4">
-          
-          {/* Header */}
-          <div className="bg-neutral-900 p-4 flex justify-between items-center">
-            <div className="flex items-center gap-3">
-              <div className="relative">
-                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-lg">👷</div>
-                <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-neutral-900"></div>
+      {/* CHAT WINDOW */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            className="w-[350px] md:w-[400px] h-[500px] bg-[#0a0a0a]/90 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+          >
+            {/* Header */}
+            <div className="p-4 border-b border-white/10 bg-gradient-to-r from-orange-600/20 to-transparent flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white shadow-lg">
+                  <Bot size={20} />
+                </div>
+                <div>
+                  <h3 className="text-white font-bold text-sm">Sneha Assistant</h3>
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    <span className="text-xs text-green-500 font-medium">Online</span>
+                  </div>
+                </div>
               </div>
-              <div>
-                <h3 className="font-bold text-white text-sm">Sneha Associates</h3>
-                <p className="text-orange-400 text-xs">Online • Replies instantly</p>
-              </div>
+              <button onClick={() => setIsOpen(false)} className="text-gray-400 hover:text-white transition-colors">
+                <X size={20} />
+              </button>
             </div>
-            <button onClick={() => setIsOpen(false)} className="text-gray-400 hover:text-white transition-colors">
-              <X size={20} />
-            </button>
-          </div>
 
-          {/* Chat Body */}
-          <div className="p-4 bg-gray-50">
-            
-            {!showCard ? (
-              <div className="space-y-3">
-                {/* Greeting */}
-                <div className="bg-white p-3 rounded-tr-xl rounded-bl-xl rounded-br-xl shadow-sm text-sm text-gray-700 border border-gray-100 mb-2">
-                  Hello! 👋 How can we help you with your construction needs today?
+            {/* Messages Area */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
+              {messages.map((msg, index) => (
+                <div key={index} className={`flex ${msg.isUser ? "justify-end" : "justify-start"}`}>
+                  <div 
+                    className={`max-w-[80%] p-3.5 rounded-2xl text-sm leading-relaxed ${
+                      msg.isUser 
+                        ? "bg-orange-600 text-white rounded-br-none shadow-lg shadow-orange-900/20" 
+                        : msg.isError
+                          ? "bg-red-900/50 border border-red-500/30 text-red-200 rounded-bl-none"
+                          : "bg-white/10 text-gray-200 border border-white/5 rounded-bl-none"
+                    }`}
+                  >
+                    {msg.text}
+                  </div>
                 </div>
-                
-                {/* 1. View Card Button */}
+              ))}
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className="bg-white/10 p-3 rounded-2xl rounded-bl-none flex gap-2 items-center">
+                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></span>
+                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Input Area */}
+            <form onSubmit={handleSend} className="p-4 border-t border-white/10 bg-black/20">
+              <div className="relative flex items-center gap-2">
+                <input
+                  type="text"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  placeholder="Ask about construction..."
+                  className="w-full bg-black/40 border border-white/10 rounded-xl pl-4 pr-12 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500/50 transition-all text-sm"
+                />
                 <button 
-                  onClick={() => setShowCard(true)}
-                  className="w-full flex items-center gap-3 bg-white hover:bg-orange-50 text-neutral-800 text-sm font-bold p-3 rounded-xl border border-gray-200 transition-colors shadow-sm group text-left"
+                  type="submit" 
+                  disabled={isLoading || !inputValue.trim()}
+                  className="absolute right-2 p-2 bg-orange-600 rounded-lg text-white hover:bg-orange-500 disabled:opacity-50 disabled:hover:bg-orange-600 transition-colors"
                 >
-                  <div className="w-8 h-8 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <ImageIcon size={16} />
-                  </div>
-                  View Visiting Card
+                  {isLoading ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
                 </button>
-
-                {/* 2. WhatsApp Button */}
-                <a 
-                  href="https://wa.me/918867694625?text=Hi,%20I%20saw%20your%20website%20and%20want%20to%20enquire%20about%20services."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full flex items-center gap-3 bg-white hover:bg-green-50 text-neutral-800 text-sm font-bold p-3 rounded-xl border border-gray-200 transition-colors shadow-sm group text-left"
-                >
-                  <div className="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <MessageCircle size={16} />
-                  </div>
-                  Chat on WhatsApp
-                </a>
-
-                {/* 3. Call Now Button */}
-                <a 
-                  href="tel:+918867694625"
-                  className="w-full flex items-center gap-3 bg-white hover:bg-blue-50 text-neutral-800 text-sm font-bold p-3 rounded-xl border border-gray-200 transition-colors shadow-sm group text-left"
-                >
-                  <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Phone size={16} />
-                  </div>
-                  Call Us Directly
-                </a>
-
-                {/* 4. Justdial Button */}
-                <a 
-                  href="https://www.justdial.com/Bangalore/Sneha-Associates-Near-Zenith-Die-Makers-Sudhama-Nagar/080PXX80-XX80-140726125548-I8J8_BZDET"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full flex items-center gap-3 bg-white hover:bg-orange-50 text-neutral-800 text-sm font-bold p-3 rounded-xl border border-gray-200 transition-colors shadow-sm group text-left"
-                >
-                  <div className="w-8 h-8 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Star size={16} />
-                  </div>
-                  Check Reviews on Justdial
-                </a>
-
               </div>
-            ) : (
-              // VISITING CARD VIEW
-              <div className="space-y-3 animate-in fade-in zoom-in-95 duration-200">
-                <div className="flex justify-between items-center text-xs text-gray-500 mb-1">
-                  <span className="font-bold uppercase tracking-wider">Digital Card</span>
-                  <button onClick={() => setShowCard(false)} className="text-orange-600 hover:underline flex items-center gap-1">
-                    Back to options <ExternalLink size={12}/>
-                  </button>
-                </div>
-                
-                <div className="rounded-lg overflow-hidden border border-gray-200 shadow-md bg-white">
-                  {/* Ensure visiting-card.png is in 'public' folder */}
-                  <img src="/visiting-card.png" alt="Visiting Card" className="w-full h-auto" />
-                </div>
-
-                <a 
-                  href="/visiting-card.png" 
-                  download="Sneha_Associates_Card.png"
-                  className="w-full flex items-center justify-center gap-2 bg-neutral-900 text-white text-xs font-bold py-3 rounded-lg hover:bg-black transition-colors"
-                >
-                  Download to Phone ⬇️
-                </a>
+              <div className="text-center mt-2">
+                <span className="text-[10px] text-gray-600 flex items-center justify-center gap-1">
+                  <Sparkles size={8} /> Powered by Sneha AI
+                </span>
               </div>
-            )}
+            </form>
 
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* 2. Floating Toggle Button */}
-      <button 
+      {/* TOGGLE BUTTON */}
+      <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className={`${isOpen ? 'rotate-90 scale-0' : 'rotate-0 scale-100'} transition-all duration-300 shadow-xl bg-orange-600 hover:bg-orange-700 text-white p-4 rounded-full flex items-center justify-center`}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="w-14 h-14 bg-gradient-to-r from-orange-600 to-amber-600 rounded-full shadow-[0_0_30px_rgba(234,88,12,0.4)] flex items-center justify-center text-white border border-white/10 z-50 hover:shadow-[0_0_50px_rgba(234,88,12,0.6)] transition-shadow"
       >
-        <MessageCircle size={28} fill="currentColor" />
-        <span className="absolute top-0 right-0 flex h-3 w-3">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-        </span>
-      </button>
-
-      {/* Close Button (only shows when menu is open) */}
-      <button 
-        onClick={() => setIsOpen(false)}
-        className={`${!isOpen ? 'rotate-90 scale-0 absolute' : 'rotate-0 scale-100'} transition-all duration-300 shadow-xl bg-neutral-900 hover:bg-black text-white p-4 rounded-full flex items-center justify-center`}
-      >
-        <X size={24} />
-      </button>
+        {isOpen ? <X size={24} /> : <MessageCircle size={28} fill="currentColor" className="text-white" />}
+      </motion.button>
 
     </div>
   );

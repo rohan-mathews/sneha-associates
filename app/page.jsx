@@ -15,71 +15,78 @@ import StickyContact from "./components/StickyContact";
 import ProjectPlanner from "./components/ProjectPlanner";
 import ConstellationBackground from "./components/ConstellationBackground";
 import ScrollProgress from "./components/ScrollProgress";
-
-// 👇 NEW IMPORTS
 import WhyChooseUs from "./components/WhyChooseUs";
 import ProjectComparison from "./components/ProjectComparison";
+import ChatWidget from "./components/ChatWidget"; 
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-transparent selection:bg-orange-500 selection:text-white">
+    <main className="relative min-h-screen bg-[#0a0a0a] selection:bg-orange-500 selection:text-white overflow-hidden">
       
-      {/* 1. Top Layers */}
+      {/* --- FIXED LAYERS (Always on top) --- */}
       <ScrollProgress />
-      <ConstellationBackground />
       <FloatingNav />
-      <StickyContact />
+      <StickyContact /> {/* Right Side */}
+      <ChatWidget />    {/* Left Side */}
+      
+      {/* --- BACKGROUND LAYER --- */}
+      <ConstellationBackground />
 
-      {/* 2. Hero Section (New Split Layout) */}
+      {/* --- PAGE CONTENT --- */}
+      
+      {/* 1. Hero Section */}
       <section id="home"><HeroSection /></section>
 
-      {/* 3. Stats Bar */}
+      {/* 2. Stats Bar */}
       <Reveal width="100%"><Stats /></Reveal>
 
-      {/* 4. Service Cards (Overlap) */}
+      {/* 3. Service Cards (Floating Overlap Effect) */}
       <div className="flex justify-center relative z-20 -mt-24">
         <Reveal width="100%"><ServiceCards /></Reveal>
       </div>
 
-      {/* 5. Why Choose Us (NEW) - Builds Trust immediately */}
+      {/* 4. Why Choose Us */}
       <Reveal width="100%"><WhyChooseUs /></Reveal>
 
-      {/* 6. About Section */}
+      {/* 5. About Section */}
       <section id="about" className="pt-10">
         <div className="container mx-auto">
           <Reveal width="100%"><IntroSection /></Reveal>
         </div>
       </section>
 
-      {/* 7. Detailed Services */}
+      {/* 6. Detailed Services */}
       <section id="services">
         <Reveal width="100%"><DetailedServices /></Reveal>
       </section>
 
-      {/* 8. Before & After Slider (NEW) - The "Proof" */}
+      {/* 7. Before & After Proof */}
       <Reveal width="100%"><ProjectComparison /></Reveal>
 
-      {/* 9. Cost Calculator */}
+      {/* 8. Cost Calculator */}
       <Reveal width="100%"><ProjectPlanner /></Reveal>
 
-      {/* 10. Projects Gallery */}
+      {/* 9. Projects Gallery */}
       <section id="projects">
         <div className="container mx-auto">
           <Reveal width="100%"><HomePortfolio /></Reveal>
         </div>
       </section>
 
-      {/* 11. Contact & Enquiry */}
+      {/* 10. Contact Form */}
       <section id="contact-form">
         <Reveal width="100%"><ContactForm /></Reveal>
       </section>
 
+      {/* 11. Large Enquiry Call-to-Action */}
       <section id="enquiry">
         <Reveal width="100%"><EnquirySection /></Reveal>
       </section>
 
+      {/* 12. Reviews */}
       <Reveal width="100%"><CustomerRatings /></Reveal>
 
+      {/* 13. Footer */}
       <section id="contact"><Footer /></section>
     </main>
   );

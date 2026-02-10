@@ -4,16 +4,28 @@ import { ArrowRight, Phone, CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function HeroSection() {
+  
+  // Smooth scroll helper
+  const scrollToContact = () => {
+    document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollToProjects = () => {
+    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section className="relative h-screen w-full overflow-hidden">
       
       {/* 1. BACKGROUND LAYER (Parallax & Scale Effect) */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-fixed z-0 scale-105"
-        style={{ backgroundImage: "url('/images/hero-bg.jpg')" }} 
-      >
-        {/* Modern Gradient Overlay: Darker at bottom for readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/80 via-neutral-900/60 to-neutral-900/90"></div>
+      <div className="absolute inset-0 z-0">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-fixed scale-105"
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop')" }} 
+        >
+          {/* Modern Gradient Overlay: Darker at bottom for readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/80 via-neutral-900/60 to-neutral-900/90"></div>
+        </div>
       </div>
 
       {/* 2. CONTENT LAYER */}
@@ -34,7 +46,7 @@ export default function HeroSection() {
             </span>
           </motion.div>
           
-          {/* ✅ NEW POWERFUL HEADLINE */}
+          {/* ✅ POWERFUL HEADLINE */}
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -47,37 +59,38 @@ export default function HeroSection() {
             </span>
           </motion.h1>
           
-          {/* ✅ NEW SUBTEXT */}
+          {/* ✅ UPDATED SUBTEXT (Your requested list) */}
           <motion.p 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-lg md:text-2xl text-gray-200 max-w-xl mb-10 font-medium leading-relaxed mx-auto md:mx-0"
           >
-            Premium Tiling • Waterproofing • Renovation
+            Civil Construction <span className="text-orange-500 mx-2">•</span> 
+            Swimming Pools <span className="text-orange-500 mx-2">•</span> 
+            Waterproofing
           </motion.p>
 
-          {/* ✅ NEW WHATSAPP CTA BUTTON */}
+          {/* CTA BUTTONS */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
             className="flex flex-col md:flex-row gap-4 justify-center md:justify-start"
           >
-            <a 
-              href="https://wa.me/918867694625?text=Hi%20Sneha%20Associates,%20I%20would%20like%20a%20free%20site%20inspection."
-              target="_blank"
-              rel="noopener noreferrer"
+            <button 
+              onClick={scrollToContact}
               className="group px-8 py-4 bg-orange-600 hover:bg-orange-700 text-white rounded-full font-bold text-lg transition-all shadow-[0_0_20px_rgba(234,88,12,0.3)] hover:shadow-[0_0_30px_rgba(234,88,12,0.5)] flex items-center justify-center gap-2"
             >
               <Phone size={20} className="fill-white" /> Get Free Quote
-            </a>
-            <Link 
-              href="/gallery"
-              className="px-8 py-4 bg-white/5 border border-white/20 hover:bg-white hover:text-neutral-900 text-white rounded-full font-bold text-lg transition-all backdrop-blur-sm flex items-center justify-center"
+            </button>
+            
+            <button 
+              onClick={scrollToProjects}
+              className="px-8 py-4 bg-white/5 border border-white/20 hover:bg-white hover:text-neutral-900 text-white rounded-full font-bold text-lg transition-all backdrop-blur-sm flex items-center justify-center group"
             >
-              View Projects
-            </Link>
+              View Projects <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
+            </button>
           </motion.div>
         </div>
         

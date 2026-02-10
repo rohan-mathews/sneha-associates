@@ -29,9 +29,13 @@ export default function ChatWidget() {
     setIsLoading(true);
 
     try {
+      // 🚀 UPDATED FETCH REQUEST
       const response = await fetch(API_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true", // 👈 THIS FIXES THE ERROR!
+        },
         body: JSON.stringify({ message: userMessage.text }),
       });
 

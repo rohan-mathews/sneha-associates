@@ -1,20 +1,24 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Send, Loader2, Sparkles, Bot, CornerDownLeft } from "lucide-react";
+import { MessageCircle, X, Loader2, Sparkles, Bot, CornerDownLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// ✅ YOUR NGROK URL
+// ✅ YOUR NGROK URL (Double check this matches your terminal!)
 const API_URL = "https://unvermiculated-freckly-kristel.ngrok-free.dev/chat"; 
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { text: "Hello! I am Sneha AI. Ask me about construction costs, timelines, or our services.", isUser: false }
+    { 
+      text: "Hello! I am Sneha AI. Ask me about civil engineering, swimming pools, or waterproofing solutions.", 
+      isUser: false 
+    }
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
+  // Auto-scroll to bottom
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isOpen]);
@@ -23,27 +27,46 @@ export default function ChatWidget() {
     e.preventDefault();
     if (!inputValue.trim()) return;
 
+    // 1. Add User Message
     const userMessage = { text: inputValue, isUser: true };
     setMessages((prev) => [...prev, userMessage]);
     setInputValue("");
     setIsLoading(true);
 
     try {
-      // 🚀 UPDATED FETCH REQUEST
+      console.log("📡 Sending message to:", API_URL); // Debug log
+
+      // 2. Send to Backend
       const response = await fetch(API_URL, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
-          "ngrok-skip-browser-warning": "true", // 👈 THIS FIXES THE ERROR!
+          "ngrok-skip-browser-warning": "true", // 👈 Critical for Ngrok Free Tier
         },
         body: JSON.stringify({ message: userMessage.text }),
       });
 
-      if (!response.ok) throw new Error("Server error");
+      if (!response.ok) {
+        throw new Error(`Server returned status: ${response.status}`);
+      }
+
       const data = await response.json();
-      setMessages((prev) => [...prev, { text: data.response, isUser: false }]);
+      console.log("✅ Received response:", data); // Debug log
+
+      // 3. Add AI Response
+      if (data.response) {
+        setMessages((prev) => [...prev, { text: data.response, isUser: false }]);
+      } else {
+        throw new Error("Empty response from AI");
+      }
+
     } catch (error) {
-      setMessages((prev) => [...prev, { text: "I'm having trouble connecting right now. Please try again in a moment.", isUser: false, isError: true }]);
+      console.error("❌ Chat Error Details:", error); // Check your Browser Console (F12) if this happens!
+      setMessages((prev) => [...prev, { 
+        text: "I'm having trouble connecting right now. Please check if the server is running.", 
+        isUser: false, 
+        isError: true 
+      }]);
     } finally {
       setIsLoading(false);
     }

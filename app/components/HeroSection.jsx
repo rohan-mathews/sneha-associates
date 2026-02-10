@@ -29,7 +29,6 @@ export default function HeroSection() {
       </div>
 
       {/* 2. CONTENT LAYER */}
-      {/* LAYOUT FIX: pt-28 (Phone) and md:pt-20 (Laptop) ensures buttons are never hidden */}
       <div className="relative z-10 container mx-auto px-6 h-full flex flex-col md:flex-row items-center pt-28 md:pt-20">
         
         {/* Left Column: Text with Staggered Animation */}
@@ -46,20 +45,20 @@ export default function HeroSection() {
             </span>
           </motion.div>
           
-          {/* ✅ POWERFUL HEADLINE */}
+          {/* ✅ UPDATED HEADLINE */}
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-tight mb-6 drop-shadow-2xl"
           >
-            Trusted Civil & <br />
+            Trusted Civil <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-orange-500 to-amber-600">
-              Waterproofing Contractors
+              Engineering Solutions
             </span>
           </motion.h1>
           
-          {/* ✅ UPDATED SUBTEXT (Your requested list) */}
+          {/* ✅ SUBTEXT (Maintained from previous request) */}
           <motion.p 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -94,11 +93,11 @@ export default function HeroSection() {
           </motion.div>
         </div>
         
-        {/* Right Column: Empty Space (Allows background image to be seen) */}
+        {/* Right Column: Empty Space */}
         <div className="hidden md:block md:w-2/5"></div>
       </div>
 
-      {/* 3. BOTTOM STATS BAR - UPDATED CONTENT */}
+      {/* 3. BOTTOM STATS BAR */}
       <motion.div 
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}

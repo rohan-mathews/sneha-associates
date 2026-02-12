@@ -44,7 +44,7 @@ export default function HeroSection() {
             </span>
           </motion.div>
           
-          {/* ✅ UPDATED HEADLINE */}
+          {/* ✅ THIS IS THE TEXT YOU WANTED */}
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

@@ -75,4 +75,5 @@ def chat():
 if __name__ == '__main__':
     # Fix for Render: Use the PORT provided by the cloud
     port = int(os.environ.get('PORT', 10000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port) 
+    # Final deployment fix

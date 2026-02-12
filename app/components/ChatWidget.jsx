@@ -1,9 +1,9 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Loader2, Sparkles, Bot, CornerDownLeft } from "lucide-react";
+import { MessageCircle, X, Loader2, Sparkles, Bot, CornerDownLeft, Send } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// ✅ YOUR NGROK URL (Double check this matches your terminal!)
+// ✅ YOUR NGROK URL (Make sure this matches your terminal!)
 const API_URL = "https://unvermiculated-freckly-kristel.ngrok-free.dev/chat"; 
 
 export default function ChatWidget() {
@@ -27,21 +27,22 @@ export default function ChatWidget() {
     e.preventDefault();
     if (!inputValue.trim()) return;
 
-    // 1. Add User Message
+    // 1. Add User Message immediately
     const userMessage = { text: inputValue, isUser: true };
     setMessages((prev) => [...prev, userMessage]);
     setInputValue("");
     setIsLoading(true);
 
     try {
-      console.log("📡 Sending message to:", API_URL); // Debug log
+      console.log("📡 Sending message to:", API_URL); 
 
       // 2. Send to Backend
       const response = await fetch(API_URL, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
-          "ngrok-skip-browser-warning": "true", // 👈 Critical for Ngrok Free Tier
+          // 👇 THIS IS THE CRITICAL VIP PASS FOR NGROK
+          "ngrok-skip-browser-warning": "true", 
         },
         body: JSON.stringify({ message: userMessage.text }),
       });
@@ -51,7 +52,7 @@ export default function ChatWidget() {
       }
 
       const data = await response.json();
-      console.log("✅ Received response:", data); // Debug log
+      console.log("✅ Received response:", data); 
 
       // 3. Add AI Response
       if (data.response) {
@@ -61,9 +62,9 @@ export default function ChatWidget() {
       }
 
     } catch (error) {
-      console.error("❌ Chat Error Details:", error); // Check your Browser Console (F12) if this happens!
+      console.error("❌ Chat Error Details:", error); 
       setMessages((prev) => [...prev, { 
-        text: "I'm having trouble connecting right now. Please check if the server is running.", 
+        text: "I'm having trouble connecting right now. Please ensure the server is running.", 
         isUser: false, 
         isError: true 
       }]);
@@ -96,7 +97,10 @@ export default function ChatWidget() {
                   <div className="text-[10px] text-gray-400">Usually replies instantly</div>
                 </div>
               </div>
-              <button onClick={() => setIsOpen(false)} className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors">
+              <button 
+                onClick={() => setIsOpen(false)} 
+                className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors"
+              >
                 <X size={16} />
               </button>
             </div>
@@ -152,7 +156,7 @@ export default function ChatWidget() {
                   disabled={isLoading || !inputValue.trim()}
                   className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-orange-600 rounded-lg text-white flex items-center justify-center hover:bg-orange-500 disabled:opacity-50 disabled:bg-gray-700 transition-colors shadow-lg shadow-orange-900/30"
                 >
-                  {isLoading ? <Loader2 size={14} className="animate-spin" /> : <CornerDownLeft size={16} />}
+                  {isLoading ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} className="ml-0.5" />}
                 </button>
               </div>
               <div className="text-center mt-3 flex items-center justify-center gap-1.5 opacity-50">

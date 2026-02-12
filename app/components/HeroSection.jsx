@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { ArrowRight, Phone, CheckCircle } from "lucide-react"; 
 import { motion } from "framer-motion";
 
@@ -15,7 +14,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section id="home" className="relative h-screen w-full overflow-hidden">
       
       {/* 1. BACKGROUND LAYER (Parallax & Scale Effect) */}
       <div className="absolute inset-0 z-0">
@@ -41,7 +40,7 @@ export default function HeroSection() {
             transition={{ duration: 0.6 }}
           >
             <span className="inline-block py-2 px-5 border border-white/10 rounded-full bg-white/5 text-orange-400 text-xs md:text-sm font-bold tracking-[0.2em] uppercase mb-6 backdrop-blur-md shadow-lg">
-              Since 2005 • Bengaluru
+              Est. 2005 • Bengaluru
             </span>
           </motion.div>
           
@@ -58,7 +57,7 @@ export default function HeroSection() {
             </span>
           </motion.h1>
           
-          {/* ✅ SUBTEXT (Maintained from previous request) */}
+          {/* ✅ SUBTEXT */}
           <motion.p 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

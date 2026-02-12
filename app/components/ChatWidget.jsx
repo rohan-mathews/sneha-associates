@@ -1,17 +1,18 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Loader2, Sparkles, Bot, CornerDownLeft, Send } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { MessageCircle, X, Loader2, Sparkles, Bot, Send, Phone, MessageSquare, FileText, Star } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// ✅ YOUR NGROK URL (Make sure this matches your terminal!)
+// ✅ YOUR CLOUD BACKEND URL
 const API_URL = "https://sneha-backend-l9pf.onrender.com/chat"; 
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     { 
-      text: "Hello! I am Sneha AI. Ask me about civil engineering, swimming pools, or waterproofing solutions.", 
-      isUser: false 
+      role: "assistant", 
+      content: "Hello! I am Sneha AI. How can I help you today?", 
+      showOptions: true // 👈 Shows buttons immediately
     }
   ]);
   const [inputValue, setInputValue] = useState("");
@@ -23,51 +24,61 @@ export default function ChatWidget() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isOpen]);
 
+  // 👇 HANDLE QUICK ACTIONS (The New Feature)
+  const handleAction = (action) => {
+    if (action === "enquiry") {
+      setIsOpen(false); 
+      document.getElementById("enquiry")?.scrollIntoView({ behavior: "smooth" });
+    } 
+    else if (action === "ratings") {
+      setIsOpen(false);
+      document.getElementById("reviews")?.scrollIntoView({ behavior: "smooth" });
+    }
+    else if (action === "call") {
+      window.open("tel:+919845012345"); // Replace with real number
+    }
+    else if (action === "whatsapp") {
+      window.open("https://wa.me/919845012345"); // Replace with real number
+    }
+  };
+
   const handleSend = async (e) => {
-    e.preventDefault();
+    e?.preventDefault(); // Handle both form submit and button click
     if (!inputValue.trim()) return;
 
-    // 1. Add User Message immediately
-    const userMessage = { text: inputValue, isUser: true };
+    // 1. Add User Message
+    const userMessage = { role: "user", content: inputValue };
     setMessages((prev) => [...prev, userMessage]);
     setInputValue("");
     setIsLoading(true);
 
     try {
-      console.log("📡 Sending message to:", API_URL); 
-
       // 2. Send to Backend
       const response = await fetch(API_URL, {
         method: "POST",
-        headers: { 
-          "Content-Type": "application/json",
-          // 👇 THIS IS THE CRITICAL VIP PASS FOR NGROK
-          "ngrok-skip-browser-warning": "true", 
-        },
-        body: JSON.stringify({ message: userMessage.text }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMessage.content }),
       });
 
-      if (!response.ok) {
-        throw new Error(`Server returned status: ${response.status}`);
-      }
+      if (!response.ok) throw new Error("Server Error");
 
       const data = await response.json();
-      console.log("✅ Received response:", data); 
 
-      // 3. Add AI Response
-      if (data.response) {
-        setMessages((prev) => [...prev, { text: data.response, isUser: false }]);
-      } else {
-        throw new Error("Empty response from AI");
-      }
+      // 3. Add AI Response + SHOW OPTIONS AGAIN
+      setMessages((prev) => [
+        ...prev, 
+        { 
+          role: "assistant", 
+          content: data.response || "I am having trouble connecting.", 
+          showOptions: true // 👈 Always show helpful buttons after reply
+        }
+      ]);
 
     } catch (error) {
-      console.error("❌ Chat Error Details:", error); 
-      setMessages((prev) => [...prev, { 
-        text: "I'm having trouble connecting right now. Please ensure the server is running.", 
-        isUser: false, 
-        isError: true 
-      }]);
+      setMessages((prev) => [
+        ...prev, 
+        { role: "assistant", content: "Server Error. Please try again later.", isError: true }
+      ]);
     } finally {
       setIsLoading(false);
     }
@@ -110,23 +121,45 @@ export default function ChatWidget() {
               <div className="text-center text-[10px] text-gray-600 font-medium uppercase tracking-widest mb-4">Today</div>
               
               {messages.map((msg, index) => (
-                <motion.div 
-                  key={index} 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`flex ${msg.isUser ? "justify-end" : "justify-start"}`}
-                >
-                  <div className={`max-w-[85%] p-3.5 rounded-2xl text-sm leading-relaxed shadow-sm ${
-                      msg.isUser 
+                <div key={index} className={`flex flex-col ${msg.role === "user" ? "items-end" : "items-start"}`}>
+                  
+                  {/* Message Bubble */}
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`max-w-[85%] p-3.5 rounded-2xl text-sm leading-relaxed shadow-sm ${
+                      msg.role === "user" 
                         ? "bg-gradient-to-br from-orange-600 to-orange-700 text-white rounded-br-none shadow-lg shadow-orange-900/20" 
                         : msg.isError
                           ? "bg-red-900/20 border border-red-500/20 text-red-200"
                           : "bg-[#1A1A1A] border border-white/5 text-gray-200 rounded-bl-none"
                     }`}
                   >
-                    {msg.text}
-                  </div>
-                </motion.div>
+                    {msg.content}
+                  </motion.div>
+
+                  {/* 👇 NEW ACTION BUTTONS (Only for Assistant) */}
+                  {msg.role === "assistant" && msg.showOptions && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-3 grid grid-cols-2 gap-2 w-full max-w-[85%]"
+                    >
+                      <button onClick={() => handleAction('enquiry')} className="flex items-center gap-2 p-2 bg-white/5 hover:bg-orange-500/20 border border-white/10 rounded-lg text-xs text-gray-300 transition-all text-left">
+                        <FileText size={14} className="text-orange-400" /> Book Enquiry
+                      </button>
+                      <button onClick={() => handleAction('call')} className="flex items-center gap-2 p-2 bg-white/5 hover:bg-green-500/20 border border-white/10 rounded-lg text-xs text-gray-300 transition-all text-left">
+                        <Phone size={14} className="text-green-400" /> Call Now
+                      </button>
+                      <button onClick={() => handleAction('whatsapp')} className="flex items-center gap-2 p-2 bg-white/5 hover:bg-emerald-500/20 border border-white/10 rounded-lg text-xs text-gray-300 transition-all text-left">
+                         <MessageSquare size={14} className="text-emerald-400" /> WhatsApp
+                      </button>
+                      <button onClick={() => handleAction('ratings')} className="flex items-center gap-2 p-2 bg-white/5 hover:bg-yellow-500/20 border border-white/10 rounded-lg text-xs text-gray-300 transition-all text-left">
+                        <Star size={14} className="text-yellow-400" /> See Ratings
+                      </button>
+                    </motion.div>
+                  )}
+                </div>
               ))}
               
               {isLoading && (

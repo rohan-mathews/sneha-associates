@@ -1,26 +1,19 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import os
 from openai import OpenAI
 
 app = Flask(__name__)
+CORS(app)
 
-# ✅ ALLOW THE "VIP PASS" HEADER (Fixes the connection issues)
-CORS(app, resources={r"/*": {
-    "origins": "*",
-    "allow_headers": ["Content-Type", "ngrok-skip-browser-warning"], 
-    "methods": ["GET", "POST", "OPTIONS"]
-}})
-
-# 👇 YOUR API KEY (Keep this safe!)
-OPENROUTER_API_KEY = "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" 
-
+# 👇 CONNECTION SETUP (Secure & Correct for OpenRouter)
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key=OPENROUTER_API_KEY,
+    # This grabs the key from the Render Dashboard (Environment Variable)
+    api_key=os.environ.get("OPENAI_API_KEY"),
 )
 
 # 🧠 THE BRAIN: The "Company Handbook" for Sneha Associates
-# This tells the AI exactly who it is and how to answer questions.
 SYSTEM_INSTRUCTION = """
 You are the AI Sales Manager for 'Sneha Associates', a premium Civil Construction firm in Bengaluru.
 Your goal is to impress clients, explain services, and encourage them to book a consultation.
@@ -28,14 +21,12 @@ Your goal is to impress clients, explain services, and encourage them to book a 
 ### 🏢 COMPANY PROFILE:
 - **Established:** 2005
 - **Location:** Bengaluru, Karnataka
-- **Owner:** Mr. [ENTER FATHER'S NAME HERE]
-- **Contact:** [ENTER PHONE NUMBER HERE]
 - **Tagline:** We don't just build structures; we engineer legacies.
 
 ### 🛠️ OUR EXPERT SERVICES:
 1. **Residential Construction:** Full turnkey home building (Luxury Villas, Duplexes, Apartments).
 2. **Renovation:** Modernizing old homes, kitchen remodeling, and adding new floors.
-3. **Waterproofing:** specialized solutions for roof leakage, wall dampness, and basements (with guarantee).
+3. **Waterproofing:** Specialized solutions for roof leakage, wall dampness, and basements (with guarantee).
 4. **Swimming Pools:** Design and construction of infinity pools, skimmer pools, and jacuzzis.
 5. **Flooring & Tiling:** Expert installation of Granite, Italian Marble, and Vitrified Tiles.
 
@@ -52,38 +43,36 @@ Your goal is to impress clients, explain services, and encourage them to book a 
 4. **Scope:** Do not answer questions unrelated to construction, architecture, or design.
 """
 
-@app.route('/chat', methods=['POST', 'OPTIONS'])
+@app.route('/chat', methods=['POST'])
 def chat():
-    # 1. Handle Browser Security Check
-    if request.method == "OPTIONS":
-        return jsonify({"status": "ok"}), 200
-
-    print("\n📩 Message Received!") 
-    
     try:
         data = request.json
-        user_text = data.get("message", "")
-        
-        if not user_text:
-            return jsonify({"response": "Please say something!"})
+        user_message = data.get('message')
 
-        # Send instructions + user question to AI
-        completion = client.chat.completions.create(
-            model="deepseek/deepseek-r1-distill-llama-70b", 
+        if not user_message:
+            return jsonify({"error": "No message provided"}), 400
+
+        # Send to OpenRouter (using your specific Model)
+        response = client.chat.completions.create(
+            model="deepseek/deepseek-r1:free", 
             messages=[
                 {"role": "system", "content": SYSTEM_INSTRUCTION},
-                {"role": "user", "content": user_text}
-            ]
+                {"role": "user", "content": user_message}
+            ],
+            extra_headers={
+                "HTTP-Referer": "https://sneha-associates.vercel.app", 
+                "X-Title": "Sneha Associates",
+            }
         )
-        
-        reply = completion.choices[0].message.content
-        print(f"✅ Reply sent")
-        return jsonify({"response": reply})
+
+        bot_reply = response.choices[0].message.content
+        return jsonify({"response": bot_reply})
 
     except Exception as e:
-        print(f"❌ ERROR: {e}") 
-        return jsonify({"response": f"Server Error: {e}"}), 500
+        print(f"Error: {e}")
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    print("🚀 SNEHA ASSOCIATES AI IS RUNNING...")
-    app.run(port=5000)
+    # Fix for Render: Use the PORT provided by the cloud
+    port = int(os.environ.get('PORT', 10000))
+    app.run(host='0.0.0.0', port=port)

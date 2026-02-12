@@ -14,12 +14,11 @@ const ConstellationBackground = () => {
     let animationFrameId;
 
     // ⚡ CONFIGURATION
-    // Detect mobile to reduce particle count (saves battery)
     const isMobile = width < 768;
-    const starCount = isMobile ? 45 : 110; 
+    const starCount = isMobile ? 40 : 100; // Adjusted for performance
     const starColor = '234, 88, 12'; // Sneha Orange (RGB)
-    const connectionDistance = isMobile ? 100 : 160; // Distance to connect stars
-    const mouseDistance = 200; // Distance to connect to mouse
+    const connectionDistance = isMobile ? 100 : 150; 
+    const mouseDistance = 250; // Range to connect to mouse
 
     // Mouse tracking
     let mouse = { x: null, y: null };
@@ -29,8 +28,8 @@ const ConstellationBackground = () => {
       constructor() {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 0.6; // Gentle floating speed
-        this.vy = (Math.random() - 0.5) * 0.6;
+        this.vx = (Math.random() - 0.5) * 0.5; // Gentle floating
+        this.vy = (Math.random() - 0.5) * 0.5;
         this.size = Math.random() * 2;
       }
 
@@ -42,7 +41,6 @@ const ConstellationBackground = () => {
       }
 
       update() {
-        // Move star
         this.x += this.vx;
         this.y += this.vy;
 
@@ -60,7 +58,7 @@ const ConstellationBackground = () => {
       stars.push(new Star());
     }
 
-    // Draw lines between stars and mouse
+    // Draw lines
     function drawConnections() {
       for (let i = 0; i < stars.length; i++) {
         // 1. Connect star to star
@@ -74,13 +72,13 @@ const ConstellationBackground = () => {
             ctx.beginPath();
             ctx.moveTo(stars[i].x, stars[i].y);
             ctx.lineTo(stars[j].x, stars[j].y);
-            ctx.strokeStyle = `rgba(${starColor}, ${opacity * 0.15})`; // Subtle orange lines
+            ctx.strokeStyle = `rgba(${starColor}, ${opacity * 0.2})`; // Faint lines
             ctx.lineWidth = 1;
             ctx.stroke();
           }
         }
 
-        // 2. Connect star to mouse (INTERACTIVE EFFECT)
+        // 2. Connect star to mouse (INTERACTIVE)
         if (mouse.x != null) {
           const dx = stars[i].x - mouse.x;
           const dy = stars[i].y - mouse.y;
@@ -91,8 +89,7 @@ const ConstellationBackground = () => {
             ctx.beginPath();
             ctx.moveTo(stars[i].x, stars[i].y);
             ctx.lineTo(mouse.x, mouse.y);
-            // Stronger line for mouse connection
-            ctx.strokeStyle = `rgba(${starColor}, ${opacity * 0.3})`; 
+            ctx.strokeStyle = `rgba(${starColor}, ${opacity * 0.5})`; // Stronger mouse line
             ctx.lineWidth = 1;
             ctx.stroke();
           }
@@ -102,14 +99,9 @@ const ConstellationBackground = () => {
 
     // Animation Loop
     function animate() {
+      // ✅ FIX: Clear the canvas instead of drawing a black box
+      // This makes it transparent so your Hero Image shows through!
       ctx.clearRect(0, 0, width, height);
-
-      // Deep Dark Background (Tech/Engineering Vibe)
-      const gradient = ctx.createLinearGradient(0, 0, 0, height);
-      gradient.addColorStop(0, '#050505'); // Deep Black
-      gradient.addColorStop(1, '#1a1005'); // Very subtle dark orange tint at bottom
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, width, height);
 
       drawConnections();
       stars.forEach(star => star.update());
@@ -126,11 +118,10 @@ const ConstellationBackground = () => {
     };
 
     const handleMouseMove = (event) => {
-      mouse.x = event.x;
-      mouse.y = event.y;
+      mouse.x = event.clientX; // Use clientX for accuracy
+      mouse.y = event.clientY;
     };
     
-    // Clear mouse when leaving window so lines don't get stuck
     const handleMouseLeave = () => {
       mouse.x = null;
       mouse.y = null;
@@ -148,7 +139,14 @@ const ConstellationBackground = () => {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none" />;
+  return (
+    <canvas 
+      ref={canvasRef} 
+      className="fixed top-0 left-0 w-full h-full pointer-events-none z-[1]"
+      // z-[1] = It sits ON TOP of your background image
+      // pointer-events-none = You can still click buttons underneath it
+    />
+  );
 };
 
 export default ConstellationBackground;

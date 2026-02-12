@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
-// Keep all your existing components
+// Components
 import FloatingNav from "./components/FloatingNav";
 import Stats from "./components/Stats"; 
 import ServiceCards from "./components/ServiceCards";
@@ -31,7 +31,7 @@ export default function Home() {
     offset: ["start start", "end start"],
   });
 
-  // Animation values: Background moves slower (0 to 50%), Text fades out
+  // Animation values: Background moves slower, Text fades out
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
@@ -45,26 +45,26 @@ export default function Home() {
       <ChatWidget />
       
       {/* --- BACKGROUND LAYER --- */}
+      {/* Z-Index Check: This component is Fixed at z-[1] in its own file */}
       <ConstellationBackground />
 
-      {/* --- 1. NEW PARALLAX HERO SECTION (Replaces <HeroSection />) --- */}
+      {/* --- 1. HERO SECTION --- */}
       <section id="home" ref={targetRef} className="relative h-screen flex items-center justify-center overflow-hidden">
         
-        {/* Parallax Background Image */}
+        {/* Layer 1: Parallax Background Image (z-0) */}
         <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
           <div 
             className="absolute inset-0 bg-cover bg-center"
             style={{ 
-              // Replace this URL with your own best project image if you have one!
               backgroundImage: "url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop')",
               filter: "brightness(0.4)" 
             }} 
           />
-          {/* Gradient Overlay for better text readability */}
+          {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-[#0a0a0a]"></div>
         </motion.div>
 
-        {/* Hero Text Content */}
+        {/* Layer 3: Hero Text Content (z-10) - Sits ABOVE the stars */}
         <div className="relative z-10 text-center px-6 max-w-5xl">
           <motion.div 
             initial={{ opacity: 0, y: 30 }} 
@@ -106,7 +106,7 @@ export default function Home() {
           </motion.div>
         </div>
 
-        {/* Scroll Down Indicator */}
+        {/* Scroll Indicator */}
         <motion.div 
           animate={{ y: [0, 10, 0] }} 
           transition={{ repeat: Infinity, duration: 2 }}
@@ -117,58 +117,48 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* --- 2. EXISTING COMPONENTS (Restored) --- */}
+      {/* --- REST OF THE PAGE --- */}
 
       {/* Stats Bar */}
       <Reveal width="100%"><Stats /></Reveal>
 
-      {/* Service Cards (Floating Overlap Effect) */}
+      {/* Service Cards */}
       <div className="flex justify-center relative z-20 -mt-24">
         <Reveal width="100%"><ServiceCards /></Reveal>
       </div>
 
-      {/* Why Choose Us */}
       <Reveal width="100%"><WhyChooseUs /></Reveal>
 
-      {/* About Section */}
       <section id="about" className="pt-20">
         <div className="container mx-auto">
           <Reveal width="100%"><IntroSection /></Reveal>
         </div>
       </section>
 
-      {/* Detailed Services */}
       <section id="services">
         <Reveal width="100%"><DetailedServices /></Reveal>
       </section>
 
-      {/* Before & After Proof */}
       <Reveal width="100%"><ProjectComparison /></Reveal>
 
-      {/* Cost Calculator */}
       <Reveal width="100%"><ProjectPlanner /></Reveal>
 
-      {/* Projects Gallery */}
       <section id="projects">
         <div className="container mx-auto">
           <Reveal width="100%"><HomePortfolio /></Reveal>
         </div>
       </section>
 
-      {/* Contact Form */}
       <section id="contact-form">
         <Reveal width="100%"><ContactForm /></Reveal>
       </section>
 
-      {/* Large Enquiry Call-to-Action */}
       <section id="enquiry">
         <Reveal width="100%"><EnquirySection /></Reveal>
       </section>
 
-      {/* Reviews */}
       <Reveal width="100%"><CustomerRatings /></Reveal>
 
-      {/* Footer */}
       <section id="contact"><Footer /></section>
     </main>
   );

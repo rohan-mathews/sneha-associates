@@ -10,7 +10,7 @@ CORS(app)
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
     # This grabs the key from the Render Dashboard (Environment Variable)
-    api_key=os.environ.get("OPENAI_API_KEY"),
+    api_key=os.environ.get("OPENROUTER_API_KEY"),
 )
 
 # 🧠 THE BRAIN: The "Company Handbook" for Sneha Associates

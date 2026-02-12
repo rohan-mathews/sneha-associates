@@ -4,7 +4,7 @@ import { MessageCircle, X, Loader2, Sparkles, Bot, CornerDownLeft, Send } from "
 import { motion, AnimatePresence } from "framer-motion";
 
 // ✅ YOUR NGROK URL (Make sure this matches your terminal!)
-const API_URL = "https://unvermiculated-freckly-kristel.ngrok-free.dev/chat"; 
+const API_URL = "https://sneha-backend-l9pf.onrender.com/chat"; 
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);

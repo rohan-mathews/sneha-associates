@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Local Python Server (Protects your API Key!)
+server.py
+
+# Ngrok Program (Too big for Git)
+ngrok.exe
+
+# Python cache files (Junk)
+__pycache__/

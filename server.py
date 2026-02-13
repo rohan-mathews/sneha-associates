@@ -54,7 +54,7 @@ def chat():
 
         # Send to OpenRouter (using your specific Model)
         response = client.chat.completions.create(
-            model="meta-llama/llama-3.3-70b-instruct:free", 
+            model="google/gemini-2.0-flash-lite-preview-02-05:free", 
             messages=[
                 {"role": "system", "content": SYSTEM_INSTRUCTION},
                 {"role": "user", "content": user_message}

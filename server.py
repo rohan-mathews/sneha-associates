@@ -54,7 +54,7 @@ def chat():
 
         # Send to OpenRouter (using your specific Model)
         response = client.chat.completions.create(
-            model="deepseek/deepseek-r1:free", 
+            model="meta-llama/llama-3.3-70b-instruct:free", 
             messages=[
                 {"role": "system", "content": SYSTEM_INSTRUCTION},
                 {"role": "user", "content": user_message}

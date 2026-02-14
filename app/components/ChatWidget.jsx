@@ -4,7 +4,7 @@ import { MessageCircle, X, Loader2, Sparkles, Bot, Send, Phone, MessageSquare, F
 import { motion, AnimatePresence } from "framer-motion";
 
 // ✅ YOUR CLOUD BACKEND URL
-const API_URL = "https://sneha-backend-l9pf.onrender.com/chat"; 
+const API_URL = "https://sneha-associates.vercel.app/chat"; 
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);

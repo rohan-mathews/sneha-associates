@@ -44,9 +44,9 @@ Your goal is to be professional, warm, and encourage site visits.
 2. **Call to Action:** End with a question like "When are you planning to start?"
 """
 
-# Vercel handles the route automatically based on the filename (api/chat.py)
-# So we use '/' here to catch requests sent to this file.
+# 👇 CRITICAL FIX: Listen on BOTH routes to prevent 404 errors
 @app.route('/', methods=['POST'])
+@app.route('/api/chat', methods=['POST'])
 def chat():
     try:
         data = request.json
@@ -75,9 +75,9 @@ def chat():
 
     except Exception as e:
         logger.error(f"Server Error: {str(e)}")
+        # Returns a polite error instead of crashing
         return jsonify({"response": "I'm currently experiencing high traffic. Please try again in 1 minute."})
 
 # This is needed for Vercel to find the 'app'
-# It acts as the entry point
 if __name__ == '__main__':
     app.run()

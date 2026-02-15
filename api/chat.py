@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
+import datetime
 import logging
 from openai import OpenAI
+from pymongo import MongoClient
 
 # Setup Logging
 logging.basicConfig(level=logging.INFO)
@@ -11,40 +13,46 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 CORS(app)
 
-# Connection to OpenRouter
+# 1. SETUP MONGODB CONNECTION 🍃
+# We wrap this in a try-except block so the chat still works even if DB fails
+try:
+    mongo_uri = os.environ.get("MONGO_URI")
+    if mongo_uri:
+        mongo_client = MongoClient(mongo_uri)
+        db = mongo_client.sneha_associates # Name of your database
+        chats_collection = db.chats        # Name of your "folder" inside the DB
+        print("✅ Connected to MongoDB!")
+    else:
+        print("⚠️ No MONGO_URI found. Chat will work but not save history.")
+        chats_collection = None
+except Exception as e:
+    print(f"❌ MongoDB Connection Failed: {e}")
+    chats_collection = None
+
+# 2. SETUP AI CONNECTION 🤖
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
     api_key=os.environ.get("OPENROUTER_API_KEY"),
 )
 
+# 3. YOUR CUSTOM SALES MANAGER SCRIPT 📝
 SYSTEM_INSTRUCTION = """
-You are the AI Sales Manager for 'Sneha Associates', a premium Civil Construction firm in Bengaluru.
-Your goal is to be professional, warm, and encourage site visits.
+You are 'Sneha AI', the Sales Manager for Sneha Associates.
+Your Goal: Be warm, professional, and collect client phone numbers for site visits.
 
-### 🏢 COMPANY PROFILE:
-- **Established:** 2005
-- **Location:** Bengaluru, Karnataka
-- **Tagline:** We don't just build structures; we engineer legacies.
+### 🌟 CORE RULES:
+1. **Keep it Short:** Max 2-3 sentences. No long essays.
+2. **Be Friendly:** Use emojis like 🏡, 🔨, ✨.
+3. **Never Say "I don't know":** If unsure, say "That depends on the site conditions. Shall I arrange a visit to check?"
 
-### 🛠️ OUR EXPERT SERVICES:
-1. **Residential Construction:** Full turnkey home building (Luxury Villas, Duplexes, Apartments).
-2. **Renovation:** Modernizing old homes, kitchen remodeling, and adding new floors.
-3. **Waterproofing:** Specialized solutions for roof leakage, wall dampness, and basements (with guarantee).
-4. **Swimming Pools:** Design and construction of infinity pools, skimmer pools, and jacuzzis.
-5. **Flooring & Tiling:** Expert installation of Granite, Italian Marble, and Vitrified Tiles.
-
-### 💰 PRICING ESTIMATES:
-- **Basic Construction:** Approx. ₹1,600 - ₹1,800 per sq. ft.
-- **Premium Construction:** Approx. ₹2,200 - ₹2,500 per sq. ft.
-- **Waterproofing:** ₹45 - ₹80 per sq. ft.
-- *Note:* "Exact cost depends on materials. Shall I arrange a site visit?"
-
-### 🚫 RULES:
-1. **Keep it Short:** Under 60 words.
-2. **Call to Action:** End with a question like "When are you planning to start?"
+### 📝 CHEAT SHEET:
+- **Who are we?** A 20-year-old premium construction firm in Bengaluru.
+- **Cost?** Basic: ₹1,800/sqft | Premium: ₹2,400/sqft. (Always add: "Exact price depends on materials.")
+- **Do we do renovation?** Yes! Full home renovations and remodeling.
+- **Call to Action:** Always try to get their phone number or schedule a visit.
 """
 
-# 👇 CRITICAL FIX: Listen on BOTH routes to prevent 404 errors
+# 4. THE ROUTE HANDLER (Double Route Fix) 🔗
 @app.route('/', methods=['POST'])
 @app.route('/api/chat', methods=['POST'])
 def chat():
@@ -57,7 +65,7 @@ def chat():
 
         logger.info(f"Received message: {user_message}")
 
-        # FASTEST MODEL (Gemini Flash Lite)
+        # --- STEP A: ASK THE AI ---
         response = client.chat.completions.create(
             model="google/gemini-2.0-flash-lite-preview-02-05:free", 
             messages=[
@@ -69,15 +77,27 @@ def chat():
                 "X-Title": "Sneha Associates AI",
             }
         )
-
         bot_reply = response.choices[0].message.content
+
+        # --- STEP B: SAVE TO MONGODB (THE MEMORY) ---
+        if chats_collection is not None:
+            try:
+                chat_log = {
+                    "user_message": user_message,
+                    "bot_reply": bot_reply,
+                    "timestamp": datetime.datetime.utcnow()
+                }
+                chats_collection.insert_one(chat_log)
+                print("✅ Chat saved to DB")
+            except Exception as db_error:
+                print(f"⚠️ Failed to save to DB: {db_error}")
+
         return jsonify({"response": bot_reply})
 
     except Exception as e:
         logger.error(f"Server Error: {str(e)}")
-        # Returns a polite error instead of crashing
-        return jsonify({"response": "I'm currently experiencing high traffic. Please try again in 1 minute."})
+        return jsonify({"response": "I'm having trouble connecting. Please try again."})
 
-# This is needed for Vercel to find the 'app'
+# Vercel needs this entry point
 if __name__ == '__main__':
     app.run()

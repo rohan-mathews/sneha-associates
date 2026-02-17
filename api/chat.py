@@ -67,7 +67,7 @@ def chat():
 
         # --- STEP A: ASK THE AI ---
         response = client.chat.completions.create(
-           model="meta-llama/llama-3.1-8b-instruct:free", 
+           model="google/gemma-7b-it:free", 
             messages=[
                 {"role": "system", "content": SYSTEM_INSTRUCTION},
                 {"role": "user", "content": user_message}

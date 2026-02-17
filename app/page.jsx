@@ -1,4 +1,8 @@
 "use client";
+
+// 👇 IMPORT THE NEW THEME TOGGLE
+import ThemeToggle from "./components/ThemeToggle"; 
+
 // 👇 IMPORT THE NEW HERO COMPONENT
 import HeroSection from "./components/HeroSection"; 
 
@@ -24,8 +28,14 @@ import ChatWidget from "./components/ChatWidget";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-[#0a0a0a] selection:bg-orange-500 selection:text-white overflow-hidden font-sans">
+    // 1. UPDATED: Removed fixed bg color so Dark Mode works
+    <main className="relative min-h-screen bg-white dark:bg-[#0a0a0a] transition-colors duration-300 selection:bg-orange-500 selection:text-white overflow-hidden font-sans">
       
+      {/* --- THEME TOGGLE BUTTON (Added Here) --- */}
+      <div className="fixed top-4 right-4 z-[9999]">
+        <ThemeToggle />
+      </div>
+
       {/* --- FIXED LAYERS (Always on top) --- */}
       <ScrollProgress />
       <FloatingNav />
@@ -36,7 +46,6 @@ export default function Home() {
       <ConstellationBackground />
 
       {/* --- 1. HERO SECTION --- */}
-      {/* This now pulls from your new file with the correct text! */}
       <HeroSection />
 
       {/* --- REST OF THE PAGE --- */}

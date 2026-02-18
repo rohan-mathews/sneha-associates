@@ -6,9 +6,6 @@ import ThemeToggle from "./components/ThemeToggle";
 // 👇 IMPORT THE NEW HERO COMPONENT
 import HeroSection from "./components/HeroSection"; 
 
-// 👇 IMPORT THE NEW CAREERS COMPONENT
-import ModernCareers from "./components/ModernCareers";
-
 // Components
 import Reveal from "./components/Reveal"; 
 import FloatingNav from "./components/FloatingNav";
@@ -92,11 +89,6 @@ export default function Home() {
       </section>
 
       <Reveal width="100%"><CustomerRatings /></Reveal>
-
-      {/* 👇 NEW CAREERS SECTION (Krytil Style) 👇 */}
-      <section id="careers">
-        <ModernCareers />
-      </section>
 
       <section id="contact"><Footer /></section>
     </main>

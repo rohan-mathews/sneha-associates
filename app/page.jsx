@@ -6,6 +6,7 @@ import ThemeToggle from "./components/ThemeToggle";
 // 👇 IMPORT COMPONENTS
 import HeroSection from "./components/HeroSection"; 
 import FAQ from "./components/FAQ";
+import ReadyToBuild from "./components/ReadyToBuild"; // 👈 ADDED THIS BACK
 import Reveal from "./components/Reveal"; 
 import FloatingNav from "./components/FloatingNav";
 import Stats from "./components/Stats"; 
@@ -49,7 +50,7 @@ export default function Home() {
       </div>
 
       {/* --- 4. MAIN CONTENT (With Premium Spacing) --- */}
-      <div className="relative z-10 flex flex-col space-y-32 pb-32">
+      <div className="relative z-10 flex flex-col space-y-32 pb-0"> {/* pb-0 to let CTA touch footer */}
         
         {/* STATS & CARDS (Overlapping Layout) */}
         <section>
@@ -104,9 +105,13 @@ export default function Home() {
            </div>
         </section>
 
+        {/* OLD ENQUIRY SECTION (Keep or Remove if ReadyToBuild replaces it) */}
         <section id="enquiry">
           <Reveal width="100%"><EnquirySection /></Reveal>
         </section>
+
+        {/* 👇 NEW READY TO BUILD SECTION (The Blue One) 👇 */}
+        <ReadyToBuild />
 
       </div>
 

@@ -6,6 +6,9 @@ import ThemeToggle from "./components/ThemeToggle";
 // 👇 IMPORT THE NEW HERO COMPONENT
 import HeroSection from "./components/HeroSection"; 
 
+// 👇 IMPORT THE NEW CAREERS COMPONENT
+import ModernCareers from "./components/ModernCareers";
+
 // Components
 import Reveal from "./components/Reveal"; 
 import FloatingNav from "./components/FloatingNav";
@@ -31,7 +34,7 @@ export default function Home() {
     // 1. UPDATED: Removed fixed bg color so Dark Mode works
     <main className="relative min-h-screen bg-white dark:bg-[#0a0a0a] transition-colors duration-300 selection:bg-orange-500 selection:text-white overflow-hidden font-sans">
       
-      {/* --- THEME TOGGLE BUTTON (Added Here) --- */}
+      {/* --- THEME TOGGLE BUTTON --- */}
       <div className="fixed top-4 right-4 z-[9999]">
         <ThemeToggle />
       </div>
@@ -89,6 +92,11 @@ export default function Home() {
       </section>
 
       <Reveal width="100%"><CustomerRatings /></Reveal>
+
+      {/* 👇 NEW CAREERS SECTION (Krytil Style) 👇 */}
+      <section id="careers">
+        <ModernCareers />
+      </section>
 
       <section id="contact"><Footer /></section>
     </main>

@@ -3,10 +3,9 @@
 // 👇 IMPORT THE NEW THEME TOGGLE
 import ThemeToggle from "./components/ThemeToggle"; 
 
-// 👇 IMPORT THE NEW HERO COMPONENT
+// 👇 IMPORT COMPONENTS
 import HeroSection from "./components/HeroSection"; 
-
-// Components
+import FAQ from "./components/FAQ";
 import Reveal from "./components/Reveal"; 
 import FloatingNav from "./components/FloatingNav";
 import Stats from "./components/Stats"; 
@@ -28,69 +27,94 @@ import ChatWidget from "./components/ChatWidget";
 
 export default function Home() {
   return (
-    // 1. UPDATED: Removed fixed bg color so Dark Mode works
-    <main className="relative min-h-screen bg-white dark:bg-[#0a0a0a] transition-colors duration-300 selection:bg-orange-500 selection:text-white overflow-hidden font-sans">
+    <main className="relative min-h-screen bg-white dark:bg-[#050505] transition-colors duration-500 selection:bg-orange-500 selection:text-white overflow-hidden font-sans">
       
-      {/* --- THEME TOGGLE BUTTON --- */}
-      <div className="fixed top-4 right-4 z-[9999]">
+      {/* --- 1. AMBIENT GLOWS (Background Effects) --- */}
+      {/* A soft orange glow behind the Hero to make it pop */}
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-orange-500/10 dark:bg-orange-500/5 blur-[120px] rounded-full pointer-events-none z-0" />
+
+      {/* --- 2. FIXED UI ELEMENTS --- */}
+      <div className="fixed top-6 right-6 z-[9999]">
         <ThemeToggle />
       </div>
-
-      {/* --- FIXED LAYERS (Always on top) --- */}
       <ScrollProgress />
       <FloatingNav />
       <StickyContact /> 
       <ChatWidget />
-      
-      {/* --- BACKGROUND LAYER --- */}
       <ConstellationBackground />
 
-      {/* --- 1. HERO SECTION --- */}
-      <HeroSection />
-
-      {/* --- REST OF THE PAGE --- */}
-
-      {/* Stats Bar */}
-      <Reveal width="100%"><Stats /></Reveal>
-
-      {/* Service Cards */}
-      <div className="flex justify-center relative z-20 -mt-24">
-        <Reveal width="100%"><ServiceCards /></Reveal>
+      {/* --- 3. HERO SECTION (Full Height) --- */}
+      <div className="relative z-10">
+        <HeroSection />
       </div>
 
-      <Reveal width="100%"><WhyChooseUs /></Reveal>
+      {/* --- 4. MAIN CONTENT (With Premium Spacing) --- */}
+      <div className="relative z-10 flex flex-col space-y-32 pb-32">
+        
+        {/* STATS & CARDS (Overlapping Layout) */}
+        <section>
+          <Reveal width="100%"><Stats /></Reveal>
+          <div className="flex justify-center relative z-20 -mt-24 px-4">
+            <Reveal width="100%"><ServiceCards /></Reveal>
+          </div>
+        </section>
 
-      <section id="about" className="pt-20">
-        <div className="container mx-auto">
+        {/* WHY CHOOSE US */}
+        <section className="container mx-auto px-4">
+           <Reveal width="100%"><WhyChooseUs /></Reveal>
+        </section>
+
+        {/* ABOUT (Intro) */}
+        <section id="about" className="container mx-auto px-4">
           <Reveal width="100%"><IntroSection /></Reveal>
-        </div>
-      </section>
+        </section>
 
-      <section id="services">
-        <Reveal width="100%"><DetailedServices /></Reveal>
-      </section>
+        {/* SERVICES (Detailed) */}
+        <section id="services" className="relative">
+          {/* Subtle background strip for separation */}
+          <div className="absolute inset-0 bg-gray-50/50 dark:bg-white/5 -skew-y-1 z-0 transform scale-110" />
+          <div className="relative z-10">
+             <Reveal width="100%"><DetailedServices /></Reveal>
+          </div>
+        </section>
 
-      <Reveal width="100%"><ProjectComparison /></Reveal>
+        {/* COMPARISON & PLANNER */}
+        <section className="container mx-auto px-4 space-y-32">
+          <Reveal width="100%"><ProjectComparison /></Reveal>
+          <Reveal width="100%"><ProjectPlanner /></Reveal>
+        </section>
 
-      <Reveal width="100%"><ProjectPlanner /></Reveal>
-
-      <section id="projects">
-        <div className="container mx-auto">
+        {/* PORTFOLIO */}
+        <section id="projects" className="container mx-auto px-4">
           <Reveal width="100%"><HomePortfolio /></Reveal>
-        </div>
+        </section>
+
+        {/* TRUST & REVIEWS */}
+        <section className="space-y-20">
+          <Reveal width="100%"><CustomerRatings /></Reveal>
+          <div className="container mx-auto px-4">
+             <Reveal width="100%"><FAQ /></Reveal>
+          </div>
+        </section>
+
+        {/* CONTACT & FORMS */}
+        <section id="contact-form" className="bg-gray-50 dark:bg-[#0a0a0a] py-20">
+           <div className="container mx-auto px-4">
+             <Reveal width="100%"><ContactForm /></Reveal>
+           </div>
+        </section>
+
+        <section id="enquiry">
+          <Reveal width="100%"><EnquirySection /></Reveal>
+        </section>
+
+      </div>
+
+      {/* --- 5. FOOTER --- */}
+      <section id="contact" className="relative z-20">
+        <Footer />
       </section>
-
-      <section id="contact-form">
-        <Reveal width="100%"><ContactForm /></Reveal>
-      </section>
-
-      <section id="enquiry">
-        <Reveal width="100%"><EnquirySection /></Reveal>
-      </section>
-
-      <Reveal width="100%"><CustomerRatings /></Reveal>
-
-      <section id="contact"><Footer /></section>
+      
     </main>
   );
 }

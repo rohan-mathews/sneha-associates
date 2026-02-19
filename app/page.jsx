@@ -1,30 +1,36 @@
 "use client";
 
-// 👇 IMPORT THE NEW THEME TOGGLE
+// 👇 1. THEME & UI
 import ThemeToggle from "./components/ThemeToggle"; 
-
-// 👇 IMPORT COMPONENTS
-import HeroSection from "./components/HeroSection"; 
-import FAQ from "./components/FAQ";
-import ReadyToBuild from "./components/ReadyToBuild"; // 👈 ADDED THIS BACK
 import Reveal from "./components/Reveal"; 
 import FloatingNav from "./components/FloatingNav";
+import ScrollProgress from "./components/ScrollProgress";
+import ChatWidget from "./components/ChatWidget"; 
+import StickyContact from "./components/StickyContact"; 
+import ConstellationBackground from "./components/ConstellationBackground";
+
+// 👇 2. HERO & STORY
+import HeroSection from "./components/HeroSection"; 
 import Stats from "./components/Stats"; 
 import ServiceCards from "./components/ServiceCards";
-import DetailedServices from "./components/DetailedServices";
-import IntroSection from "./components/IntroSection";
-import HomePortfolio from "./components/HomePortfolio";
-import Footer from "./components/Footer";
-import EnquirySection from "./components/EnquirySection"; 
-import ContactForm from "./components/ContactForm"; 
-import CustomerRatings from "./components/CustomerRatings"; 
-import StickyContact from "./components/StickyContact"; 
-import ProjectPlanner from "./components/ProjectPlanner";
-import ConstellationBackground from "./components/ConstellationBackground";
-import ScrollProgress from "./components/ScrollProgress";
 import WhyChooseUs from "./components/WhyChooseUs";
+import FounderStory from "./components/FounderStory"; // 👈 REPLACED 'IntroSection'
+
+// 👇 3. SERVICES & PLANNING
+import DetailedServices from "./components/DetailedServices";
 import ProjectComparison from "./components/ProjectComparison";
-import ChatWidget from "./components/ChatWidget"; 
+import ProjectPlanner from "./components/ProjectPlanner";
+
+// 👇 4. SHOWCASE & TRUST
+import HomePortfolio from "./components/HomePortfolio";
+import CustomerRatings from "./components/CustomerRatings"; // (The new Infinite Scroll)
+import FAQ from "./components/FAQ";
+
+// 👇 5. CONTACT & CTAs
+import ContactForm from "./components/ContactForm"; 
+import EnquirySection from "./components/EnquirySection"; 
+import ReadyToBuild from "./components/ReadyToBuild"; 
+import Footer from "./components/Footer";
 
 export default function Home() {
   return (
@@ -50,7 +56,7 @@ export default function Home() {
       </div>
 
       {/* --- 4. MAIN CONTENT (With Premium Spacing) --- */}
-      <div className="relative z-10 flex flex-col space-y-32 pb-0"> {/* pb-0 to let CTA touch footer */}
+      <div className="relative z-10 flex flex-col space-y-32 pb-0"> {/* pb-0 lets the blue CTA touch the footer */}
         
         {/* STATS & CARDS (Overlapping Layout) */}
         <section>
@@ -65,9 +71,9 @@ export default function Home() {
            <Reveal width="100%"><WhyChooseUs /></Reveal>
         </section>
 
-        {/* ABOUT (Intro) */}
+        {/* FOUNDER STORY (Replaces Generic About) */}
         <section id="about" className="container mx-auto px-4">
-          <Reveal width="100%"><IntroSection /></Reveal>
+          <Reveal width="100%"><FounderStory /></Reveal>
         </section>
 
         {/* SERVICES (Detailed) */}
@@ -85,12 +91,12 @@ export default function Home() {
           <Reveal width="100%"><ProjectPlanner /></Reveal>
         </section>
 
-        {/* PORTFOLIO */}
+        {/* PORTFOLIO (Transparent Background for Stars) */}
         <section id="projects" className="container mx-auto px-4">
           <Reveal width="100%"><HomePortfolio /></Reveal>
         </section>
 
-        {/* TRUST & REVIEWS */}
+        {/* TRUST & REVIEWS (Infinite Scroll) */}
         <section className="space-y-20">
           <Reveal width="100%"><CustomerRatings /></Reveal>
           <div className="container mx-auto px-4">
@@ -105,12 +111,12 @@ export default function Home() {
            </div>
         </section>
 
-        {/* OLD ENQUIRY SECTION (Keep or Remove if ReadyToBuild replaces it) */}
+        {/* ENQUIRY (Optional: You can remove this if 'ReadyToBuild' is enough) */}
         <section id="enquiry">
           <Reveal width="100%"><EnquirySection /></Reveal>
         </section>
 
-        {/* 👇 NEW READY TO BUILD SECTION (The Blue One) 👇 */}
+        {/* 👇 FINAL CALL TO ACTION (Blue Section) 👇 */}
         <ReadyToBuild />
 
       </div>

@@ -19,14 +19,14 @@ export default function FounderStory() {
             <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500">
               {/* 👇 REPLACE THIS WITH YOUR REAL PHOTO LATER */}
               <Image 
-                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop" 
+                src="/images/founder.jpg" 
                 alt="Founder of Sneha Associates" 
                 fill 
                 className="object-cover grayscale hover:grayscale-0 transition-all duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
               <div className="absolute bottom-6 left-6 text-white">
-                <p className="font-bold text-xl">Mr. [Founder Name]</p>
+                <p className="font-bold text-xl">Mr.CJ mATHEWS</p>
                 <p className="text-orange-400 text-sm tracking-widest uppercase">Managing Director</p>
               </div>
             </div>
@@ -51,14 +51,14 @@ export default function FounderStory() {
 
             <div className="space-y-6 text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
               <p>
-                In 2008, I started Sneha Associates with a simple goal: 
+                In 2005, I started Sneha Associates with a simple goal: 
                 <strong className="text-gray-900 dark:text-white"> To stop the nightmares homeowners face in Bengaluru.</strong>
               </p>
               <p>
                 I saw too many projects delayed by months, hidden costs appearing halfway through, and contractors vanishing after taking an advance. I wanted to build differently.
               </p>
               <p>
-                Today, after <strong className="text-gray-900 dark:text-white">15+ years</strong> and over <strong className="text-gray-900 dark:text-white">45 completed projects</strong> in Indiranagar, Whitefield, and Hebbal, our rule remains the same:
+                Today, after <strong className="text-gray-900 dark:text-white">15+ years</strong> and over <strong className="text-gray-900 dark:text-white">45 completed projects</strong> in Sarjapur, Prestige Enterprises, and Kanakpura, our rule remains the same:
               </p>
               
               <ul className="space-y-3">
@@ -80,7 +80,7 @@ export default function FounderStory() {
             {/* Signature Area */}
             <div className="mt-10 pt-10 border-t border-gray-200 dark:border-gray-800">
               <div className="font-handwriting text-3xl text-gray-800 dark:text-gray-200 transform -rotate-2">
-                [Founder Name]
+                [CJ Mathews]
               </div>
             </div>
 

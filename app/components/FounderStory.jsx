@@ -19,14 +19,14 @@ export default function FounderStory() {
             <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500">
               {/* 👇 REPLACE THIS WITH YOUR REAL PHOTO LATER */}
               <Image 
-                src="/images/founder.jpg" 
+                src="/founder.jpg" 
                 alt="Founder of Sneha Associates" 
                 fill 
                 className="object-cover grayscale hover:grayscale-0 transition-all duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
               <div className="absolute bottom-6 left-6 text-white">
-                <p className="font-bold text-xl">Mr.CJ mATHEWS</p>
+                <p className="font-bold text-xl">Mr.CJ Mathews</p>
                 <p className="text-orange-400 text-sm tracking-widest uppercase">Managing Director</p>
               </div>
             </div>

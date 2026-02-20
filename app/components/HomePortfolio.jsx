@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { MapPin, ArrowRight, ExternalLink } from "lucide-react";
+import { MapPin, ArrowRight, ExternalLink, HardHat, Timer } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -30,15 +30,15 @@ const categories = [
 
 export default function HomePortfolio() {
   return (
-    // 1. UPDATED: Removed 'bg-neutral-50'. Now it is transparent so Stars show through!
+    // Transparent background so the Constellation Stars show through!
     <section id="projects" className="relative py-32 z-10">
       
-      {/* Optional: A very subtle gradient to make text readable over stars */}
+      {/* Subtle gradient to ensure text is always readable over stars */}
       <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-transparent to-white/80 dark:from-black/80 dark:via-transparent dark:to-black/80 pointer-events-none -z-10" />
 
       <div className="container mx-auto px-6">
         
-        {/* Header */}
+        {/* --- HEADER --- */}
         <div className="text-center mb-24">
           <motion.span 
             initial={{ opacity: 0, y: 20 }}
@@ -70,9 +70,9 @@ export default function HomePortfolio() {
           </motion.p>
         </div>
 
-        {/* Categories Loop */}
+        {/* --- CATEGORIES LOOP --- */}
         {categories.map((cat, index) => (
-          <div key={index} className="mb-32 last:mb-0">
+          <div key={index} className="mb-24 last:mb-0">
             
             {/* Category Title with Glass Lines */}
             <div className="flex items-center gap-6 mb-12">
@@ -81,7 +81,7 @@ export default function HomePortfolio() {
                <div className="h-[1px] bg-gradient-to-l from-transparent to-neutral-300 dark:to-neutral-700 flex-grow"></div>
             </div>
 
-            {/* 2 Photos Grid */}
+            {/* Photos Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
               {cat.projects.map((project) => (
                 <motion.div
@@ -122,7 +122,39 @@ export default function HomePortfolio() {
           </div>
         ))}
 
-        {/* View All Button */}
+        {/* 👇 NEW: "IN THE PIPELINE / COMING SOON" BANNER 👇 */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-32 relative overflow-hidden rounded-3xl border border-neutral-200 dark:border-neutral-800 bg-white/50 dark:bg-[#111]/50 backdrop-blur-md p-8 md:p-12 shadow-xl flex flex-col md:flex-row items-center justify-between gap-8 group"
+        >
+          {/* Subtle glowing orb in the background */}
+          <div className="absolute -right-20 -top-20 w-64 h-64 bg-orange-500/10 blur-[80px] rounded-full pointer-events-none transition-transform duration-700 group-hover:scale-150" />
+
+          <div className="relative z-10 text-center md:text-left max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 text-xs font-bold uppercase tracking-wider mb-4">
+              <HardHat size={14} /> Currently In Pipeline
+            </div>
+            <h3 className="text-2xl md:text-4xl font-serif font-bold text-neutral-900 dark:text-white mb-3">
+              More Masterpieces Under Construction
+            </h3>
+            <p className="text-neutral-600 dark:text-neutral-400 text-lg leading-relaxed">
+              Our site engineers are currently pouring concrete and laying foundations for multiple new residential and commercial projects across Bengaluru. Check back soon for our latest project reveals!
+            </p>
+          </div>
+
+          <div className="relative z-10 shrink-0 flex flex-col items-center">
+             {/* Animated Pulsing Icon */}
+             <div className="relative flex items-center justify-center w-20 h-20 bg-neutral-100 dark:bg-neutral-800 rounded-full mb-3 border border-neutral-200 dark:border-neutral-700 shadow-inner">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-20"></span>
+                <Timer className="text-orange-500" size={32} />
+             </div>
+             <span className="text-neutral-500 dark:text-neutral-400 text-sm font-semibold tracking-wide uppercase">Coming Soon</span>
+          </div>
+        </motion.div>
+
+        {/* --- VIEW ALL BUTTON --- */}
         <div className="text-center mt-20">
           <Link 
             href="/gallery"

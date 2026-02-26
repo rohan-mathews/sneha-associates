@@ -51,26 +51,30 @@ export default function FounderStory() {
           >
             <Quote className="text-orange-500/20 dark:text-orange-500/10 mb-6" size={64} />
             
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-neutral-900 dark:text-white mb-8 leading-tight">
-              "We don't just pour concrete. <br/>
+            {/* NEW HEADLINE */}
+            <h2 className="text-4xl md:text-5xl lg:text-5xl font-serif font-bold text-neutral-900 dark:text-white mb-8 leading-tight">
+              Defining Bengaluru’s Skyline, <br/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-400">
-                We keep our promises.
-              </span>"
+                One Promise at a Time.
+              </span>
             </h2>
 
-            <div className="space-y-6 text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed">
+            {/* NEW COPY */}
+            <div className="space-y-5 text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed">
               <p>
-                In 2005, I started Sneha Associates with a simple goal: 
-                <strong className="text-neutral-900 dark:text-white font-semibold"> To stop the nightmares homeowners face in Bengaluru.</strong>
+                Transforming a concept into a reality requires more than just concrete and steel—it requires <strong className="text-neutral-900 dark:text-white font-semibold">unwavering trust.</strong> Since 2005, Sneha Associates has been redefining the construction experience.
               </p>
               <p>
-                I saw too many projects delayed by months, hidden costs appearing halfway through, and contractors vanishing after taking an advance. I wanted to build differently.
+                Our philosophy is straightforward: <strong className="text-neutral-900 dark:text-white font-semibold">absolute transparency</strong> from the initial consultation to the final handover. We purposely built our company to eliminate the delays and budget overruns that often complicate civil projects.
               </p>
               <p>
-                Today, after <strong className="text-neutral-900 dark:text-white font-semibold">15+ years</strong> and over <strong className="text-neutral-900 dark:text-white font-semibold">45 completed projects</strong> in Sarjapur, Prestige Enterprises, and Kanakpura, our rule remains the same:
+                Today, with a portfolio of <strong className="text-neutral-900 dark:text-white font-semibold">45+ completed projects</strong> across Prestige Enterprises, Sarjapur, and Kanakpura, our legacy speaks for itself.
+              </p>
+              <p>
+                When you partner with us, you are collaborating with a team dedicated to flawless execution, premium quality, and a commitment to keeping every promise we make:
               </p>
               
-              {/* Refined Bullet Points */}
+              {/* Refined Bullet Points (Serves as the "Promises") */}
               <ul className="space-y-4 mt-8 bg-neutral-50 dark:bg-neutral-900/50 p-6 rounded-2xl border border-neutral-100 dark:border-neutral-800">
                 <li className="flex items-start gap-4">
                   <span className="w-2 h-2 mt-2.5 bg-orange-500 rounded-full shrink-0 shadow-[0_0_8px_rgba(249,115,22,0.6)]" />

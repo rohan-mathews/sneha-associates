@@ -68,7 +68,7 @@ export default function FounderStory() {
                 Our philosophy is straightforward: <strong className="text-neutral-900 dark:text-white font-semibold">absolute transparency</strong> from the initial consultation to the final handover. We purposely built our company to eliminate the delays and budget overruns that often complicate civil projects.
               </p>
               <p>
-                Today, with a portfolio of <strong className="text-neutral-900 dark:text-white font-semibold">45+ completed projects</strong> across Prestige Enterprises, Sarjapur, and Kanakpura, our legacy speaks for itself.
+                Today, with a portfolio of <strong className="text-neutral-900 dark:text-white font-semibold">100+ completed projects</strong> across Prestige Group, L&T Limited, Rakutan, PES Educations etc..... and across bangalore, our legacy speaks for itself.
               </p>
               <p>
                 When you partner with us, you are collaborating with a team dedicated to flawless execution, premium quality, and a commitment to keeping every promise we make:

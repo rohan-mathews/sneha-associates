@@ -14,7 +14,7 @@ import HeroSection from "./components/HeroSection";
 import Stats from "./components/Stats"; 
 import ServiceCards from "./components/ServiceCards";
 import WhyChooseUs from "./components/WhyChooseUs";
-import FounderStory from "./components/FounderStory"; // 👈 REPLACED 'IntroSection'
+import FounderStory from "./components/FounderStory"; 
 
 // 👇 3. SERVICES & PLANNING
 import DetailedServices from "./components/DetailedServices";
@@ -23,7 +23,8 @@ import ProjectPlanner from "./components/ProjectPlanner";
 
 // 👇 4. SHOWCASE & TRUST
 import HomePortfolio from "./components/HomePortfolio";
-import CustomerRatings from "./components/CustomerRatings"; // (The new Infinite Scroll)
+import Locations from "./components/Locations"; // 👈 NEW LOCATIONS IMPORT
+import CustomerRatings from "./components/CustomerRatings"; 
 import FAQ from "./components/FAQ";
 
 // 👇 5. CONTACT & CTAs
@@ -37,7 +38,6 @@ export default function Home() {
     <main className="relative min-h-screen bg-white dark:bg-[#050505] transition-colors duration-500 selection:bg-orange-500 selection:text-white overflow-hidden font-sans">
       
       {/* --- 1. AMBIENT GLOWS (Background Effects) --- */}
-      {/* A soft orange glow behind the Hero to make it pop */}
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-orange-500/10 dark:bg-orange-500/5 blur-[120px] rounded-full pointer-events-none z-0" />
 
       {/* --- 2. FIXED UI ELEMENTS --- */}
@@ -56,9 +56,9 @@ export default function Home() {
       </div>
 
       {/* --- 4. MAIN CONTENT (With Premium Spacing) --- */}
-      <div className="relative z-10 flex flex-col space-y-32 pb-0"> {/* pb-0 lets the blue CTA touch the footer */}
+      <div className="relative z-10 flex flex-col space-y-32 pb-0"> 
         
-        {/* STATS & CARDS (Overlapping Layout) */}
+        {/* STATS & CARDS */}
         <section>
           <Reveal width="100%"><Stats /></Reveal>
           <div className="flex justify-center relative z-20 -mt-24 px-4">
@@ -71,14 +71,13 @@ export default function Home() {
            <Reveal width="100%"><WhyChooseUs /></Reveal>
         </section>
 
-        {/* FOUNDER STORY (Replaces Generic About) */}
+        {/* FOUNDER STORY */}
         <section id="about" className="container mx-auto px-4">
           <Reveal width="100%"><FounderStory /></Reveal>
         </section>
 
         {/* SERVICES (Detailed) */}
         <section id="services" className="relative">
-          {/* Subtle background strip for separation */}
           <div className="absolute inset-0 bg-gray-50/50 dark:bg-white/5 -skew-y-1 z-0 transform scale-110" />
           <div className="relative z-10">
              <Reveal width="100%"><DetailedServices /></Reveal>
@@ -91,12 +90,17 @@ export default function Home() {
           <Reveal width="100%"><ProjectPlanner /></Reveal>
         </section>
 
-        {/* PORTFOLIO (Transparent Background for Stars) */}
+        {/* PORTFOLIO */}
         <section id="projects" className="container mx-auto px-4">
           <Reveal width="100%"><HomePortfolio /></Reveal>
         </section>
 
-        {/* TRUST & REVIEWS (Infinite Scroll) */}
+        {/* 👇 NEW LOCATIONS SECTION ADDED HERE 👇 */}
+        <section id="locations" className="w-full">
+          <Reveal width="100%"><Locations /></Reveal>
+        </section>
+
+        {/* TRUST & REVIEWS */}
         <section className="space-y-20">
           <Reveal width="100%"><CustomerRatings /></Reveal>
           <div className="container mx-auto px-4">
@@ -111,12 +115,12 @@ export default function Home() {
            </div>
         </section>
 
-        {/* ENQUIRY (Optional: You can remove this if 'ReadyToBuild' is enough) */}
+        {/* ENQUIRY */}
         <section id="enquiry">
           <Reveal width="100%"><EnquirySection /></Reveal>
         </section>
 
-        {/* 👇 FINAL CALL TO ACTION (Blue Section) 👇 */}
+        {/* FINAL CALL TO ACTION */}
         <ReadyToBuild />
 
       </div>

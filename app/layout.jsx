@@ -1,6 +1,9 @@
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import { Providers } from "./providers"; // 👈 IMPORT THE FILE WE MADE
+import { Providers } from "./providers"; 
+
+// 👇 1. IMPORT VERCEL ANALYTICS HERE
+import { Analytics } from '@vercel/analytics/react'; 
 
 // 1. Load Professional Fonts
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -27,6 +30,9 @@ export default function RootLayout({ children }) {
         <Providers>
             {children}
         </Providers>
+        
+        {/* 👇 3. INVISIBLE TRACKER ADDED HERE */}
+        <Analytics />
         
       </body>
     </html>

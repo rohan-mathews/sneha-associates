@@ -18,7 +18,10 @@ const locations = [
   "IBC Group",
   "DSR Projects",
   "Garuda Group",
-  "Andrea Dwellinton, Dollars Colony"
+  "Andrea Dwellinton, Dollars Colony",
+  "Renaissance Hotel", 
+  "Race Course Road",
+  "Marriott Group, Whitefield"
 ];
 
 export default function Locations() {

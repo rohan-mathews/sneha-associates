@@ -3,9 +3,9 @@ import { useState } from "react";
 import { Send, CheckCircle2, MapPin, Phone, Clock, ArrowRight, Loader2, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 
-// 👇 1. IMPORT FIREBASE TOOLS
+// 👇 1. IMPORT FIREBASE TOOLS (Corrected path for your project structure)
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../lib/firebase";
+import { db } from "../../lib/firebase";
 
 export default function ContactForm() {
   const [formState, setFormState] = useState({
@@ -19,28 +19,28 @@ export default function ContactForm() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
 
-  // 👇 2. UPDATED HANDLE SUBMIT WITH FIREBASE
+  // 👇 2. UPDATED HANDLE SUBMIT WITH REAL FIREBASE DATABASE ACTION
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError("");
     
     try {
-      // Add a new document with a generated id to the "leads" collection
+      // Create a "leads" folder in your database and save the data
       await addDoc(collection(db, "leads"), {
         name: formState.name,
         phone: formState.phone,
         email: formState.email,
         service: formState.service,
         message: formState.message,
-        status: "New",
-        createdAt: serverTimestamp(),
+        status: "New", // Helps you filter new leads in your admin panel
+        createdAt: serverTimestamp(), // Records the exact date and time
       });
 
       setIsSubmitting(false);
       setIsSuccess(true);
       
-      // Reset form after success
+      // Reset form after 5 seconds
       setTimeout(() => {
         setIsSuccess(false);
         setFormState({ name: "", phone: "", email: "", service: "", message: "" });
@@ -48,7 +48,7 @@ export default function ContactForm() {
 
     } catch (err) {
       console.error("Error adding lead: ", err);
-      setError("Failed to send request. Please try again or call us.");
+      setError("Failed to send request. Please check your connection or call us.");
       setIsSubmitting(false);
     }
   };
@@ -89,6 +89,7 @@ export default function ContactForm() {
               </p>
             </div>
 
+            {/* Feature Cards */}
             <div className="grid gap-4">
               {[
                 { title: "Site Inspection", desc: "Free on-site analysis in Bengaluru" },
@@ -107,6 +108,7 @@ export default function ContactForm() {
               ))}
             </div>
 
+            {/* Office Info Card */}
             <div className="relative group">
                <div className="absolute inset-0 bg-gradient-to-r from-orange-600/20 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                <div className="relative p-8 rounded-3xl bg-[#111] border border-white/10 overflow-hidden">

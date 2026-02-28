@@ -3,6 +3,10 @@ import { useState } from "react";
 import { Send, CheckCircle2, MapPin, Phone, Clock, ArrowRight, Loader2, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 
+// 👇 1. IMPORT FIREBASE TOOLS
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../lib/firebase";
+
 export default function ContactForm() {
   const [formState, setFormState] = useState({
     name: "",
@@ -13,20 +17,40 @@ export default function ContactForm() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  // 👇 2. UPDATED HANDLE SUBMIT WITH FIREBASE
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError("");
     
-    // Simulate network request
-    setTimeout(() => {
+    try {
+      // Add a new document with a generated id to the "leads" collection
+      await addDoc(collection(db, "leads"), {
+        name: formState.name,
+        phone: formState.phone,
+        email: formState.email,
+        service: formState.service,
+        message: formState.message,
+        status: "New",
+        createdAt: serverTimestamp(),
+      });
+
       setIsSubmitting(false);
       setIsSuccess(true);
+      
+      // Reset form after success
       setTimeout(() => {
         setIsSuccess(false);
         setFormState({ name: "", phone: "", email: "", service: "", message: "" });
       }, 5000);
-    }, 2000);
+
+    } catch (err) {
+      console.error("Error adding lead: ", err);
+      setError("Failed to send request. Please try again or call us.");
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -36,7 +60,7 @@ export default function ContactForm() {
   return (
     <section id="contact-form" className="py-24 bg-[#0a0a0a] relative z-10 overflow-hidden">
       
-      {/* 1. TECHNICAL GRID BACKGROUND (The "Blueprint" Look) */}
+      {/* 1. TECHNICAL GRID BACKGROUND */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
       
       {/* 2. AMBIENT GLOWS */}
@@ -53,7 +77,6 @@ export default function ContactForm() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="space-y-12"
           >
-            {/* Header */}
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-500 text-[10px] font-bold uppercase tracking-widest mb-6">
                 <Sparkles size={12} /> Start Your Vision
@@ -66,7 +89,6 @@ export default function ContactForm() {
               </p>
             </div>
 
-            {/* Premium "Feature Cards" instead of a list */}
             <div className="grid gap-4">
               {[
                 { title: "Site Inspection", desc: "Free on-site analysis in Bengaluru" },
@@ -85,27 +107,20 @@ export default function ContactForm() {
               ))}
             </div>
 
-            {/* Address Block - Styled like a Technical Card */}
             <div className="relative group">
                <div className="absolute inset-0 bg-gradient-to-r from-orange-600/20 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                <div className="relative p-8 rounded-3xl bg-[#111] border border-white/10 overflow-hidden">
-                  
-                  {/* Decorative corner accent */}
                   <div className="absolute top-0 right-0 w-16 h-16 bg-white/5 rounded-bl-3xl"></div>
-
                   <h4 className="text-white font-bold mb-6 flex items-center gap-2 text-sm uppercase tracking-wider">
                     <MapPin className="text-orange-500" size={18} /> Head Office
                   </h4>
-                  
                   <div className="space-y-5">
                     <p className="text-gray-300 leading-relaxed text-sm font-light border-l-2 border-orange-500/50 pl-5">
                       No.75, 7/1, Ground Floor,<br/>
                       Sudhama Nagar, Bengaluru,<br/>
                       Karnataka 560027
                     </p>
-                    
                     <div className="h-px w-full bg-white/5"></div>
-                    
                     <div className="flex items-center gap-3 text-sm text-gray-400">
                         <Clock size={16} className="text-orange-500" />
                         <span className="font-medium">Mon - Sat: 9:00 AM - 7:00 PM</span>
@@ -122,18 +137,14 @@ export default function ContactForm() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative"
           >
-            {/* Glass Container */}
             <div className="bg-white/[0.02] backdrop-blur-2xl border border-white/10 p-8 md:p-10 rounded-3xl shadow-2xl relative">
-              
               <div className="mb-8 border-b border-white/5 pb-6">
                 <h3 className="text-2xl font-bold text-white mb-2">Get a Free Quote</h3>
                 <p className="text-gray-500 text-xs uppercase tracking-wider font-bold">Response time: 24 Hours</p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
-                
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Name Input */}
                   <div className="group space-y-2">
                     <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest group-focus-within:text-orange-500 transition-colors">Your Name</label>
                     <input 
@@ -146,7 +157,6 @@ export default function ContactForm() {
                       required
                     />
                   </div>
-                  {/* Phone Input */}
                   <div className="group space-y-2">
                     <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest group-focus-within:text-orange-500 transition-colors">Phone Number</label>
                     <input 
@@ -161,7 +171,6 @@ export default function ContactForm() {
                   </div>
                 </div>
 
-                {/* Service Select */}
                 <div className="group space-y-2">
                     <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest group-focus-within:text-orange-500 transition-colors">Service Required</label>
                     <div className="relative">
@@ -185,7 +194,6 @@ export default function ContactForm() {
                     </div>
                 </div>
 
-                {/* Message Input */}
                 <div className="group space-y-2">
                   <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest group-focus-within:text-orange-500 transition-colors">Project Details</label>
                   <textarea 
@@ -198,7 +206,8 @@ export default function ContactForm() {
                   ></textarea>
                 </div>
 
-                {/* High-End Submit Button */}
+                {error && <p className="text-red-500 text-[10px] font-bold uppercase">{error}</p>}
+
                 <button 
                   type="submit"
                   disabled={isSubmitting || isSuccess}
@@ -208,7 +217,6 @@ export default function ContactForm() {
                       : "bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-500 hover:to-orange-600 text-white border border-orange-500/50"
                   }`}
                 >
-                  {/* Button Shine Effect */}
                   {!isSuccess && !isSubmitting && (
                     <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover/btn:animate-shine" />
                   )}
@@ -231,8 +239,6 @@ export default function ContactForm() {
 
               </form>
             </div>
-            
-            {/* Background elements to blend form into page */}
             <div className="absolute -top-10 -right-10 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl -z-10"></div>
           </motion.div>
 

@@ -10,7 +10,7 @@ const locations = [
   "Amsha Ventures",
   "SJR Redwoods",
   "PES Educations",
-  "Srjapura Road",
+  "Sarjapura Road",
   "Devanahalli",
   "Whitefield",
   "NVJ Medical College And Hospital",
